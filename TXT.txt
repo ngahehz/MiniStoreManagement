@@ -1,0 +1,12 @@
+- ấy phân quyền cho nhân viên // t vẫn nghĩ nên cho nhân viên chức năng gì đó
+- vấn đề về có cần quản lý khách hàng hay không
+- làm thêm 1 bảng lưu những biến static như là VAT
+- check lại mấy cái đơn có tổng tiền hết chưa
+- sđt thường để ở dạng string
+---
+- khách hàng nào mà tham gia thì lưu tên các thứ, không thì cứ để null nà
+- nên tạo thêm một cột enable để xóa cái nào thì cho nó bằng 0 coi như là xóa tạm thôi
+1 là còn, 0 là xóa, 2 là xóa vĩnh viễn thì để ô đó trống để sau này điền vào nhân viên mới nà
+- làm thêm phần xóa img cũ nữa nhó
+-----
+- nhớ check lại id_focus trong invoice
