@@ -138,6 +138,9 @@ namespace MiniStoreManagement.GUI
 
                 case "btnVoucher":
                     hideSubMenu();
+                    VoucherUC voucherUC = new VoucherUC();
+                    voucherUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(voucherUC);
                     break;
 
                 case "btnProduct":

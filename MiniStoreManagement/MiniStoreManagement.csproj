@@ -156,6 +156,12 @@
     <Compile Include="GUI\items\buttonSub.Designer.cs">
       <DependentUpon>buttonSub.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\items\Invoice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\items\Invoice.Designer.cs">
+      <DependentUpon>Invoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\items\textBoxBorder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,6 +204,12 @@
     <Compile Include="GUI\UCs\EmployeeUC.Designer.cs">
       <DependentUpon>EmployeeUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UCs\InvoiceDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\InvoiceDetail.Designer.cs">
+      <DependentUpon>InvoiceDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UCs\InvoiceUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -222,6 +234,12 @@
     <Compile Include="GUI\UCs\SalesInvoiceUC.Designer.cs">
       <DependentUpon>SalesInvoiceUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UCs\VoucherUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\VoucherUC.Designer.cs">
+      <DependentUpon>VoucherUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\ConvertImg.cs" />
     <Compile Include="ministoreDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -241,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\buttonSub.resx">
       <DependentUpon>buttonSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\items\Invoice.resx">
+      <DependentUpon>Invoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\textBoxBorder.resx">
       <DependentUpon>textBoxBorder.cs</DependentUpon>
@@ -263,6 +284,9 @@
     <EmbeddedResource Include="GUI\UCs\EmployeeUC.resx">
       <DependentUpon>EmployeeUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\InvoiceDetail.resx">
+      <DependentUpon>InvoiceDetail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\InvoiceUC.resx">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -274,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\SalesInvoiceUC.resx">
       <DependentUpon>SalesInvoiceUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\VoucherUC.resx">
+      <DependentUpon>VoucherUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

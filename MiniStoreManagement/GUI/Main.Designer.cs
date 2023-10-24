@@ -36,6 +36,7 @@
             this.btnPromotion = new System.Windows.Forms.Button();
             this.btnVoucher = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnsub_invoice1 = new System.Windows.Forms.Button();
             this.btnsub_invoice2 = new System.Windows.Forms.Button();
             this.btnInvoice = new System.Windows.Forms.Button();
             this.btnConsumer = new System.Windows.Forms.Button();
@@ -43,7 +44,6 @@
             this.button7 = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.btnsub_invoice1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelSlideMenu.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -146,6 +146,7 @@
             this.btnVoucher.TabIndex = 19;
             this.btnVoucher.Text = "Voucher";
             this.btnVoucher.UseVisualStyleBackColor = false;
+            this.btnVoucher.Click += new System.EventHandler(this.Button_Click);
             // 
             // panel5
             // 
@@ -157,6 +158,16 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(341, 120);
             this.panel5.TabIndex = 18;
+            // 
+            // btnsub_invoice1
+            // 
+            this.btnsub_invoice1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnsub_invoice1.Location = new System.Drawing.Point(0, 0);
+            this.btnsub_invoice1.Name = "btnsub_invoice1";
+            this.btnsub_invoice1.Size = new System.Drawing.Size(341, 60);
+            this.btnsub_invoice1.TabIndex = 2;
+            this.btnsub_invoice1.Text = "Invoice";
+            this.btnsub_invoice1.UseVisualStyleBackColor = true;
             // 
             // btnsub_invoice2
             // 
@@ -241,16 +252,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1148, 815);
             this.panel4.TabIndex = 3;
-            // 
-            // btnsub_invoice1
-            // 
-            this.btnsub_invoice1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnsub_invoice1.Location = new System.Drawing.Point(0, 0);
-            this.btnsub_invoice1.Name = "btnsub_invoice1";
-            this.btnsub_invoice1.Size = new System.Drawing.Size(341, 60);
-            this.btnsub_invoice1.TabIndex = 2;
-            this.btnsub_invoice1.Text = "Invoice";
-            this.btnsub_invoice1.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
