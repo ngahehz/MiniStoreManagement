@@ -20,7 +20,7 @@ namespace MiniStoreManagement.DAO
         public bool addVoucher(VoucherDTO voucher)
         {
             string s = $"INSERT INTO voucher VALUES ('{voucher.Id}', '{voucher.Code}','{voucher.Discription}','{voucher.DiscountAmount}','{voucher.MinInvoiceValue}',"
-                    + $"'{voucher.PercentDiscount}', '{voucher.MaxDiscount}','{voucher.StartDate}','{voucher.EndDate}'";
+                    + $"'{voucher.PercentDiscount}', '{voucher.MaxDiscount}','{voucher.StartDate}','{voucher.EndDate}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
