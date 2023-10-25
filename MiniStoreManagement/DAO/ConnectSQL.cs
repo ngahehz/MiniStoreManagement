@@ -87,7 +87,6 @@ namespace MiniStoreManagement.DAO
 
         public bool ChangeData(string s)
         {
-            MessageBox.Show(s);
             Connect();
             cmd = new SqlCommand();
             cmd.Connection = conn;
