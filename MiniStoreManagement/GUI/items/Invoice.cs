@@ -21,5 +21,7 @@ namespace MiniStoreManagement.GUI.items
         {
             this.Close();
         }
+
+        //
     }
 }
