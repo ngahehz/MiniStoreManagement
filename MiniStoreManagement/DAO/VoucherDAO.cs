@@ -29,7 +29,7 @@ namespace MiniStoreManagement.DAO
         public bool updateVoucher(VoucherDTO voucher)
         {
             string s = $"UPDATE voucher SET ID = '{voucher.Id}', CODE = '{voucher.Code}', DISCRIPTION = '{voucher.Discription}', DISCOUNT_AMOUNT = '{voucher.DiscountAmount}',"
-                    + $" MIN_INVOICE_VALUE = '{voucher.MinInvoiceValue}', PERCENT_DISCOUNT = '{voucher.PercentDiscount}', MAX_DISCOUNT = '{voucher.MaxDiscount}',"
+                    + $" MIN_INVOICE_VALUE = '{voucher.MinInvoiceValue}', PERCENT_DISCOUNT = '{voucher.PercentDiscount}', MAX_DISCOUNT = '{voucher.MaxDiscount}'"
                     + $" START_DATE = '{voucher.StartDate}', END_DATE = '{voucher.EndDate}' WHERE ID = '{voucher.Id}'";
             if (conn.ChangeData(s))
                 return true;
