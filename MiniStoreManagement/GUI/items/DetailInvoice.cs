@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace MiniStoreManagement.GUI.items
 {
-    public partial class Invoice : Form
+    public partial class DetailInvoice : UserControl
     {
-        public Invoice()
+        public DetailInvoice()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

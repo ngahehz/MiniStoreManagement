@@ -131,9 +131,9 @@ namespace MiniStoreManagement.GUI
 
                 case "btnInvoice":
                     showSubMenu(panel5);
-                    SalesInvoiceUC salesInvoiceUC = new SalesInvoiceUC();
-                    salesInvoiceUC.Dock = DockStyle.Fill;
-                    panel4.Controls.Add(salesInvoiceUC);
+                    InvoiceUC invoiceUC = new InvoiceUC();
+                    invoiceUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(invoiceUC);
                     break;
 
                 case "btnVoucher":

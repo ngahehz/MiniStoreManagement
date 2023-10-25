@@ -56,16 +56,9 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
-            this.ministoreDataSet = new MiniStoreManagement.ministoreDataSet();
-            this.ministoreDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.promotionBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.promotionTableAdapter = new MiniStoreManagement.ministoreDataSetTableAdapters.promotionTableAdapter();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ministoreDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ministoreDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.promotionBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -359,26 +352,7 @@
             this.BtnUpdate.Text = "sửa";
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
-            // 
-            // ministoreDataSet
-            // 
-            this.ministoreDataSet.DataSetName = "ministoreDataSet";
-            this.ministoreDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // ministoreDataSetBindingSource
-            // 
-            this.ministoreDataSetBindingSource.DataSource = this.ministoreDataSet;
-            this.ministoreDataSetBindingSource.Position = 0;
-            // 
-            // promotionBindingSource
-            // 
-            this.promotionBindingSource.DataMember = "promotion";
-            this.promotionBindingSource.DataSource = this.ministoreDataSetBindingSource;
-            // 
-            // promotionTableAdapter
-            // 
-            this.promotionTableAdapter.ClearBeforeFill = true;
-            // 
+            //
             // PromotionUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -392,9 +366,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ministoreDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ministoreDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.promotionBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -428,9 +399,5 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.BindingSource promotionBindingSource;
-        private System.Windows.Forms.BindingSource ministoreDataSetBindingSource;
-        private ministoreDataSet ministoreDataSet;
-        private ministoreDataSetTableAdapters.promotionTableAdapter promotionTableAdapter;
     }
 }

@@ -156,6 +156,12 @@
     <Compile Include="GUI\items\buttonSub.Designer.cs">
       <DependentUpon>buttonSub.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\items\DetailInvoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\items\DetailInvoice.Designer.cs">
+      <DependentUpon>DetailInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\items\Invoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,12 +246,6 @@
     <Compile Include="GUI\UCs\VoucherUC.Designer.cs">
       <DependentUpon>VoucherUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\ConvertImg.cs" />
-    <Compile Include="ministoreDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ministoreDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\Base.resx">
@@ -259,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\buttonSub.resx">
       <DependentUpon>buttonSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\items\DetailInvoice.resx">
+      <DependentUpon>DetailInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\Invoice.resx">
       <DependentUpon>Invoice.cs</DependentUpon>
@@ -307,17 +310,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ministoreDataSet.xsc">
-      <DependentUpon>ministoreDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ministoreDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ministoreDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ministoreDataSet.xss">
-      <DependentUpon>ministoreDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

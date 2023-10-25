@@ -58,7 +58,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnDetail1 = new System.Windows.Forms.Button();
             this.btnAdd1 = new System.Windows.Forms.Button();
-            this.BtnUpdate1 = new System.Windows.Forms.Button();
+            this.BtnPrint = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID2 = new System.Windows.Forms.TextBox();
@@ -368,7 +368,7 @@
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnDetail1);
             this.panel2.Controls.Add(this.btnAdd1);
-            this.panel2.Controls.Add(this.BtnUpdate1);
+            this.panel2.Controls.Add(this.BtnPrint);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
             this.panel2.Location = new System.Drawing.Point(3, 350);
@@ -415,14 +415,15 @@
             this.btnAdd1.Text = "thêm";
             this.btnAdd1.UseVisualStyleBackColor = true;
             // 
-            // BtnUpdate1
+            // BtnPrint
             // 
-            this.BtnUpdate1.Location = new System.Drawing.Point(1004, 349);
-            this.BtnUpdate1.Name = "BtnUpdate1";
-            this.BtnUpdate1.Size = new System.Drawing.Size(114, 66);
-            this.BtnUpdate1.TabIndex = 32;
-            this.BtnUpdate1.Text = "sửa";
-            this.BtnUpdate1.UseVisualStyleBackColor = true;
+            this.BtnPrint.Location = new System.Drawing.Point(1004, 349);
+            this.BtnPrint.Name = "BtnPrint";
+            this.BtnPrint.Size = new System.Drawing.Size(114, 66);
+            this.BtnPrint.TabIndex = 32;
+            this.BtnPrint.Text = "In";
+            this.BtnPrint.UseVisualStyleBackColor = true;
+            this.BtnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
             // tabPage2
             // 
@@ -720,7 +721,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnDetail1;
         private System.Windows.Forms.Button btnAdd1;
-        private System.Windows.Forms.Button BtnUpdate1;
+        private System.Windows.Forms.Button BtnPrint;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSearch1;

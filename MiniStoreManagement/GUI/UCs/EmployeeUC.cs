@@ -21,7 +21,7 @@ namespace MiniStoreManagement.GUI.UCs
 {
     public partial class EmployeeUC : UserControl
     {
-        private EmployeeBUS employeebus = new EmployeeBUS();
+        private EmployeeBUS employeeBUS = new EmployeeBUS();
         private string fileName;
         private bool id_focus = false;
         public EmployeeUC()
@@ -31,7 +31,7 @@ namespace MiniStoreManagement.GUI.UCs
         private void EmployeeUC_Load(object sender, EventArgs e)
         {
             if (EmployeeBUS.EmployeeList == null)
-                employeebus.getEmployee();
+                employeeBUS.getEmployee();
             new_id();
 
             dataGridView1.DataSource = EmployeeBUS.EmployeeList;
@@ -129,7 +129,7 @@ namespace MiniStoreManagement.GUI.UCs
             else
                 employeeDTO.Img = null;
 
-            if (employeebus.addEmployee(employeeDTO))
+            if (employeeBUS.addEmployee(employeeDTO))
             {
                 EmployeeBUS.EmployeeList.Rows.Add(employeeDTO.Id, employeeDTO.Name, employeeDTO.Gender, employeeDTO.DoB, employeeDTO.Cell, employeeDTO.Img);
                 dataGridView1.DataSource = EmployeeBUS.EmployeeList;
@@ -196,7 +196,7 @@ namespace MiniStoreManagement.GUI.UCs
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (id_focus)
-                employeebus.removeEmployee(txtID.Text);
+                employeeBUS.removeEmployee(txtID.Text);
             else
                 MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
         }
@@ -280,7 +280,7 @@ namespace MiniStoreManagement.GUI.UCs
             else
                 employeeDTO.Img = null;
 
-            if (employeebus.updateEmployee(employeeDTO))
+            if (employeeBUS.updateEmployee(employeeDTO))
             {
                 DataRow rowToUpdate = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(row => row.Field<int>("ID") == int.Parse(txtID.Text));
 

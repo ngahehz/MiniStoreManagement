@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MiniStoreManagement.GUI.items;
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -143,6 +144,12 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker2.CustomFormat = " ";
             txtPayment2.ResetText();
             txtSearch2.ResetText();
+        }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            Invoice invoice = new Invoice();
+            invoice.Show();
         }
     }
 }
