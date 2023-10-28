@@ -11,6 +11,7 @@ namespace MiniStoreManagement.DTO
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        public SalesInvoiceDetailDTO() { }
         public SalesInvoiceDetailDTO(int invoiceId, int productId, int quantity)
         {
             InvoiceId = invoiceId;
@@ -31,6 +32,7 @@ namespace MiniStoreManagement.DTO
     public class PurchaseInvoiceDetailDTO : SalesInvoiceDetailDTO
     {
         public decimal Price { get; set; }
+        public PurchaseInvoiceDetailDTO() { }
         public PurchaseInvoiceDetailDTO(int invoiceId, int productId, int quantity, decimal price) : base (invoiceId, productId, quantity)
         {
             Price = price;

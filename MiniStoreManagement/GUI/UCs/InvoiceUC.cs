@@ -1,4 +1,5 @@
 ﻿using MiniStoreManagement.BUS;
+using MiniStoreManagement.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +13,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MiniStoreManagement.GUI.items;
+using MySqlX.XDevAPI.Relational;
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -19,6 +21,12 @@ namespace MiniStoreManagement.GUI.UCs
     {
         private SalesInvoiceBUS salesInvoiceBUS = new SalesInvoiceBUS();
         private PurchaseInvoiceBUS purchaseInvoiceBUS = new PurchaseInvoiceBUS();
+        private VoucherBUS voucherBUS = new VoucherBUS();
+        private EmployeeBUS employeeBUS = new EmployeeBUS();
+        private ConsumerBUS consumerBUS = new ConsumerBUS();
+        private ProviderBUS providerBUS = new ProviderBUS();
+
+        private int id = 0;
         private bool id_focus = false;
         public InvoiceUC()
         {
@@ -27,12 +35,29 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void InvoiceUC_Load(object sender, EventArgs e)
         {
+            if (EmployeeBUS.EmployeeList == null)
+                employeeBUS.getEmployee();
+
+            foreach (DataRow row in EmployeeBUS.EmployeeList.Rows)
+            {
+                cbbID_employee1.Items.Add(row["ID"].ToString());
+                cbbID_employee2.Items.Add(row["ID"].ToString());
+            }
+
+            loadDataGridView1();
+            loadDataGridView2();
+        }
+
+        private void loadDataGridView1()
+        {
             if (SalesInvoiceBUS.SalesInvoiceList == null)
                 salesInvoiceBUS.getInvoice();
-            if (PurchaseInvoiceBUS.PurchaseInvoiceList == null)
-                purchaseInvoiceBUS.getInvoice();
+            if (VoucherBUS.VoucherList == null)
+                voucherBUS.getVoucher();
+            if (ConsumerBUS.ConsumerList == null)
+                consumerBUS.getConsumer();
+
             new_id1();
-            new_id2();
 
             dataGridView1.DataSource = SalesInvoiceBUS.SalesInvoiceList;
             dataGridView1.Columns[0].HeaderText = "ID";
@@ -42,13 +67,38 @@ namespace MiniStoreManagement.GUI.UCs
             dataGridView1.Columns[4].HeaderText = "CONSUMER_ID";
             dataGridView1.Columns[5].HeaderText = "VOUCHER_ID";
 
+            foreach (DataRow row in VoucherBUS.VoucherList.Rows)
+            {
+                cbbID_voucher1.Items.Add(row["ID"].ToString());
+            }
+            foreach (DataRow row in ConsumerBUS.ConsumerList.Rows)
+            {
+                cbbID_consumer1.Items.Add(row["ID"].ToString());
+            }
+        }
+
+        private void loadDataGridView2()
+        {
+            if (PurchaseInvoiceBUS.PurchaseInvoiceList == null)
+                purchaseInvoiceBUS.getInvoice();
+            if (ProviderBUS.ProviderList == null)
+                providerBUS.getProvider();
+            new_id2();
+
             dataGridView2.DataSource = PurchaseInvoiceBUS.PurchaseInvoiceList;
             dataGridView1.Columns[0].HeaderText = "ID";
             dataGridView1.Columns[1].HeaderText = "EMPLOYEE_ID";
             dataGridView1.Columns[2].HeaderText = "DATE";
             dataGridView1.Columns[3].HeaderText = "TOTAL_PAYMENT";
             dataGridView1.Columns[4].HeaderText = "PROVIDER_ID";
+
+            foreach (DataRow row in ProviderBUS.ProviderList.Rows)
+            {
+                cbbID_provider2.Items.Add(row["ID"].ToString());
+            }
+
         }
+
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridView dgv = (DataGridView)sender;
@@ -78,6 +128,7 @@ namespace MiniStoreManagement.GUI.UCs
             cbbID_voucher1.SelectedItem = dataGridView1.CurrentRow.Cells[5].Value.ToString();
 
             dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+            id = int.Parse(txtID1.Text);
         }
 
         private void dataGridView2_Click(object sender, EventArgs e)
@@ -148,7 +199,25 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void BtnPrint_Click(object sender, EventArgs e)
         {
-            Invoice invoice = new Invoice();
+            if(id == 0)
+            {
+                return;
+            }
+            SalesInvoiceDTO salesInvoiceDTO = new SalesInvoiceDTO();
+            salesInvoiceDTO.Id = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+            salesInvoiceDTO.TotalPayment = decimal.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            salesInvoiceDTO.EmployeeId = int.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
+            salesInvoiceDTO.ConsumerId = int.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+            if (dataGridView1.CurrentRow.Cells[5].Value.ToString() == "")
+            {
+                salesInvoiceDTO.VoucherId = null;
+            }
+            else
+                salesInvoiceDTO.VoucherId = int.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+
+            salesInvoiceDTO.Date = DateTime.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
+
+            Invoice invoice = new Invoice(salesInvoiceDTO);
             invoice.Show();
         }
     }

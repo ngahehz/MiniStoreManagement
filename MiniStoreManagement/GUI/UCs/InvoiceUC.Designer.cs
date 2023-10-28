@@ -54,10 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnNew1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnDetail1 = new System.Windows.Forms.Button();
-            this.btnAdd1 = new System.Windows.Forms.Button();
             this.BtnPrint = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -160,6 +157,7 @@
             // 
             // cbbID_voucher1
             // 
+            this.cbbID_voucher1.Enabled = false;
             this.cbbID_voucher1.FormattingEnabled = true;
             this.cbbID_voucher1.Location = new System.Drawing.Point(860, 34);
             this.cbbID_voucher1.Name = "cbbID_voucher1";
@@ -168,6 +166,7 @@
             // 
             // cbbID_consumer1
             // 
+            this.cbbID_consumer1.Enabled = false;
             this.cbbID_consumer1.FormattingEnabled = true;
             this.cbbID_consumer1.Location = new System.Drawing.Point(860, 116);
             this.cbbID_consumer1.Name = "cbbID_consumer1";
@@ -176,6 +175,7 @@
             // 
             // cbbID_employee1
             // 
+            this.cbbID_employee1.Enabled = false;
             this.cbbID_employee1.FormattingEnabled = true;
             this.cbbID_employee1.Location = new System.Drawing.Point(218, 116);
             this.cbbID_employee1.Name = "cbbID_employee1";
@@ -193,6 +193,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.CustomFormat = " ";
+            this.dateTimePicker1.Enabled = false;
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(218, 199);
@@ -364,10 +365,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
-            this.panel2.Controls.Add(this.btnNew1);
             this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Controls.Add(this.btnDetail1);
-            this.panel2.Controls.Add(this.btnAdd1);
             this.panel2.Controls.Add(this.BtnPrint);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
@@ -375,15 +373,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1134, 429);
             this.panel2.TabIndex = 3;
-            // 
-            // btnNew1
-            // 
-            this.btnNew1.Location = new System.Drawing.Point(1004, 22);
-            this.btnNew1.Name = "btnNew1";
-            this.btnNew1.Size = new System.Drawing.Size(114, 66);
-            this.btnNew1.TabIndex = 35;
-            this.btnNew1.Text = "mới";
-            this.btnNew1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -397,27 +386,9 @@
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
-            // btnDetail1
-            // 
-            this.btnDetail1.Location = new System.Drawing.Point(1004, 240);
-            this.btnDetail1.Name = "btnDetail1";
-            this.btnDetail1.Size = new System.Drawing.Size(114, 66);
-            this.btnDetail1.TabIndex = 34;
-            this.btnDetail1.Text = "Details";
-            this.btnDetail1.UseVisualStyleBackColor = true;
-            // 
-            // btnAdd1
-            // 
-            this.btnAdd1.Location = new System.Drawing.Point(1004, 131);
-            this.btnAdd1.Name = "btnAdd1";
-            this.btnAdd1.Size = new System.Drawing.Size(114, 66);
-            this.btnAdd1.TabIndex = 33;
-            this.btnAdd1.Text = "thêm";
-            this.btnAdd1.UseVisualStyleBackColor = true;
-            // 
             // BtnPrint
             // 
-            this.BtnPrint.Location = new System.Drawing.Point(1004, 349);
+            this.BtnPrint.Location = new System.Drawing.Point(1004, 181);
             this.BtnPrint.Name = "BtnPrint";
             this.BtnPrint.Size = new System.Drawing.Size(114, 66);
             this.BtnPrint.TabIndex = 32;
@@ -717,10 +688,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnNew1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnDetail1;
-        private System.Windows.Forms.Button btnAdd1;
         private System.Windows.Forms.Button BtnPrint;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
