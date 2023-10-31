@@ -19,6 +19,7 @@ namespace MiniStoreManagement.GUI
         //int panelWidth;
         //bool Hidden;
         private Button selectedButton;
+        private Button selectedSubButton;
         public Main()
         {
             InitializeComponent();
@@ -85,13 +86,49 @@ namespace MiniStoreManagement.GUI
                 subMenu.Visible = false;
         }
 
+        private void SubButton_Click(object sender, EventArgs e)
+        {
+            if (selectedSubButton != null)
+            {
+                selectedSubButton.BackColor = SystemColors.Info;
+            }
 
+            Button clickedButton = (Button)sender;
+            clickedButton.BackColor = SystemColors.InactiveCaption;
+            selectedSubButton = clickedButton;
+
+            foreach (Control control in panel4.Controls)
+            {
+                if (control is UserControl)
+                {
+                    panel4.Controls.Remove(control);
+                }
+            }
+            switch (clickedButton.Name)
+            {
+                case "btnsub_invoice1":
+                    InvoiceUC invoiceUC = new InvoiceUC();
+                    invoiceUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(invoiceUC);
+                    break;
+
+                case "btnsub_invoice2":
+                    InvoiceDetailUC invoiceDetailUC = new InvoiceDetailUC();
+                    invoiceDetailUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(invoiceDetailUC);
+                    break;
+            }
+        }
 
         private void Button_Click(object sender, EventArgs e)
         {
             if (selectedButton != null)
             {
                 selectedButton.BackColor = Color.FromArgb(4, 70, 112);
+            }
+            if (selectedSubButton != null)
+            {
+                selectedSubButton.BackColor = SystemColors.Info;
             }
 
             Button clickedButton = (Button)sender;
@@ -131,9 +168,6 @@ namespace MiniStoreManagement.GUI
 
                 case "btnInvoice":
                     showSubMenu(panel5);
-                    InvoiceUC invoiceUC = new InvoiceUC();
-                    invoiceUC.Dock = DockStyle.Fill;
-                    panel4.Controls.Add(invoiceUC);
                     break;
 
                 case "btnVoucher":

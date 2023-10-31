@@ -168,6 +168,7 @@
             this.btnsub_invoice1.TabIndex = 2;
             this.btnsub_invoice1.Text = "Invoice";
             this.btnsub_invoice1.UseVisualStyleBackColor = true;
+            this.btnsub_invoice1.Click += new System.EventHandler(this.SubButton_Click);
             // 
             // btnsub_invoice2
             // 
@@ -178,6 +179,7 @@
             this.btnsub_invoice2.TabIndex = 1;
             this.btnsub_invoice2.Text = "Invoice detail";
             this.btnsub_invoice2.UseVisualStyleBackColor = true;
+            this.btnsub_invoice2.Click += new System.EventHandler(this.SubButton_Click);
             // 
             // btnInvoice
             // 

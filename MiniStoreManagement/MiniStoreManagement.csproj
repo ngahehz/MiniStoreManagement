@@ -210,11 +210,11 @@
     <Compile Include="GUI\UCs\EmployeeUC.Designer.cs">
       <DependentUpon>EmployeeUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UCs\InvoiceDetail.cs">
+    <Compile Include="GUI\UCs\InvoiceDetailUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\UCs\InvoiceDetail.Designer.cs">
-      <DependentUpon>InvoiceDetail.cs</DependentUpon>
+    <Compile Include="GUI\UCs\InvoiceDetailUC.Designer.cs">
+      <DependentUpon>InvoiceDetailUC.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UCs\InvoiceUC.cs">
       <SubType>UserControl</SubType>
@@ -233,12 +233,6 @@
     </Compile>
     <Compile Include="GUI\UCs\PromotionUC.Designer.cs">
       <DependentUpon>PromotionUC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\UCs\SalesInvoiceUC.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\UCs\SalesInvoiceUC.Designer.cs">
-      <DependentUpon>SalesInvoiceUC.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UCs\VoucherUC.cs">
       <SubType>UserControl</SubType>
@@ -287,8 +281,8 @@
     <EmbeddedResource Include="GUI\UCs\EmployeeUC.resx">
       <DependentUpon>EmployeeUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\UCs\InvoiceDetail.resx">
-      <DependentUpon>InvoiceDetail.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\UCs\InvoiceDetailUC.resx">
+      <DependentUpon>InvoiceDetailUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\InvoiceUC.resx">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
@@ -298,9 +292,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\PromotionUC.resx">
       <DependentUpon>PromotionUC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\UCs\SalesInvoiceUC.resx">
-      <DependentUpon>SalesInvoiceUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\VoucherUC.resx">
       <DependentUpon>VoucherUC.cs</DependentUpon>
