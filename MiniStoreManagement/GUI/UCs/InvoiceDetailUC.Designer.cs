@@ -1,6 +1,6 @@
 ﻿namespace MiniStoreManagement.GUI.UCs
 {
-    partial class InvoiceDetail
+    partial class InvoiceDetailUC
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,6 +31,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtID_saleinv = new System.Windows.Forms.TextBox();
             this.cbbID_voucher1 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -72,9 +75,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -131,6 +131,34 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1134, 347);
             this.panel1.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(190, 119);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(22, 32);
+            this.label2.TabIndex = 54;
+            this.label2.Text = ":";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(218, 119);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(214, 40);
+            this.textBox1.TabIndex = 53;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(22, 119);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(131, 32);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "Số lượng";
             // 
             // txtID_saleinv
             // 
@@ -253,6 +281,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(28, 22);
             this.dataGridView1.Name = "dataGridView1";
@@ -515,6 +544,7 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(28, 22);
             this.dataGridView2.Name = "dataGridView2";
@@ -550,40 +580,12 @@
             this.button5.Text = "sửa";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(22, 119);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 32);
-            this.label1.TabIndex = 52;
-            this.label1.Text = "Số lượng";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(218, 119);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(214, 40);
-            this.textBox1.TabIndex = 53;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(190, 119);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 32);
-            this.label2.TabIndex = 54;
-            this.label2.Text = ":";
-            // 
-            // InvoiceDetail
+            // InvoiceDetailUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
-            this.Name = "InvoiceDetail";
+            this.Name = "InvoiceDetailUC";
             this.Size = new System.Drawing.Size(1148, 815);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

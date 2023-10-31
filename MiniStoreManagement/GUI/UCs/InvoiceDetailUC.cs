@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MiniStoreManagement.GUI.UCs
 {
-    public partial class SalesInvoiceUC : UserControl
+    public partial class InvoiceDetailUC : UserControl
     {
-        public SalesInvoiceUC()
+        public InvoiceDetailUC()
         {
             InitializeComponent();
         }
