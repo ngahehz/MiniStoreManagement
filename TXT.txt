@@ -10,3 +10,5 @@
 - làm thêm phần xóa img cũ nữa nhó
 -----
 - nhớ check lại id_focus trong invoice
+- làm dấu . cho tiền
+- ờ còn cái thời gian xuất hóa đơn á, có nên lưu thêm giờ giây đồ kh

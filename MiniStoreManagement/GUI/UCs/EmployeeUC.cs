@@ -131,6 +131,7 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (employeeBUS.addEmployee(employeeDTO))
             {
+                //EmployeeBUS.EmployeeList.Rows.Add(employeeDTO);
                 EmployeeBUS.EmployeeList.Rows.Add(employeeDTO.Id, employeeDTO.Name, employeeDTO.Gender, employeeDTO.DoB, employeeDTO.Cell, employeeDTO.Img);
                 dataGridView1.DataSource = EmployeeBUS.EmployeeList;
                 SaveImg();
@@ -160,7 +161,7 @@ namespace MiniStoreManagement.GUI.UCs
 
         private bool check()
         {
-            if (txtName.Text == "")
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Không được để trống tên");
                 txtName.Focus();
@@ -290,7 +291,8 @@ namespace MiniStoreManagement.GUI.UCs
                     rowToUpdate[2] = employeeDTO.Gender;
                     rowToUpdate[3] = employeeDTO.DoB;
                     rowToUpdate[4] = employeeDTO.Cell;
-                    rowToUpdate[5] = employeeDTO.Img;
+                    if(employeeDTO.Img != null)
+                        rowToUpdate[5] = employeeDTO.Img;
                 }
                 dataGridView1.DataSource = EmployeeBUS.EmployeeList;
                 SaveImg();

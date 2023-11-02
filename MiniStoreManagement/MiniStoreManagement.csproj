@@ -150,6 +150,12 @@
     <Compile Include="GUI\FormSP\TimKiemPromotion.Designer.cs">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\items\AddSalesInvoiceDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\items\AddSalesInvoiceDetail.Designer.cs">
+      <DependentUpon>AddSalesInvoiceDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\items\buttonSub.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -250,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormSP\TimKiemPromotion.resx">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\items\AddSalesInvoiceDetail.resx">
+      <DependentUpon>AddSalesInvoiceDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\buttonSub.resx">
       <DependentUpon>buttonSub.cs</DependentUpon>

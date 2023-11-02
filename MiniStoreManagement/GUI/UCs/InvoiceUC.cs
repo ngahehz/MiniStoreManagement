@@ -220,5 +220,21 @@ namespace MiniStoreManagement.GUI.UCs
             Invoice invoice = new Invoice(salesInvoiceDTO);
             invoice.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddSalesInvoiceDetail addSalesInvoiceDetail = new AddSalesInvoiceDetail();
+            addSalesInvoiceDetail.Dock = DockStyle.Right;
+            this.Dock = DockStyle.Left;
+
+            Form mainForm = this.FindForm();
+            mainForm.Width += addSalesInvoiceDetail.Width;
+
+            Panel panel4 = mainForm.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+            panel4.Controls.Add(addSalesInvoiceDetail);
+
+            
+        }
+    
     }
 }
