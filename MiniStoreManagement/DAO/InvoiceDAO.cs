@@ -18,7 +18,11 @@ namespace MiniStoreManagement.DAO
 
         public bool addInvoice(SalesInvoiceDTO invoice)
         {
-            string s = $"INSERT INTO sales_invoice VALUES ('{invoice.Id}', '{invoice.EmployeeId}','{invoice.Date}','{invoice.TotalPayment}','{invoice.ConsumerId}','{invoice.VoucherId}')";
+            string temp;
+            if (invoice.VoucherId == null)
+                temp = "NULL";
+            else temp = invoice.VoucherId.ToString(); 
+            string s = $"INSERT INTO sales_invoice VALUES ('{invoice.Id}', '{invoice.EmployeeId}','{invoice.Date}','{invoice.TotalPayment}','{invoice.ConsumerId}',{temp})";
             if (conn.ChangeData(s))
                 return true;
             return false;

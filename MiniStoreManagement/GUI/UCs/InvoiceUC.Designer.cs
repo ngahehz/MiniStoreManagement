@@ -54,8 +54,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnDel = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.BtnPrint = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtID2 = new System.Windows.Forms.TextBox();
@@ -81,7 +84,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -158,7 +160,7 @@
             // 
             // cbbID_voucher1
             // 
-            this.cbbID_voucher1.Enabled = false;
+            this.cbbID_voucher1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_voucher1.FormattingEnabled = true;
             this.cbbID_voucher1.Location = new System.Drawing.Point(860, 34);
             this.cbbID_voucher1.Name = "cbbID_voucher1";
@@ -167,7 +169,7 @@
             // 
             // cbbID_consumer1
             // 
-            this.cbbID_consumer1.Enabled = false;
+            this.cbbID_consumer1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_consumer1.FormattingEnabled = true;
             this.cbbID_consumer1.Location = new System.Drawing.Point(860, 116);
             this.cbbID_consumer1.Name = "cbbID_consumer1";
@@ -176,7 +178,7 @@
             // 
             // cbbID_employee1
             // 
-            this.cbbID_employee1.Enabled = false;
+            this.cbbID_employee1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_employee1.FormattingEnabled = true;
             this.cbbID_employee1.Location = new System.Drawing.Point(218, 116);
             this.cbbID_employee1.Name = "cbbID_employee1";
@@ -190,10 +192,12 @@
             this.txtPayment1.Name = "txtPayment1";
             this.txtPayment1.Size = new System.Drawing.Size(214, 40);
             this.txtPayment1.TabIndex = 42;
+            this.txtPayment1.Text = "0";
+            this.txtPayment1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.CustomFormat = " ";
+            this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
             this.dateTimePicker1.Enabled = false;
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -366,15 +370,46 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
-            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.btnDel);
+            this.panel2.Controls.Add(this.btnNew);
+            this.panel2.Controls.Add(this.btnAdd);
             this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Controls.Add(this.BtnPrint);
+            this.panel2.Controls.Add(this.btnPrint);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
             this.panel2.Location = new System.Drawing.Point(3, 350);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1134, 429);
             this.panel2.TabIndex = 3;
+            // 
+            // btnDel
+            // 
+            this.btnDel.Location = new System.Drawing.Point(1004, 273);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(114, 66);
+            this.btnDel.TabIndex = 35;
+            this.btnDel.Text = "Xóa";
+            this.btnDel.UseVisualStyleBackColor = true;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(1004, 109);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(114, 66);
+            this.btnNew.TabIndex = 34;
+            this.btnNew.Text = "Reset";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(1004, 22);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(114, 66);
+            this.btnAdd.TabIndex = 33;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dataGridView1
             // 
@@ -389,15 +424,15 @@
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
-            // BtnPrint
+            // btnPrint
             // 
-            this.BtnPrint.Location = new System.Drawing.Point(1004, 181);
-            this.BtnPrint.Name = "BtnPrint";
-            this.BtnPrint.Size = new System.Drawing.Size(114, 66);
-            this.BtnPrint.TabIndex = 32;
-            this.BtnPrint.Text = "In";
-            this.BtnPrint.UseVisualStyleBackColor = true;
-            this.BtnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
+            this.btnPrint.Location = new System.Drawing.Point(1004, 181);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(114, 66);
+            this.btnPrint.TabIndex = 32;
+            this.btnPrint.Text = "In";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
             // tabPage2
             // 
@@ -664,16 +699,6 @@
             this.button5.Text = "sửa";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1004, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 66);
-            this.button2.TabIndex = 33;
-            this.button2.Text = "Thêm";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // InvoiceUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -703,7 +728,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button BtnPrint;
+        private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSearch1;
@@ -752,6 +777,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Button btnDel;
     }
 }

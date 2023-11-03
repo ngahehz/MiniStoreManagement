@@ -36,8 +36,8 @@ namespace MiniStoreManagement.GUI.items
             {
                 label1.Text = row["NAME"].ToString();
                 label4.Text = salesInvoiceDetailDTO.Quantity.ToString();
-                label3.Text = row["PRICE"].ToString();
-                label2.Text = (int.Parse(label3.Text) * int.Parse(label4.Text)).ToString();
+                label3.Text = row.Field<decimal>("PRICE").ToString("#,##0");
+                label2.Text = (row.Field<decimal>("PRICE") * int.Parse(label4.Text)).ToString("#,##0");
                 if(label1.Width > 150)
                 {
                     this.Height = this.Height + label1.Height;

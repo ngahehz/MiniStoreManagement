@@ -43,7 +43,7 @@ namespace MiniStoreManagement.GUI.items
 
             lbInvoice.Text = "Số HĐ : " + salesInvoiceDTO.Id;
             lbDate.Text = lbDate.Text + salesInvoiceDTO.Date.ToString("dd/MM/yyyy");
-            lbPayment.Text = salesInvoiceDTO.TotalPayment.ToString();
+            lbPayment.Text = salesInvoiceDTO.TotalPayment.ToString("#,##0");
 
             DataRow row = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(r => r.Field<int>("ID") == salesInvoiceDTO.EmployeeId);
             lbEmployee.Text = lbEmployee.Text + row["NAME"];

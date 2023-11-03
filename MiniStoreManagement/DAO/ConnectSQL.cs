@@ -88,9 +88,11 @@ namespace MiniStoreManagement.DAO
         public bool ChangeData(string s)
         {
             Connect();
-            cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = s;
+            
+            cmd = new SqlCommand(s, conn);
+            //cmd.Connection = conn;
+            //cmd.CommandText = s;
+            //MessageBox.Show(cmd.CommandText);
             int row = 0;
             try
             {
