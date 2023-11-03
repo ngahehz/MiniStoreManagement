@@ -42,13 +42,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnDel = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BtnPrint = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDel = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -208,25 +208,44 @@
             this.panel2.Size = new System.Drawing.Size(874, 616);
             this.panel2.TabIndex = 6;
             // 
-            // dataGridView1
+            // btnNew
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 22);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(828, 394);
-            this.dataGridView1.TabIndex = 0;
+            this.btnNew.Location = new System.Drawing.Point(714, 492);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(146, 68);
+            this.btnNew.TabIndex = 37;
+            this.btnNew.Text = "Mới";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
-            // BtnPrint
+            // btnSave
             // 
-            this.BtnPrint.Location = new System.Drawing.Point(1004, 181);
-            this.BtnPrint.Name = "BtnPrint";
-            this.BtnPrint.Size = new System.Drawing.Size(114, 66);
-            this.BtnPrint.TabIndex = 32;
-            this.BtnPrint.Text = "In";
-            this.BtnPrint.UseVisualStyleBackColor = true;
+            this.btnSave.Location = new System.Drawing.Point(539, 492);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(146, 68);
+            this.btnSave.TabIndex = 36;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // btnDel
+            // 
+            this.btnDel.Location = new System.Drawing.Point(364, 492);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(146, 68);
+            this.btnDel.TabIndex = 35;
+            this.btnDel.Text = "Xóa";
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(189, 492);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(146, 68);
+            this.btnUpdate.TabIndex = 34;
+            this.btnUpdate.Text = "Sửa";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
@@ -238,41 +257,25 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btnUpdate
+            // dataGridView1
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(189, 492);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(146, 68);
-            this.btnUpdate.TabIndex = 34;
-            this.btnUpdate.Text = "Sửa";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(23, 22);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(828, 432);
+            this.dataGridView1.TabIndex = 0;
             // 
-            // btnDel
+            // BtnPrint
             // 
-            this.btnDel.Location = new System.Drawing.Point(364, 492);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(146, 68);
-            this.btnDel.TabIndex = 35;
-            this.btnDel.Text = "Xóa";
-            this.btnDel.UseVisualStyleBackColor = true;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(539, 492);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(146, 68);
-            this.btnSave.TabIndex = 36;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnNew
-            // 
-            this.btnNew.Location = new System.Drawing.Point(714, 492);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(146, 68);
-            this.btnNew.TabIndex = 37;
-            this.btnNew.Text = "Mới";
-            this.btnNew.UseVisualStyleBackColor = true;
+            this.BtnPrint.Location = new System.Drawing.Point(1004, 181);
+            this.BtnPrint.Name = "BtnPrint";
+            this.BtnPrint.Size = new System.Drawing.Size(114, 66);
+            this.BtnPrint.TabIndex = 32;
+            this.BtnPrint.Text = "In";
+            this.BtnPrint.UseVisualStyleBackColor = true;
             // 
             // AddSalesInvoiceDetail
             // 
@@ -280,6 +283,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Arial", 14F);
             this.Name = "AddSalesInvoiceDetail";
             this.Size = new System.Drawing.Size(874, 815);
             this.panel1.ResumeLayout(false);

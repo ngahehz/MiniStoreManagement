@@ -197,7 +197,12 @@ namespace MiniStoreManagement.GUI.UCs
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (id_focus)
+            {
                 employeeBUS.removeEmployee(txtID.Text);
+                DataRow[] rowsToDelete = EmployeeBUS.EmployeeList.Select("ID = '" + txtID.Text + "'");
+                EmployeeBUS.EmployeeList.Rows.Remove(rowsToDelete[0]);
+                dataGridView1.DataSource = EmployeeBUS.EmployeeList;
+            }
             else
                 MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
         }
