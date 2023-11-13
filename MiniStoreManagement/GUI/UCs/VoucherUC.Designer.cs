@@ -35,6 +35,8 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.txtGTTĐ = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -53,7 +55,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtTimKiem = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtGiagiam = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
@@ -61,8 +63,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -82,7 +82,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1148, 437);
             this.panel2.TabIndex = 3;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // btnNew
             // 
@@ -95,6 +94,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(35, 22);
             this.dataGridView1.Name = "dataGridView1";
@@ -155,7 +155,7 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.txtTimKiem);
+            this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.txtGiagiam);
             this.panel1.Controls.Add(this.txtID);
@@ -170,8 +170,34 @@
             this.panel1.Size = new System.Drawing.Size(1148, 378);
             this.panel1.TabIndex = 4;
             // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.radioButton2.Location = new System.Drawing.Point(19, 219);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(173, 36);
+            this.radioButton2.TabIndex = 55;
+            this.radioButton2.Text = "Chiết khấu";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.radioButton1.Location = new System.Drawing.Point(24, 136);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(152, 36);
+            this.radioButton1.TabIndex = 54;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Giá giảm";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
             // txtGTTĐ
             // 
+            this.txtGTTĐ.Enabled = false;
             this.txtGTTĐ.Location = new System.Drawing.Point(568, 217);
             this.txtGTTĐ.Name = "txtGTTĐ";
             this.txtGTTĐ.Size = new System.Drawing.Size(214, 40);
@@ -209,6 +235,7 @@
             // 
             // txtChietkhau
             // 
+            this.txtChietkhau.Enabled = false;
             this.txtChietkhau.Location = new System.Drawing.Point(227, 217);
             this.txtChietkhau.Name = "txtChietkhau";
             this.txtChietkhau.Size = new System.Drawing.Size(214, 40);
@@ -245,7 +272,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label12.Location = new System.Drawing.Point(485, 302);
+            this.label12.Location = new System.Drawing.Point(493, 302);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(23, 32);
             this.label12.TabIndex = 44;
@@ -342,12 +369,12 @@
             this.label6.TabIndex = 33;
             this.label6.Text = "Tìm kiếm";
             // 
-            // txtTimKiem
+            // txtSearch
             // 
-            this.txtTimKiem.Location = new System.Drawing.Point(813, 217);
-            this.txtTimKiem.Name = "txtTimKiem";
-            this.txtTimKiem.Size = new System.Drawing.Size(299, 40);
-            this.txtTimKiem.TabIndex = 32;
+            this.txtSearch.Location = new System.Drawing.Point(813, 217);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(299, 40);
+            this.txtSearch.TabIndex = 32;
             // 
             // dateTimePicker1
             // 
@@ -414,30 +441,6 @@
             this.txtDescription.Size = new System.Drawing.Size(299, 117);
             this.txtDescription.TabIndex = 0;
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.radioButton1.Location = new System.Drawing.Point(24, 136);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(152, 36);
-            this.radioButton1.TabIndex = 54;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Giá giảm";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.radioButton2.Location = new System.Drawing.Point(19, 219);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(173, 36);
-            this.radioButton2.TabIndex = 55;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Chiết khấu";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
             // VoucherUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -476,7 +479,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtTimKiem;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox txtGiagiam;
         private System.Windows.Forms.TextBox txtID;

@@ -16,18 +16,18 @@ namespace MiniStoreManagement.DAO
             return conn.ReadData("SELECT * FROM sales_invoice_detail");
         }
 
-        public bool addInvoiceDetail(SalesInvoiceDetailDTO invoiceDetail)
+        public bool addInvoiceDetail(InvoiceDetailDTO invoiceDetail)
         {
-            string s = $"INSERT INTO sales_invoice_detail VALUES ('{invoiceDetail.InvoiceId}', '{invoiceDetail.ProductId}','{invoiceDetail.Quantity}')";
+            string s = $"INSERT INTO sales_invoice_detail VALUES ('{invoiceDetail.InvoiceId}', '{invoiceDetail.ProductId}','{invoiceDetail.Quantity}','{invoiceDetail.Price}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
         }
 
-        public bool updateInvoiceDetail (SalesInvoiceDetailDTO invoiceDetail)
+        public bool updateInvoiceDetail (InvoiceDetailDTO invoiceDetail)
         {
             string s = $"UPDATE sales_invoice_detail SET INVOICE_ID = '{invoiceDetail.InvoiceId}', PRODUCT_ID = '{invoiceDetail.ProductId}',"
-                        + $"QUANTITY = '{invoiceDetail.Quantity}' WHERE INVOICE_ID = '{invoiceDetail.InvoiceId}' AND PRODUCT_ID = '{invoiceDetail.ProductId}'";
+                        + $"QUANTITY = '{invoiceDetail.Quantity}', PRICE = '{invoiceDetail.Price}' WHERE INVOICE_ID = '{invoiceDetail.InvoiceId}' AND PRODUCT_ID = '{invoiceDetail.ProductId}'";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -50,7 +50,7 @@ namespace MiniStoreManagement.DAO
             return conn.ReadData("SELECT * FROM purchase_invoice_detail");
         }
 
-        public bool addInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
+        public bool addInvoiceDetail(InvoiceDetailDTO invoiceDetail)
         {
             string s = $"INSERT INTO purchase_invoice_detail VALUES ('{invoiceDetail.InvoiceId}', '{invoiceDetail.ProductId}','{invoiceDetail.Quantity}','{invoiceDetail.Price}')";
             if (conn.ChangeData(s))
@@ -58,7 +58,7 @@ namespace MiniStoreManagement.DAO
             return false;
         }
 
-        public bool updateInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
+        public bool updateInvoiceDetail(InvoiceDetailDTO invoiceDetail)
         {
             string s = $"UPDATE purchase_invoice_detail SET INVOICE_ID = '{invoiceDetail.InvoiceId}', PRODUCT_ID = '{invoiceDetail.ProductId}', QUANTITY = '{invoiceDetail.Quantity}',"
                         + $"PRICE = '{invoiceDetail.Price}' WHERE INVOICE_ID = '{invoiceDetail.InvoiceId}' AND PRODUCT_ID = '{invoiceDetail.ProductId}'";

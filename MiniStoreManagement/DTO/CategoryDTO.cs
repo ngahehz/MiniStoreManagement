@@ -8,18 +8,18 @@ namespace MiniStoreManagement.DTO
 {
     internal class CategoryDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public int CategoryMiniId { get; set; }
+        public string State { get; set; }
         public CategoryDTO()
         {
-
+            State = "0";
         }
-        public CategoryDTO(int id, string name, int categoryMiniId)
+        public CategoryDTO(string id, string name, string state)
         {
             Id = id;
             Name = name;
-            CategoryMiniId = categoryMiniId;
+            State = state;
         }
     }
 }

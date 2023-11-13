@@ -8,26 +8,32 @@ namespace MiniStoreManagement.DTO
 {
     public class InvoiceDTO
     {
-        public int Id { get; set; }
-        public int EmployeeId { get; set; }
+        public string Id { get; set; }
+        public string EmployeeId { get; set; }
         public DateTime Date { get; set; }
         public static double VAT { get; set; }
         public decimal TotalPayment { get; set; }
-        public InvoiceDTO() { }
-        public InvoiceDTO(int id, int employeeId, DateTime date, decimal totalPayment) { 
+        public string State { get; set; } // 0 là trong quá trình tạo, 1 là đã tạo xong, 2 là xóa tạm
+        public InvoiceDTO()
+        {
+            State = "0";
+        }
+        public InvoiceDTO(string id, string employeeId, DateTime date, decimal totalPayment, string state)
+        {
             Id = id;
             EmployeeId = employeeId;
             Date = date;
             TotalPayment = totalPayment;
+            State = state;
         }
     }
 
     public class SalesInvoiceDTO : InvoiceDTO
     {
-        public int ConsumerId { get; set; }
-        public int? VoucherId { get; set; }
-        public SalesInvoiceDTO() { }
-        public SalesInvoiceDTO(int id, int employeeId, DateTime date, decimal totalPayment, int consumerId, int voucherId) : base (id, employeeId, date, totalPayment)
+        public string ConsumerId { get; set; }
+        public string VoucherId { get; set; }
+        public SalesInvoiceDTO() : base() { }
+        public SalesInvoiceDTO(string id, string employeeId, DateTime date, decimal totalPayment, string state, string consumerId, string voucherId) : base (id, employeeId, date, totalPayment, state)
         {
             ConsumerId = consumerId;
             VoucherId = voucherId;
@@ -36,9 +42,9 @@ namespace MiniStoreManagement.DTO
 
     public class PurchaseInvoiceDTO : InvoiceDTO
     {
-        public int ProviderId { get; set; }
-        public PurchaseInvoiceDTO() { }
-        public PurchaseInvoiceDTO(int id, int employeeId, DateTime date, decimal totalPayment, int providerId) : base(id, employeeId, date, totalPayment)
+        public string ProviderId { get; set; }
+        public PurchaseInvoiceDTO() : base() { }
+        public PurchaseInvoiceDTO(string id, string employeeId, DateTime date, decimal totalPayment, string state, string providerId) : base(id, employeeId, date, totalPayment, state)
         {
             ProviderId = providerId;
         }

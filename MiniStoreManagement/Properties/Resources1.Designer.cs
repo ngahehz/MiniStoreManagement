@@ -73,46 +73,6 @@ namespace MiniStoreManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _11 {
-            get {
-                object obj = ResourceManager.GetObject("11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _12 {
-            get {
-                object obj = ResourceManager.GetObject("12", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Amitjakhu_Drip_Menu_512 {
-            get {
-                object obj = ResourceManager.GetObject("Amitjakhu-Drip-Menu.512", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap annie_spratt_5cFwQ_WMcJU_unsplash {
-            get {
-                object obj = ResourceManager.GetObject("annie-spratt-5cFwQ-WMcJU-unsplash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Picture3 {
             get {
                 object obj = ResourceManager.GetObject("Picture3", resourceCulture);

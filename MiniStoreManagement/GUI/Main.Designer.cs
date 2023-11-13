@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.picBack = new System.Windows.Forms.PictureBox();
+            this.picBin = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelSlideMenu = new System.Windows.Forms.Panel();
+            this.btnCategory = new System.Windows.Forms.Button();
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnProvider = new System.Windows.Forms.Button();
             this.btnPromotion = new System.Windows.Forms.Button();
@@ -44,21 +48,55 @@
             this.button7 = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBin)).BeginInit();
             this.panelSlideMenu.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.picBack);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1489, 112);
             this.panel1.TabIndex = 0;
+            // 
+            // picBack
+            // 
+            this.picBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picBack.Image = ((System.Drawing.Image)(resources.GetObject("picBack.Image")));
+            this.picBack.Location = new System.Drawing.Point(12, 18);
+            this.picBack.Name = "picBack";
+            this.picBack.Size = new System.Drawing.Size(92, 76);
+            this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBack.TabIndex = 2;
+            this.picBack.TabStop = false;
+            this.picBack.Visible = false;
+            this.picBack.Click += new System.EventHandler(this.picBack_Click);
+            // 
+            // picBin
+            // 
+            this.picBin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picBin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picBin.Image = ((System.Drawing.Image)(resources.GetObject("picBin.Image")));
+            this.picBin.Location = new System.Drawing.Point(13, 18);
+            this.picBin.Name = "picBin";
+            this.picBin.Size = new System.Drawing.Size(92, 76);
+            this.picBin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBin.TabIndex = 1;
+            this.picBin.TabStop = false;
+            this.picBin.Visible = false;
+            this.picBin.Click += new System.EventHandler(this.picBin_Click);
             // 
             // label1
             // 
@@ -73,7 +111,9 @@
             // 
             // panelSlideMenu
             // 
-            this.panelSlideMenu.BackColor = System.Drawing.SystemColors.Info;
+            this.panelSlideMenu.AutoScroll = true;
+            this.panelSlideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.panelSlideMenu.Controls.Add(this.btnCategory);
             this.panelSlideMenu.Controls.Add(this.btnEmployee);
             this.panelSlideMenu.Controls.Add(this.btnProvider);
             this.panelSlideMenu.Controls.Add(this.btnPromotion);
@@ -88,6 +128,21 @@
             this.panelSlideMenu.Name = "panelSlideMenu";
             this.panelSlideMenu.Size = new System.Drawing.Size(341, 815);
             this.panelSlideMenu.TabIndex = 1;
+            // 
+            // btnCategory
+            // 
+            this.btnCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.btnCategory.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCategory.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
+            this.btnCategory.Location = new System.Drawing.Point(0, 719);
+            this.btnCategory.Name = "btnCategory";
+            this.btnCategory.Size = new System.Drawing.Size(341, 77);
+            this.btnCategory.TabIndex = 23;
+            this.btnCategory.Text = "Category";
+            this.btnCategory.UseVisualStyleBackColor = false;
+            this.btnCategory.Click += new System.EventHandler(this.Button_Click);
             // 
             // btnEmployee
             // 
@@ -117,6 +172,7 @@
             this.btnProvider.TabIndex = 21;
             this.btnProvider.Text = "Provider";
             this.btnProvider.UseVisualStyleBackColor = false;
+            this.btnProvider.Click += new System.EventHandler(this.Button_Click);
             // 
             // btnPromotion
             // 
@@ -209,6 +265,7 @@
             this.btnConsumer.TabIndex = 13;
             this.btnConsumer.Text = "Consumer";
             this.btnConsumer.UseVisualStyleBackColor = false;
+            this.btnConsumer.Click += new System.EventHandler(this.Button_Click);
             // 
             // panel2
             // 
@@ -222,7 +279,7 @@
             // button7
             // 
             this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Font = new System.Drawing.Font("MV Boli", 16F);
             this.button7.Location = new System.Drawing.Point(0, 0);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(341, 60);
@@ -255,6 +312,15 @@
             this.panel4.Size = new System.Drawing.Size(1148, 815);
             this.panel4.TabIndex = 3;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.picBin);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(1371, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(118, 112);
+            this.panel3.TabIndex = 0;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -268,11 +334,15 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Main";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBin)).EndInit();
             this.panelSlideMenu.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -295,5 +365,9 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnEmployee;
         private System.Windows.Forms.Button btnsub_invoice1;
+        private System.Windows.Forms.Button btnCategory;
+        private System.Windows.Forms.PictureBox picBin;
+        private System.Windows.Forms.PictureBox picBack;
+        private System.Windows.Forms.Panel panel3;
     }
 }

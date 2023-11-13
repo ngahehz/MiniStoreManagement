@@ -33,12 +33,6 @@ namespace MiniStoreManagement.GUI.UCs
             new_id();
 
             dataGridView1.DataSource = PromotionBUS.PromotionList;
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "NAME";
-            dataGridView1.Columns[2].HeaderText = "DISCRIPTION";
-            dataGridView1.Columns[3].HeaderText = "PERCENT_DISCOUNT";
-            dataGridView1.Columns[4].HeaderText = "START_DATE";
-            dataGridView1.Columns[5].HeaderText = "END_DATE";
         }
 
 
@@ -66,12 +60,11 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker2.CustomFormat = "dd/MM/yyyy";
 
             txtID.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            txtName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            txtDescription.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            txtPercent.Text = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            txtDescription.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            txtPercent.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
 
-            dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
-            dateTimePicker2.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+            dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+            dateTimePicker2.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
         }
         private void btnNew_Click(object sender, EventArgs e)
         {
@@ -88,8 +81,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
 
             PromotionDTO promotionDTO = new PromotionDTO();
-            promotionDTO.Id = int.Parse(txtID.Text);
-            promotionDTO.Name = txtName.Text;
+            promotionDTO.Id = txtID.Text;
             promotionDTO.Discription = txtDescription.Text;
             promotionDTO.PercentDiscount = decimal.Parse(txtPercent.Text);
             promotionDTO.StartDate = dateTimePicker1.Value;
@@ -97,7 +89,7 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (promotionBUS.addPromotion(promotionDTO))
             {
-                PromotionBUS.PromotionList.Rows.Add(promotionDTO.Id, promotionDTO.Name, promotionDTO.Discription, promotionDTO.PercentDiscount, promotionDTO.StartDate, promotionDTO.EndDate);
+                PromotionBUS.PromotionList.Rows.Add(promotionDTO.Id, promotionDTO.Discription, promotionDTO.PercentDiscount, promotionDTO.StartDate, promotionDTO.EndDate);
                 dataGridView1.DataSource = PromotionBUS.PromotionList;
                 id_focus = true;
             }
@@ -115,8 +107,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
 
             PromotionDTO promotionDTO = new PromotionDTO();
-            promotionDTO.Id = int.Parse(txtID.Text);
-            promotionDTO.Name = txtName.Text;
+            promotionDTO.Id = txtID.Text;
             promotionDTO.Discription = txtDescription.Text;
             promotionDTO.PercentDiscount = decimal.Parse(txtPercent.Text);
             promotionDTO.StartDate = dateTimePicker1.Value;
@@ -124,15 +115,14 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (promotionBUS.updatePromotion(promotionDTO))
             {
-                DataRow rowToUpdate = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(row => row.Field<int>("ID") == int.Parse(txtID.Text));
+                DataRow rowToUpdate = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
 
                 if (rowToUpdate != null)
                 {
-                    rowToUpdate[1] = promotionDTO.Name;
-                    rowToUpdate[2] = promotionDTO.Discription;
-                    rowToUpdate[3] = promotionDTO.PercentDiscount;
-                    rowToUpdate[4] = promotionDTO.StartDate;
-                    rowToUpdate[5] = promotionDTO.EndDate;
+                    rowToUpdate[1] = promotionDTO.Discription;
+                    rowToUpdate[2] = promotionDTO.PercentDiscount;
+                    rowToUpdate[3] = promotionDTO.StartDate;
+                    rowToUpdate[4] = promotionDTO.EndDate;
                 }
                 dataGridView1.DataSource = PromotionBUS.PromotionList;
             }
@@ -150,7 +140,6 @@ namespace MiniStoreManagement.GUI.UCs
         {
             id_focus = false;
             new_id();
-            txtName.ResetText();
             txtDescription.ResetText();
             txtPercent.ResetText();
             dateTimePicker1.CustomFormat = " ";
@@ -162,24 +151,17 @@ namespace MiniStoreManagement.GUI.UCs
 
         private bool check()
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName.Focus();
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(txtDescription.Text))
             {
                 MessageBox.Show("Không được để trống mô tả");
-                txtName.Focus();
+                txtDescription.Focus();
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtPercent.Text))
             {
                 MessageBox.Show("Không được để trống chiết khấu");
-                txtName.Focus();
+                txtPercent.Focus();
                 return false;
             }
 
@@ -211,10 +193,7 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             return true;
-            // được thì làm màu báo lỗi cho mấy viền
         }
-
-        
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -229,7 +208,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
 
-            dv.RowFilter = $"CONVERT(ID, 'System.String') LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR DISCRIPTION LIKE '%{txt}%' OR CONVERT(PERCENT_DISCOUNT, 'System.String') LIKE '%{txt}%'";
+            dv.RowFilter = $"CONVERT(ID, 'System.String') LIKE '%{txt}%' OR DISCRIPTION LIKE '%{txt}%' OR CONVERT(PERCENT_DISCOUNT, 'System.String') LIKE '%{txt}%'";
             dataGridView1.DataSource = dv.ToTable();
         }
 
@@ -258,7 +237,7 @@ namespace MiniStoreManagement.GUI.UCs
         {
             if (PromotionBUS.PromotionList.Rows.Count > 0)
             {
-                txtID.Text = ((int)PromotionBUS.PromotionList.Rows[PromotionBUS.PromotionList.Rows.Count - 1]["ID"] + 1).ToString();
+                txtID.Text = (int.Parse(PromotionBUS.PromotionList.Rows[PromotionBUS.PromotionList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
                 return;
             }
             txtID.Text = "1000";

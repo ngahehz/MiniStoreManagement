@@ -1,4 +1,5 @@
-﻿using MiniStoreManagement.DAO;
+﻿using MiniStoreManagement.BUS;
+using MiniStoreManagement.DAO;
 using MiniStoreManagement.GUI;
 using System;
 using System.Collections.Generic;
@@ -17,40 +18,16 @@ namespace MiniStoreManagement
     {
         public string pass;
         public string user;
+        AdminBUS adminBUS = new AdminBUS();
         public frmBase()
         {
             InitializeComponent();
+            adminBUS.getAdmin();
             //ConnectSQL conn = new ConnectSQL();
             //DataTable temp = conn.ReadData2("select * from employee where TYPE = '1'");
             //pass = temp.Rows[0][0].ToString();
             //user = temp.Rows[0][3].ToString();
             //MessageBox.Show(user);
-        }
-
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
@@ -89,12 +66,30 @@ namespace MiniStoreManagement
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //if (txtPassword.Text == pass && txtUsername.Text == user)
-            //    MessageBox.Show("chuẩn acc");
-            //else
-            //    MessageBox.Show("sai òi");
-            testImg testImg = new testImg();
-            testImg.Show();
+            string user = txtUsername.Text;
+            string pass = txtPassword.Text;
+            if (user == "" || pass == "")
+            {
+                MessageBox.Show("Tài Khoản và Mật Khẩu không được trống");
+            }
+            else if (adminBUS.checkAdmin(user, pass))
+            {
+                Main main = new Main();
+                this.Hide();
+                main.Show();
+            }
+            else
+            {
+                MessageBox.Show("Tài khoản hoặc mật khẩu không đúng");
+            }
+        }
+
+        private void frmBase_Load(object sender, EventArgs e)
+        {
+            this.BackColor = Color.Wheat; // Chọn một màu không nên xuất hiện
+
+            // Đặt màu chính thức sẽ trở nên trong suốt
+            this.TransparencyKey = Color.Wheat;
         }
     }
 }

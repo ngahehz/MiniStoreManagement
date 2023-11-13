@@ -17,25 +17,25 @@ namespace MiniStoreManagement.GUI.items
     public partial class DetailInvoice : UserControl
     {
         private ProductBUS productBUS = new ProductBUS();
-        public DetailInvoice(SalesInvoiceDetailDTO salesInvoiceDetailDTO)
+        public DetailInvoice(InvoiceDetailDTO invoiceDetailDTO)
         {
             InitializeComponent();
-            show(salesInvoiceDetailDTO);
+            show(invoiceDetailDTO);
         }
 
-        public void show(SalesInvoiceDetailDTO salesInvoiceDetailDTO)
+        public void show(InvoiceDetailDTO invoiceDetailDTO)
         {
             if (ProductBUS.ProductList == null)
             {
                 productBUS.getProduct();
             }
 
-            DataRow row = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(r => r.Field<int>("ID") == salesInvoiceDetailDTO.ProductId);
+            DataRow row = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == invoiceDetailDTO.ProductId);
 
             if (row != null)
             {
                 label1.Text = row["NAME"].ToString();
-                label4.Text = salesInvoiceDetailDTO.Quantity.ToString();
+                label4.Text = invoiceDetailDTO.Quantity.ToString();
                 label3.Text = row.Field<decimal>("PRICE").ToString("#,##0");
                 label2.Text = (row.Field<decimal>("PRICE") * int.Parse(label4.Text)).ToString("#,##0");
                 if(label1.Width > 150)

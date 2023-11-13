@@ -28,7 +28,7 @@ namespace MiniStoreManagement.GUI.UCs
         private ConsumerBUS consumerBUS = new ConsumerBUS();
         private ProviderBUS providerBUS = new ProviderBUS();
 
-        private int id = 0;
+        private int id = 0; // id tạm để t check control print thôi
         private bool id_focus = false;
         public InvoiceUC()
         {
@@ -60,14 +60,7 @@ namespace MiniStoreManagement.GUI.UCs
                 consumerBUS.getConsumer();
 
             new_id1();
-
-            dataGridView1.DataSource = SalesInvoiceBUS.SalesInvoiceList;
-            dataGridView1.Columns[0].HeaderText = "ID";
-            dataGridView1.Columns[1].HeaderText = "EMPLOYEE_ID";
-            dataGridView1.Columns[2].HeaderText = "DATE";
-            dataGridView1.Columns[3].HeaderText = "TOTAL_PAYMENT";
-            dataGridView1.Columns[4].HeaderText = "CONSUMER_ID";
-            dataGridView1.Columns[5].HeaderText = "VOUCHER_ID";
+            show_data(1);
 
             foreach (DataRow row in VoucherBUS.VoucherList.Rows)
             {
@@ -85,20 +78,14 @@ namespace MiniStoreManagement.GUI.UCs
                 purchaseInvoiceBUS.getInvoice();
             if (ProviderBUS.ProviderList == null)
                 providerBUS.getProvider();
-            new_id2();
 
-            dataGridView2.DataSource = PurchaseInvoiceBUS.PurchaseInvoiceList;
-            dataGridView2.Columns[0].HeaderText = "ID";
-            dataGridView2.Columns[1].HeaderText = "EMPLOYEE_ID";
-            dataGridView2.Columns[2].HeaderText = "DATE";
-            dataGridView2.Columns[3].HeaderText = "TOTAL_PAYMENT";
-            dataGridView2.Columns[4].HeaderText = "PROVIDER_ID";
+            new_id2();
+            show_data(2);
 
             foreach (DataRow row in ProviderBUS.ProviderList.Rows)
             {
                 cbbID_provider2.Items.Add(row["ID"].ToString());
             }
-
         }
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -141,7 +128,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
             id_focus = true;
-            dateTimePicker2.CustomFormat = "dd/MM/yyyy";
+            //dateTimePicker2.CustomFormat = "dd/MM/yyyy";
 
             txtID2.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
             txtPayment2.Text = dataGridView2.CurrentRow.Cells[3].Value.ToString();
@@ -155,7 +142,7 @@ namespace MiniStoreManagement.GUI.UCs
         {
             if (SalesInvoiceBUS.SalesInvoiceList.Rows.Count > 0)
             {
-                txtID1.Text = ((int)SalesInvoiceBUS.SalesInvoiceList.Rows[SalesInvoiceBUS.SalesInvoiceList.Rows.Count - 1]["ID"] + 1).ToString();
+                txtID1.Text = (int.Parse(SalesInvoiceBUS.SalesInvoiceList.Rows[SalesInvoiceBUS.SalesInvoiceList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
                 return;
             }
             txtID1.Text = "100000";
@@ -165,16 +152,10 @@ namespace MiniStoreManagement.GUI.UCs
         {
             if (PurchaseInvoiceBUS.PurchaseInvoiceList.Rows.Count > 0)
             {
-                txtID2.Text = ((int)PurchaseInvoiceBUS.PurchaseInvoiceList.Rows[PurchaseInvoiceBUS.PurchaseInvoiceList.Rows.Count - 1]["ID"] + 1).ToString();
+                txtID2.Text = (int.Parse(PurchaseInvoiceBUS.PurchaseInvoiceList.Rows[PurchaseInvoiceBUS.PurchaseInvoiceList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
                 return;
             }
             txtID2.Text = "100000";
-        }
-        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            DateTimePicker dtp = (DateTimePicker)sender;
-            if (dtp.CustomFormat == " ")
-                dtp.CustomFormat = "dd/MM/yyyy";
         }
         private void reset_form1()
         {
@@ -183,7 +164,7 @@ namespace MiniStoreManagement.GUI.UCs
             cbbID_consumer1.SelectedItem = null;
             cbbID_employee1.SelectedItem = null;
             cbbID_voucher1.SelectedItem = null;
-            //dateTimePicker1.CustomFormat = " ";
+            dateTimePicker1.Value = DateTime.Now;
             txtPayment1.Text = "0";
             txtSearch1.ResetText();
         }
@@ -194,7 +175,7 @@ namespace MiniStoreManagement.GUI.UCs
             new_id2();
             cbbID_employee2.SelectedItem = null;
             cbbID_provider2.SelectedItem = null;
-            dateTimePicker2.CustomFormat = " ";
+            dateTimePicker2.Value = DateTime.Now;
             txtPayment2.Text = "0";
             txtSearch2.ResetText();
         }
@@ -206,16 +187,16 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
             SalesInvoiceDTO salesInvoiceDTO = new SalesInvoiceDTO();
-            salesInvoiceDTO.Id = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+            salesInvoiceDTO.Id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             salesInvoiceDTO.TotalPayment = decimal.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-            salesInvoiceDTO.EmployeeId = int.Parse(dataGridView1.CurrentRow.Cells[1].Value.ToString());
-            salesInvoiceDTO.ConsumerId = int.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+            salesInvoiceDTO.EmployeeId = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            salesInvoiceDTO.ConsumerId = dataGridView1.CurrentRow.Cells[4].Value.ToString();
             if (dataGridView1.CurrentRow.Cells[5].Value.ToString() == "")
             {
                 salesInvoiceDTO.VoucherId = null;
             }
             else
-                salesInvoiceDTO.VoucherId = int.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+                salesInvoiceDTO.VoucherId = dataGridView1.CurrentRow.Cells[5].Value.ToString();
 
             salesInvoiceDTO.Date = DateTime.Parse(dataGridView1.CurrentRow.Cells[2].Value.ToString());
 
@@ -223,7 +204,7 @@ namespace MiniStoreManagement.GUI.UCs
             invoice.Show();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd1_Click(object sender, EventArgs e)
         {
             if (id_focus)
             {
@@ -234,20 +215,24 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
 
             SalesInvoiceDTO salesInvoiceDTO = new SalesInvoiceDTO();
-            salesInvoiceDTO.Id = int.Parse(txtID1.Text);
-            salesInvoiceDTO.ConsumerId = int.Parse(cbbID_consumer1.SelectedItem.ToString());
-            salesInvoiceDTO.EmployeeId = int.Parse(cbbID_employee1.SelectedItem.ToString());
+            salesInvoiceDTO.Id = txtID1.Text;
+            salesInvoiceDTO.ConsumerId = cbbID_consumer1.SelectedItem.ToString();
+            salesInvoiceDTO.EmployeeId = cbbID_employee1.SelectedItem.ToString();
             if (cbbID_voucher1.SelectedItem != null)
-                salesInvoiceDTO.VoucherId = int.Parse(cbbID_employee1.SelectedItem.ToString());
+                salesInvoiceDTO.VoucherId = cbbID_employee1.SelectedItem.ToString();
             else
                 salesInvoiceDTO.VoucherId = null;
             salesInvoiceDTO.Date = dateTimePicker1.Value;
             salesInvoiceDTO.TotalPayment = decimal.Parse(txtPayment1.Text);
 
+            //MessageBox.Show(salesInvoiceDTO.VoucherId);
+            //return;
+
             if (salesInvoiceBUS.addInvoice(salesInvoiceDTO))
             {
-                SalesInvoiceBUS.SalesInvoiceList.Rows.Add(salesInvoiceDTO.Id, salesInvoiceDTO.EmployeeId, salesInvoiceDTO.Date, salesInvoiceDTO.TotalPayment, salesInvoiceDTO.ConsumerId, salesInvoiceDTO.VoucherId);
-                dataGridView1.DataSource = SalesInvoiceBUS.SalesInvoiceList;
+                SalesInvoiceBUS.SalesInvoiceList.Rows.Add(salesInvoiceDTO.Id, salesInvoiceDTO.EmployeeId, salesInvoiceDTO.Date, salesInvoiceDTO.TotalPayment,
+                                                          salesInvoiceDTO.ConsumerId, salesInvoiceDTO.VoucherId, salesInvoiceDTO.State);
+                show_data(1);
                 id_focus = true;
             }
             else
@@ -264,6 +249,11 @@ namespace MiniStoreManagement.GUI.UCs
             Panel panel4 = mainForm.Controls.Find("panel4", true).FirstOrDefault() as Panel;
             panel4.Controls.Add(addSalesInvoiceDetail);
 
+            mainForm.StartPosition = FormStartPosition.Manual;
+            Screen screen = Screen.PrimaryScreen;
+            int x = (screen.WorkingArea.Width - mainForm.Width) / 2;
+            int y = (screen.WorkingArea.Height - mainForm.Height) / 2;
+            mainForm.Location = new Point(x, y);
         }
 
         private bool check()
@@ -287,6 +277,77 @@ namespace MiniStoreManagement.GUI.UCs
         private void btnNew_Click(object sender, EventArgs e)
         {
             reset_form1();
+        }
+
+        private void show_data(int temp)
+        {
+            if(temp == 1)
+            {
+                DataRow[] filteredRows = SalesInvoiceBUS.SalesInvoiceList.Select("STATE = 1");
+
+                DataTable dataGridView1DataTable = SalesInvoiceBUS.SalesInvoiceList.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    dataGridView1DataTable.ImportRow(row);
+                }
+                dataGridView1.DataSource = dataGridView1DataTable;
+                dataGridView1.Columns[6].Visible = false;
+            }
+            else
+            {
+                DataRow[] filteredRows = PurchaseInvoiceBUS.PurchaseInvoiceList.Select("STATE = 1");
+
+                DataTable dataGridView2DataTable = PurchaseInvoiceBUS.PurchaseInvoiceList.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    dataGridView2DataTable.ImportRow(row);
+                }
+                dataGridView2.DataSource = dataGridView2DataTable;
+                dataGridView2.Columns[5].Visible = false;
+            }
+        }
+
+        private void btnAdd2_Click(object sender, EventArgs e)
+        {
+            if (id_focus)
+            {
+                MessageBox.Show("Ấn nút mới để tạo mới form");
+                return;
+            }
+            if (!check())
+                return;
+
+            PurchaseInvoiceDTO purchaseInvoiceDTO = new PurchaseInvoiceDTO();
+            purchaseInvoiceDTO.Id = txtID2.Text;
+            purchaseInvoiceDTO.ProviderId = cbbID_provider2.SelectedItem.ToString();
+            purchaseInvoiceDTO.EmployeeId = cbbID_employee2.SelectedItem.ToString();
+            purchaseInvoiceDTO.Date = dateTimePicker2.Value;
+            purchaseInvoiceDTO.TotalPayment = decimal.Parse(txtPayment2.Text);
+
+            if (purchaseInvoiceBUS.addInvoice(purchaseInvoiceDTO))
+            {
+                PurchaseInvoiceBUS.PurchaseInvoiceList.Rows.Add(purchaseInvoiceDTO.Id, purchaseInvoiceDTO.EmployeeId, purchaseInvoiceDTO.Date, purchaseInvoiceDTO.TotalPayment, purchaseInvoiceDTO.ProviderId);
+                show_data(2);
+                id_focus = true;
+            }
+            else
+            {
+                MessageBox.Show("Lỗi không thể thêm thành công");
+                return;
+            }
+
+            AddPurchaseDetailInvoice addPurchaseDetailInvoice = new AddPurchaseDetailInvoice(txtID2.Text);
+            addPurchaseDetailInvoice.Dock = DockStyle.Right;
+            this.Dock = DockStyle.Left;
+            Form mainForm = this.FindForm();
+            mainForm.Width += addPurchaseDetailInvoice.Width;
+            Panel panel4 = mainForm.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+            panel4.Controls.Add(addPurchaseDetailInvoice);
+        }
+
+        private void tabPage_Click(object sender, EventArgs e)
+        {
+            id_focus = false;
         }
     }
 }

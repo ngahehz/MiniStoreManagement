@@ -8,20 +8,21 @@ namespace MiniStoreManagement.DTO
 {
     public class ProductDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
-        public int CategoryId { get; set; }
-        public int PromotionId { get; set; }
-        public int ProviderId { get; set; }
+        public string CategoryId { get; set; }
+        public string PromotionId { get; set; }
+        public string ProviderId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public DateTime Exp { get; set; }
         public string Img { get; set; }
+        public string State { get; set; } // 0 là bth, 1 là xóa tạm
         public ProductDTO()
         {
-            
+            State = "0";
         }
-        public ProductDTO(int id, string name, int categoryId, int promotionId, int providerId, decimal price, int quantity, DateTime exp, string img)
+        public ProductDTO(string id, string name, string categoryId, string promotionId, string providerId, decimal price, int quantity, DateTime exp, string img, string state)
         {
             Id = id;
             Name = name;
@@ -32,7 +33,7 @@ namespace MiniStoreManagement.DTO
             Quantity = quantity;
             Exp = exp;
             Img = img;
-
+            State = state;
         }
     }
 }

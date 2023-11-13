@@ -23,7 +23,8 @@ namespace MiniStoreManagement.DAO
 
         public bool addEmployee(EmployeeDTO employee)
         {
-            string s = $"INSERT INTO employee VALUES ('{employee.Id}', N'{employee.Name}', N'{employee.Gender}', '{employee.DoB}', '{employee.Cell}', '{employee.Img}')";
+            string s = $"INSERT INTO employee VALUES ('{employee.Id}', N'{employee.Name}', N'{employee.Gender}', '{employee.DoB}', '{employee.Cell}', '{employee.Img}', '{employee.State}')";
+            MessageBox.Show(s);
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -32,7 +33,7 @@ namespace MiniStoreManagement.DAO
         public bool updateEmployee(EmployeeDTO employee)
         {
             string s = $"UPDATE employee SET ID = '{employee.Id}', NAME = N'{employee.Name}', GENDER = N'{employee.Gender}', DOB = '{employee.DoB}',"
-                        + $"CELL = '{employee.Cell}', IMG = '{employee.Img}' WHERE ID = '{employee.Id}'";
+                        + $"CELL = '{employee.Cell}', IMG = '{employee.Img}', STATE = '{employee.State}' WHERE ID = '{employee.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

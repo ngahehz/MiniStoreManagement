@@ -19,7 +19,7 @@ namespace MiniStoreManagement.DAO
 
         public bool addProvider(ProviderDTO provider)
         {
-            string s = $"INSERT INTO provider VALUES ('{provider.Id}', '{provider.Name}','{provider.Cell}','{provider.Address}','{provider.Email}')";
+            string s = $"INSERT INTO provider VALUES ('{provider.Id}', '{provider.Name}','{provider.Cell}','{provider.Address}','{provider.Email}','{provider.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -28,7 +28,7 @@ namespace MiniStoreManagement.DAO
         public bool updateProvider(ProviderDTO provider)
         {
             string s = $"UPDATE provider SET ID = '{provider.Id}', NAME = '{provider.Name}', CELL = '{provider.Cell}', ADDRESS = '{provider.Address}',"
-                        + $" EMAIL = '{provider.Email}' WHERE ID = '{provider.Id}'";
+                        + $" EMAIL = '{provider.Email}', STATE = '{provider.State}' WHERE ID = '{provider.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

@@ -121,17 +121,8 @@
   <data name="1.1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1.1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1.12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="white12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1.11.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="annie-spratt-5cFwQ-WMcJU-unsplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\annie-spratt-5cFwQ-WMcJU-unsplash.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="z4315710880663_4b9d78ec47e59faa9675b6b054b25a3e" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\z4315710880663_4b9d78ec47e59faa9675b6b054b25a3e.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,8 +132,5 @@
   </data>
   <data name="vòng tròn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vòng tròn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Amitjakhu-Drip-Menu.512" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Amitjakhu-Drip-Menu.512.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -45,19 +45,19 @@ namespace MiniStoreManagement.GUI.items
             lbDate.Text = lbDate.Text + salesInvoiceDTO.Date.ToString("dd/MM/yyyy");
             lbPayment.Text = salesInvoiceDTO.TotalPayment.ToString("#,##0");
 
-            DataRow row = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(r => r.Field<int>("ID") == salesInvoiceDTO.EmployeeId);
+            DataRow row = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == salesInvoiceDTO.EmployeeId);
             lbEmployee.Text = lbEmployee.Text + row["NAME"];
             
-            var find = SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable().Where(lane => lane.Field<int>("INVOICE_ID") == salesInvoiceDTO.Id);
+            var find = SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable().Where(lane => lane.Field<string>("INVOICE_ID") == salesInvoiceDTO.Id);
 
             foreach (var _row in find)
             {
-                SalesInvoiceDetailDTO salesInvoiceDetailDTO = new SalesInvoiceDetailDTO();
-                salesInvoiceDetailDTO.InvoiceId = _row.Field<int>("INVOICE_ID");
-                salesInvoiceDetailDTO.ProductId = _row.Field<int>("PRODUCT_ID");
-                salesInvoiceDetailDTO.Quantity = _row.Field<int>("QUANTITY");
+                InvoiceDetailDTO invoiceDetailDTO = new InvoiceDetailDTO();
+                invoiceDetailDTO.InvoiceId = _row.Field<string>("INVOICE_ID");
+                invoiceDetailDTO.ProductId = _row.Field<string>("PRODUCT_ID");
+                invoiceDetailDTO.Quantity = _row.Field<int>("QUANTITY");
 
-                DetailInvoice detailInvoice = new DetailInvoice(salesInvoiceDetailDTO);
+                DetailInvoice detailInvoice = new DetailInvoice(invoiceDetailDTO);
                 detailInvoice.Dock = DockStyle.Top;
                 this.Height = this.Height + detailInvoice.Height;
                 panel5.Controls.Add(detailInvoice);

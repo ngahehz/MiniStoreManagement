@@ -12,3 +12,18 @@
 - nhớ check lại id_focus trong invoice
 - làm dấu . cho tiền
 - ờ còn cái thời gian xuất hóa đơn á, có nên lưu thêm giờ giây đồ kh
+------
+- phần invoice detail lúc tăng cái số lượng cũng phải check trong kho xem còn nhiu
+- nói về phần exp của sản phẩm nữa !!
+- mấy cái combobox check lại xem có lọc theo state chưa nữa 
+----
+- nhập *1.6
+----
+- giờ t có cái kho, xong rồi nhập hàng nó sẽ vào cái kho đó, xong mỗi lần đem bán thì t cho nó ra ngoài trưng bày t cộng thêm sản phẩm bên ngoài đồng thời tăng luôn giá mấy cái thừa còn lại nếu sản phẩm mới có tăng giá (khi mà t xóa sản phẩm thì coi như là t mất tiền đống đó luôn)
+--- 
+- KHÔNG XÓA ĐƯỢC MẤY CÁI KHÓA CHÍNH ĐÂU VÍ DỤ XÓA NV1000 THÌ ẢNH HƯỚNG HĐ1000 ĐÓ !!!
+
+
+++++ ???/
+- làm kho tạo sp nhó ?
+now we got a problem thatt i cant input the null id by "null"

@@ -101,8 +101,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\AdminBUS.cs" />
     <Compile Include="BUS\CategoryBUS.cs" />
-    <Compile Include="BUS\CategoryMiniBUS.cs" />
     <Compile Include="BUS\ConsumerBUS.cs" />
     <Compile Include="BUS\EmployeeBUS.cs" />
     <Compile Include="BUS\InvoiceBUS.cs" />
@@ -111,8 +111,8 @@
     <Compile Include="BUS\PromotionBUS.cs" />
     <Compile Include="BUS\ProviderBUS.cs" />
     <Compile Include="BUS\VoucherBUS.cs" />
+    <Compile Include="DAO\AdminDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
-    <Compile Include="DAO\CategoryMiniDAO.cs" />
     <Compile Include="DAO\ConnectSQL.cs" />
     <Compile Include="DAO\ConsumerDAO.cs" />
     <Compile Include="DAO\EmployeeDAO.cs" />
@@ -122,8 +122,8 @@
     <Compile Include="DAO\PromotionDAO.cs" />
     <Compile Include="DAO\ProviderDAO.cs" />
     <Compile Include="DAO\VoucherDAO.cs" />
+    <Compile Include="DTO\AdminDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
-    <Compile Include="DTO\CategoryMiniDTO.cs" />
     <Compile Include="DTO\ConsumerDTO.cs" />
     <Compile Include="DTO\EmployeeDTO.cs" />
     <Compile Include="DTO\InvoiceDetailDTO.cs" />
@@ -150,6 +150,18 @@
     <Compile Include="GUI\FormSP\TimKiemPromotion.Designer.cs">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\FormSP\VoucherID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormSP\VoucherID.Designer.cs">
+      <DependentUpon>VoucherID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\items\AddPurchaseDetailInvoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\items\AddPurchaseDetailInvoice.Designer.cs">
+      <DependentUpon>AddPurchaseDetailInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\items\AddSalesInvoiceDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -174,12 +186,6 @@
     <Compile Include="GUI\items\Invoice.Designer.cs">
       <DependentUpon>Invoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\items\textBoxBorder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\items\textBoxBorder.Designer.cs">
-      <DependentUpon>textBoxBorder.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\items\textBoxCustom.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,17 +204,17 @@
     <Compile Include="GUI\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\test.cs">
+    <Compile Include="GUI\UCs\CategoryUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
+    <Compile Include="GUI\UCs\CategoryUC.Designer.cs">
+      <DependentUpon>CategoryUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\testImg.cs">
-      <SubType>Form</SubType>
+    <Compile Include="GUI\UCs\ConsumerUC.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\testImg.Designer.cs">
-      <DependentUpon>testImg.cs</DependentUpon>
+    <Compile Include="GUI\UCs\ConsumerUC.Designer.cs">
+      <DependentUpon>ConsumerUC.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UCs\EmployeeUC.cs">
       <SubType>UserControl</SubType>
@@ -228,17 +234,23 @@
     <Compile Include="GUI\UCs\InvoiceUC.Designer.cs">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\UCs\MenuSlide.cs">
+    <Compile Include="GUI\UCs\ProductUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GUI\UCs\MenuSlide.Designer.cs">
-      <DependentUpon>MenuSlide.cs</DependentUpon>
+    <Compile Include="GUI\UCs\ProductUC.Designer.cs">
+      <DependentUpon>ProductUC.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UCs\PromotionUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\UCs\PromotionUC.Designer.cs">
       <DependentUpon>PromotionUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UCs\ProviderUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\ProviderUC.Designer.cs">
+      <DependentUpon>ProviderUC.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\UCs\VoucherUC.cs">
       <SubType>UserControl</SubType>
@@ -257,6 +269,12 @@
     <EmbeddedResource Include="GUI\FormSP\TimKiemPromotion.resx">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormSP\VoucherID.resx">
+      <DependentUpon>VoucherID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\items\AddPurchaseDetailInvoice.resx">
+      <DependentUpon>AddPurchaseDetailInvoice.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\AddSalesInvoiceDetail.resx">
       <DependentUpon>AddSalesInvoiceDetail.cs</DependentUpon>
     </EmbeddedResource>
@@ -269,9 +287,6 @@
     <EmbeddedResource Include="GUI\items\Invoice.resx">
       <DependentUpon>Invoice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\items\textBoxBorder.resx">
-      <DependentUpon>textBoxBorder.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\textBoxCustom.resx">
       <DependentUpon>textBoxCustom.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,11 +296,11 @@
     <EmbeddedResource Include="GUI\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\UCs\CategoryUC.resx">
+      <DependentUpon>CategoryUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\testImg.resx">
-      <DependentUpon>testImg.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\UCs\ConsumerUC.resx">
+      <DependentUpon>ConsumerUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\EmployeeUC.resx">
       <DependentUpon>EmployeeUC.cs</DependentUpon>
@@ -296,11 +311,14 @@
     <EmbeddedResource Include="GUI\UCs\InvoiceUC.resx">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\UCs\MenuSlide.resx">
-      <DependentUpon>MenuSlide.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\UCs\ProductUC.resx">
+      <DependentUpon>ProductUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\PromotionUC.resx">
       <DependentUpon>PromotionUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\ProviderUC.resx">
+      <DependentUpon>ProviderUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\VoucherUC.resx">
       <DependentUpon>VoucherUC.cs</DependentUpon>
@@ -339,19 +357,16 @@
     <None Include="Resources\white12.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\annie-spratt-5cFwQ-WMcJU-unsplash.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\z4315710880663_4b9d78ec47e59faa9675b6b054b25a3e.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Img\Employee\" />
+    <Folder Include="Img\Product\100\" />
+    <Folder Include="Img\Product\101\" />
+    <Folder Include="Img\Product\102\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\vòng tròn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Amitjakhu-Drip-Menu.512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -33,13 +33,14 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.MistyRose;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.Font = new System.Drawing.Font("MV Boli", 16F);
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(341, 60);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = false;
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Invoice";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // buttonSub
             // 

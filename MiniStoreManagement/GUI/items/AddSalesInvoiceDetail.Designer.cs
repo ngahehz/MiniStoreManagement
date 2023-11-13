@@ -49,10 +49,12 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BtnPrint = new System.Windows.Forms.Button();
+            this.pnlControl = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.pnlControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -83,7 +85,6 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(214, 40);
             this.numericUpDown1.TabIndex = 34;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // txtPrice
             // 
@@ -104,6 +105,7 @@
             // 
             // cbbID_product
             // 
+            this.cbbID_product.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_product.FormattingEnabled = true;
             this.cbbID_product.Location = new System.Drawing.Point(216, 116);
             this.cbbID_product.Name = "cbbID_product";
@@ -194,13 +196,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
-            this.panel2.Controls.Add(this.btnNew);
-            this.panel2.Controls.Add(this.btnSave);
-            this.panel2.Controls.Add(this.btnDel);
-            this.panel2.Controls.Add(this.btnUpdate);
-            this.panel2.Controls.Add(this.btnAdd);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.BtnPrint);
+            this.panel2.Controls.Add(this.pnlControl);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
             this.panel2.Location = new System.Drawing.Point(0, 199);
@@ -210,7 +208,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(714, 492);
+            this.btnNew.Location = new System.Drawing.Point(702, 32);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(146, 68);
             this.btnNew.TabIndex = 37;
@@ -220,16 +218,17 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(539, 492);
+            this.btnSave.Location = new System.Drawing.Point(533, 32);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(146, 68);
             this.btnSave.TabIndex = 36;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(364, 492);
+            this.btnDel.Location = new System.Drawing.Point(364, 32);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(146, 68);
             this.btnDel.TabIndex = 35;
@@ -239,7 +238,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(189, 492);
+            this.btnUpdate.Location = new System.Drawing.Point(195, 32);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(146, 68);
             this.btnUpdate.TabIndex = 34;
@@ -249,7 +248,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(14, 492);
+            this.btnAdd.Location = new System.Drawing.Point(26, 32);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(146, 68);
             this.btnAdd.TabIndex = 33;
@@ -277,6 +276,19 @@
             this.BtnPrint.Text = "In";
             this.BtnPrint.UseVisualStyleBackColor = true;
             // 
+            // pnlControl
+            // 
+            this.pnlControl.Controls.Add(this.btnAdd);
+            this.pnlControl.Controls.Add(this.btnUpdate);
+            this.pnlControl.Controls.Add(this.btnDel);
+            this.pnlControl.Controls.Add(this.btnSave);
+            this.pnlControl.Controls.Add(this.btnNew);
+            this.pnlControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlControl.Location = new System.Drawing.Point(0, 478);
+            this.pnlControl.Name = "pnlControl";
+            this.pnlControl.Size = new System.Drawing.Size(874, 138);
+            this.pnlControl.TabIndex = 38;
+            // 
             // AddSalesInvoiceDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -291,6 +303,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.pnlControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -318,5 +331,6 @@
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Panel pnlControl;
     }
 }

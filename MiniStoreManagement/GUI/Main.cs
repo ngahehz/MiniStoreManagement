@@ -20,11 +20,12 @@ namespace MiniStoreManagement.GUI
         //bool Hidden;
         private Button selectedButton;
         private Button selectedSubButton;
+        private bool form_close = false;
+        private bool bin = false;
+        private string pic_control = null;
         public Main()
         {
             InitializeComponent();
-
-
             //panelWidth = panelSlide.Width;
             //Hidden = false;
             readCate();
@@ -97,13 +98,16 @@ namespace MiniStoreManagement.GUI
             clickedButton.BackColor = SystemColors.InactiveCaption;
             selectedSubButton = clickedButton;
 
-            foreach (Control control in panel4.Controls)
-            {
-                if (control is UserControl)
-                {
-                    panel4.Controls.Remove(control);
-                }
-            }
+            //foreach (Control control in panel4.Controls)
+            //{
+            //    if (control is UserControl)
+            //    {
+            //        panel4.Controls.Remove(control);
+            //    }
+            //}
+
+            panel4.Controls.Clear();
+
             switch (clickedButton.Name)
             {
                 case "btnsub_invoice1":
@@ -135,17 +139,24 @@ namespace MiniStoreManagement.GUI
             clickedButton.BackColor = Color.FromArgb(4, 100, 112);
             selectedButton = clickedButton;
 
-            foreach (Control control in panel4.Controls)
-            {
-                if (control is UserControl)
-                {
-                    panel4.Controls.Remove(control);
-                }
-            }
-            switch(clickedButton.Name)
+            //foreach (Control control in panel4.Controls)
+            //{
+            //    if (control is UserControl)
+            //    {
+            //        panel4.Controls.Remove(control);
+            //    }
+            //}
+
+            panel4.Controls.Clear();
+
+            switch (clickedButton.Name)
             {
                 case "btnEmployee":
                     hideSubMenu();
+                    bin = false;
+                    picBin.Visible = true;
+                    picBack.Visible = false;
+                    pic_control = "Employee";
                     EmployeeUC employeeUC = new EmployeeUC();
                     employeeUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(employeeUC);
@@ -153,10 +164,20 @@ namespace MiniStoreManagement.GUI
 
                 case "btnProvider":
                     hideSubMenu();
+                    bin = false;
+                    picBin.Visible = true;
+                    picBack.Visible = false;
+                    pic_control = "Provider";
+                    ProviderUC providerUC = new ProviderUC();
+                    providerUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(providerUC);
                     break;
 
                 case "btnPromotion":
                     hideSubMenu();
+                    bin = false;
+                    picBin.Visible = false;
+                    picBack.Visible = false;
                     PromotionUC promotionUC = new PromotionUC();
                     promotionUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(promotionUC);
@@ -164,14 +185,26 @@ namespace MiniStoreManagement.GUI
 
                 case "btnConsumer":
                     hideSubMenu();
+                    bin = false;
+                    picBin.Visible = false;
+                    picBack.Visible = false;
+                    ConsumerUC consumerUC = new ConsumerUC();
+                    consumerUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(consumerUC);
                     break;
 
                 case "btnInvoice":
+                    bin = false;
+                    picBin.Visible = true;
+                    picBack.Visible = false;
                     showSubMenu(panel5);
                     break;
 
                 case "btnVoucher":
                     hideSubMenu();
+                    bin = false;
+                    picBin.Visible = false;
+                    picBack.Visible = false;
                     VoucherUC voucherUC = new VoucherUC();
                     voucherUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(voucherUC);
@@ -179,9 +212,130 @@ namespace MiniStoreManagement.GUI
 
                 case "btnProduct":
                     showSubMenu(panel2);
+                    bin = false;
+                    picBin.Visible = true;
+                    picBack.Visible = false;
+                    pic_control = "Product";
+                    ProductUC productUC = new ProductUC();
+                    productUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(productUC);
+                    break;
+
+                case "btnCategory":
+                    hideSubMenu();
+                    bin = false;
+                    picBin.Visible = true;
+                    picBack.Visible = false;
+                    pic_control = "Category";
+                    CategoryUC categoryUC = new CategoryUC();
+                    categoryUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(categoryUC);
                     break;
             }
 
+        }
+
+        private void picBin_Click (object sender, EventArgs e)
+        {
+            if (bin)
+            {
+                return;
+            }
+
+            bin = true;
+
+            foreach (Control control in panel4.Controls)
+            {
+                control.Visible = false;
+            }
+            switch (pic_control)
+            {
+                case "Category":
+                    CategoryUC categoryUC = new CategoryUC("0");
+                    categoryUC.Name = "binUC";
+                    categoryUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(categoryUC);
+                    picBack.Visible = true;
+                    break;
+
+                case "Employee":
+                    EmployeeUC employeeUC = new EmployeeUC("0");
+                    employeeUC.Name = "binUC";
+                    employeeUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(employeeUC);
+                    picBack.Visible = true;
+                    break;
+
+                case "Product":
+                    ProductUC productUC = new ProductUC("0");
+                    productUC.Name = "binUC";
+                    productUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(productUC);
+                    picBack.Visible = true;
+                    break;
+                case "Provider":
+                    ProviderUC providerUC = new ProviderUC("0");
+                    providerUC.Name = "binUC";
+                    providerUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(providerUC);
+                    picBack.Visible = true;
+                    break;
+            }
+        }
+
+
+        private void picBack_Click(object sender, EventArgs e)
+        {
+            bin = false;
+            foreach (Control control in panel4.Controls)
+            {
+                if (control.Name == "binUC")
+                {
+                    panel4.Controls.Remove(control);
+                }
+                else { 
+                    control.Visible = true;
+                    switch (pic_control)
+                    {
+                        case "Category":
+                            CategoryUC categoryUC = (CategoryUC)control;
+                            categoryUC.showdata();
+                            break;
+                        case "Employee":
+                            EmployeeUC employeeUC = (EmployeeUC)control;
+                            employeeUC.showdata();
+                            break;
+                        case "Product":
+                            ProductUC productUC = (ProductUC)control;
+                            productUC.showdata();
+                            break;
+                        case "Provider":
+                            ProviderUC providerUC = (ProviderUC)control;
+                            providerUC.showdata();
+                            break;
+                    }
+                }
+            }
+            picBack.Visible = false;
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (form_close)
+            {
+                return;
+            }
+            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn đóng chương trình không?", "Xác nhận đóng chương trình", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                form_close = true;
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
 

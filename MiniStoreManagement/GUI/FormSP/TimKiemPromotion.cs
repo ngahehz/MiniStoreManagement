@@ -22,10 +22,10 @@ namespace MiniStoreManagement.GUI.FormSP
         private void button1_Click(object sender, EventArgs e)
         {
             List<string> s = new List<string>();
-            if (!string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                s.Add($"NAME = '{txtName.Text}'");
-            }
+            //if (!string.IsNullOrWhiteSpace(txtName.Text))
+            //{
+            //    s.Add($"NAME = '{txtName.Text}'");
+            //}
             if (double.TryParse(txtPercent.Text, out double number))
             {
                 if (number > 0 || number < 1)

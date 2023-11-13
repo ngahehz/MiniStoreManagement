@@ -1,4 +1,5 @@
 ﻿using MiniStoreManagement.DTO;
+using MiniStoreManagement.GUI.items;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,13 +20,7 @@ namespace MiniStoreManagement.DAO
 
         public bool addProduct(ProductDTO product)
         {
-            string temp;
-            if (product.Img == null)
-            {
-                temp = "NULL";
-            }
-            temp = product.Img;
-            string s = $"INSERT INTO product VALUES ('{product.Id}', '{product.Name}','{product.CategoryId}','{product.PromotionId}','{product.ProviderId}','{product.Price}','{product.Quantity}','{product.Exp}','{temp}')";
+            string s = $"INSERT INTO product VALUES ('{product.Id}', '{product.Name}','{product.CategoryId}','{product.PromotionId}','{product.ProviderId}','{product.Price}','{product.Quantity}','{product.Exp}','{product.Img}','{product.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -35,7 +30,7 @@ namespace MiniStoreManagement.DAO
         {
             string s = $"UPDATE product SET ID = '{product.Id}', NAME = '{product.Name}', CATEGORY_ID = '{product.CategoryId}', PROMOTION_ID = '{product.PromotionId}',"
                    + $" PROVIDER_ID = '{product.ProviderId}', PRICE = '{product.Price}', QUANTITY = '{product.Quantity}',"
-                   + $" EXP = '{product.Exp}', IMG = '{product.Img}' WHERE ID = '{product.Id}'";
+                   + $" EXP = '{product.Exp}', IMG = '{product.Img}', STATE = '{product.State}' WHERE ID = '{product.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

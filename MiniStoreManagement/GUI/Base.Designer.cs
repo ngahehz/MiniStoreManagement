@@ -28,27 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlBlack = new System.Windows.Forms.Panel();
             this.pnlLogIn = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pnlBlack.SuspendLayout();
+            this.pnlBlack = new System.Windows.Forms.Panel();
             this.pnlLogIn.SuspendLayout();
+            this.pnlBlack.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnlBlack
-            // 
-            this.pnlBlack.BackColor = System.Drawing.Color.Transparent;
-            this.pnlBlack.BackgroundImage = global::MiniStoreManagement.Properties.Resources.Picture3;
-            this.pnlBlack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlBlack.Controls.Add(this.pnlLogIn);
-            this.pnlBlack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBlack.Location = new System.Drawing.Point(0, 0);
-            this.pnlBlack.Name = "pnlBlack";
-            this.pnlBlack.Size = new System.Drawing.Size(1378, 944);
-            this.pnlBlack.TabIndex = 0;
             // 
             // pnlLogIn
             // 
@@ -59,20 +47,19 @@
             this.pnlLogIn.Controls.Add(this.txtUsername);
             this.pnlLogIn.Controls.Add(this.txtPassword);
             this.pnlLogIn.Controls.Add(this.panel3);
-            this.pnlLogIn.Location = new System.Drawing.Point(434, 180);
+            this.pnlLogIn.Location = new System.Drawing.Point(489, 160);
             this.pnlLogIn.Name = "pnlLogIn";
             this.pnlLogIn.Size = new System.Drawing.Size(510, 627);
             this.pnlLogIn.TabIndex = 0;
-            this.pnlLogIn.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft YaHei UI", 13.8F, System.Drawing.FontStyle.Bold);
             this.button1.Location = new System.Drawing.Point(183, 531);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(156, 58);
-            this.button1.TabIndex = 6;
-            this.button1.TabStop = false;
-            this.button1.Text = "button1";
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Login";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -83,8 +70,7 @@
             this.txtUsername.Location = new System.Drawing.Point(46, 379);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(419, 41);
-            this.txtUsername.TabIndex = 2;
-            this.txtUsername.TabStop = false;
+            this.txtUsername.TabIndex = 1;
             this.txtUsername.Text = "Username";
             this.txtUsername.Enter += new System.EventHandler(this.textBox1_Enter);
             this.txtUsername.Leave += new System.EventHandler(this.textBox1_Leave);
@@ -95,8 +81,7 @@
             this.txtPassword.Location = new System.Drawing.Point(46, 454);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(419, 41);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.TabStop = false;
+            this.txtPassword.TabIndex = 2;
             this.txtPassword.Text = "Password";
             this.txtPassword.Enter += new System.EventHandler(this.textBox2_Enter);
             this.txtPassword.Leave += new System.EventHandler(this.textBox2_Leave);
@@ -110,7 +95,18 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(321, 325);
             this.panel3.TabIndex = 1;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // pnlBlack
+            // 
+            this.pnlBlack.BackColor = System.Drawing.Color.Transparent;
+            this.pnlBlack.BackgroundImage = global::MiniStoreManagement.Properties.Resources.Picture3;
+            this.pnlBlack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnlBlack.Controls.Add(this.pnlLogIn);
+            this.pnlBlack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBlack.Location = new System.Drawing.Point(0, 0);
+            this.pnlBlack.Name = "pnlBlack";
+            this.pnlBlack.Size = new System.Drawing.Size(1489, 927);
+            this.pnlBlack.TabIndex = 0;
             // 
             // frmBase
             // 
@@ -119,27 +115,28 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::MiniStoreManagement.Properties.Resources._1_1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1378, 944);
+            this.ClientSize = new System.Drawing.Size(1489, 927);
             this.Controls.Add(this.pnlBlack);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmBase";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mini Store Management";
-            this.pnlBlack.ResumeLayout(false);
             this.pnlLogIn.ResumeLayout(false);
             this.pnlLogIn.PerformLayout();
+            this.pnlBlack.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel pnlBlack;
         private System.Windows.Forms.Panel pnlLogIn;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pnlBlack;
     }
 }
 
