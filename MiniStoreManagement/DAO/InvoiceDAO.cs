@@ -22,11 +22,12 @@ namespace MiniStoreManagement.DAO
             string con_id;
             string vou_id;
 
-            if (invoice.ConsumerId == null)
+            if (string.IsNullOrWhiteSpace(invoice.ConsumerId))
                 con_id = "NULL";
             else
                 con_id = invoice.ConsumerId;
-            if (invoice.VoucherId == null)
+
+            if (string.IsNullOrWhiteSpace(invoice.VoucherId))
                 vou_id = "NULL";
             else
                 vou_id = invoice.VoucherId;
@@ -42,11 +43,12 @@ namespace MiniStoreManagement.DAO
             string con_id;
             string vou_id;
 
-            if (invoice.ConsumerId == null)
+            if (string.IsNullOrWhiteSpace(invoice.ConsumerId))
                 con_id = "NULL";
             else
                 con_id = invoice.ConsumerId;
-            if (invoice.VoucherId == null)
+
+            if (string.IsNullOrWhiteSpace(invoice.VoucherId))
                 vou_id = "NULL";
             else
                 vou_id = invoice.VoucherId;
@@ -77,7 +79,7 @@ namespace MiniStoreManagement.DAO
 
         public bool addInvoice(PurchaseInvoiceDTO invoice)
         {
-            string s = $"INSERT INTO purchase_invoice VALUES ('{invoice.Id}', '{invoice.EmployeeId}','{invoice.Date}','{invoice.TotalPayment}','{invoice.ProviderId}')";
+            string s = $"INSERT INTO purchase_invoice VALUES ('{invoice.Id}', '{invoice.EmployeeId}','{invoice.Date}','{invoice.TotalPayment}','{invoice.ProviderId}', '{invoice.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -86,7 +88,7 @@ namespace MiniStoreManagement.DAO
         public bool updateInvoice(PurchaseInvoiceDTO invoice)
         {
             string s = $"UPDATE purchase_invoice SET ID = '{invoice.Id}', EMPLOYEE_ID = '{invoice.EmployeeId}', DATE = '{invoice.Date}',"
-                        + $"TOTAL_PAYMENT = '{invoice.TotalPayment}', NAME = '{invoice.ProviderId}' WHERE id = '{invoice.Id}'";
+                        + $"TOTAL_PAYMENT = '{invoice.TotalPayment}', PROVIDER_ID = '{invoice.ProviderId}', STATE = '{invoice.State}' WHERE id = '{invoice.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

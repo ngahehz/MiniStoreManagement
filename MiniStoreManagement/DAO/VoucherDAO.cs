@@ -1,10 +1,13 @@
 ﻿using MiniStoreManagement.DTO;
+using MiniStoreManagement.GUI.items;
+using MiniStoreManagement.GUI.UCs;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace MiniStoreManagement.DAO
 {
@@ -19,8 +22,28 @@ namespace MiniStoreManagement.DAO
 
         public bool addVoucher(VoucherDTO voucher)
         {
-            string s = $"INSERT INTO voucher VALUES ('{voucher.Id}', '{voucher.Code}','{voucher.Discription}','{voucher.DiscountAmount}','{voucher.MinInvoiceValue}',"
-                    + $"'{voucher.PercentDiscount}', '{voucher.MaxDiscount}','{voucher.StartDate}','{voucher.EndDate}')";
+            string DiscountAmount;
+            string MinInvoiceValue;
+            string PercentDiscount;
+            string MaxDiscount;
+
+            if (voucher.DiscountAmount == null)
+            {
+                DiscountAmount = "NULL";
+                MinInvoiceValue = "NULL";
+                PercentDiscount = voucher.PercentDiscount.ToString();
+                MaxDiscount = voucher.MaxDiscount.ToString();
+            }
+            else
+            {
+                DiscountAmount = voucher.DiscountAmount.ToString();
+                MinInvoiceValue = voucher.MinInvoiceValue.ToString();
+                PercentDiscount = "NULL";
+                MaxDiscount = "NULL";
+            }
+               
+            string s = $"INSERT INTO voucher VALUES ('{voucher.Id}', '{voucher.Code}', N'{voucher.Discription}', {DiscountAmount}, {MinInvoiceValue},"
+                    + $" {PercentDiscount}, {MaxDiscount},'{voucher.StartDate}','{voucher.EndDate}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -28,8 +51,26 @@ namespace MiniStoreManagement.DAO
 
         public bool updateVoucher(VoucherDTO voucher)
         {
-            string s = $"UPDATE voucher SET ID = '{voucher.Id}', CODE = '{voucher.Code}', DISCRIPTION = '{voucher.Discription}', DISCOUNT_AMOUNT = '{voucher.DiscountAmount}',"
-                    + $" MIN_INVOICE_VALUE = '{voucher.MinInvoiceValue}', PERCENT_DISCOUNT = '{voucher.PercentDiscount}', MAX_DISCOUNT = '{voucher.MaxDiscount}'"
+            string DiscountAmount;
+            string MinInvoiceValue;
+            string PercentDiscount;
+            string MaxDiscount;
+            if (voucher.DiscountAmount == null)
+            {
+                DiscountAmount = "NULL";
+                MinInvoiceValue = "NULL";
+                PercentDiscount = voucher.PercentDiscount.ToString();
+                MaxDiscount = voucher.MaxDiscount.ToString();
+            }
+            else
+            {
+                DiscountAmount = voucher.DiscountAmount.ToString();
+                MinInvoiceValue = voucher.MinInvoiceValue.ToString();
+                PercentDiscount = "NULL";
+                MaxDiscount = "NULL";
+            }
+            string s = $"UPDATE voucher SET ID = '{voucher.Id}', CODE = '{voucher.Code}', DISCRIPTION = N'{voucher.Discription}', DISCOUNT_AMOUNT = {DiscountAmount}, "
+                    + $" MIN_INVOICE_VALUE = {MinInvoiceValue}, PERCENT_DISCOUNT = {PercentDiscount}, MAX_DISCOUNT = {MaxDiscount}, "
                     + $" START_DATE = '{voucher.StartDate}', END_DATE = '{voucher.EndDate}' WHERE ID = '{voucher.Id}'";
             if (conn.ChangeData(s))
                 return true;

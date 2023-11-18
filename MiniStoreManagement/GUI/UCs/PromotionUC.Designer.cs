@@ -38,7 +38,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtTimKiem = new System.Windows.Forms.TextBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtPercent = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
@@ -69,7 +69,7 @@
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.txtTimKiem);
+            this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.txtPercent);
             this.panel1.Controls.Add(this.txtID);
@@ -179,13 +179,13 @@
             this.label6.TabIndex = 33;
             this.label6.Text = "Tìm kiếm";
             // 
-            // txtTimKiem
+            // txtSearch
             // 
-            this.txtTimKiem.Location = new System.Drawing.Point(263, 305);
-            this.txtTimKiem.Name = "txtTimKiem";
-            this.txtTimKiem.Size = new System.Drawing.Size(518, 40);
-            this.txtTimKiem.TabIndex = 32;
-            this.txtTimKiem.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txtSearch.Location = new System.Drawing.Point(263, 305);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(518, 40);
+            this.txtSearch.TabIndex = 32;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // dateTimePicker1
             // 
@@ -345,7 +345,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtTimKiem;
+        private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox txtPercent;
         private System.Windows.Forms.TextBox txtID;

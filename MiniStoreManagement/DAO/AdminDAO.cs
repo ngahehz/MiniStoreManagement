@@ -17,7 +17,7 @@ namespace MiniStoreManagement.DAO
         }
         public bool addAdmin(AdminDTO admin)
         {
-            string s = $"INSERT INTO admin VALUES ('{admin.ID}','{admin.USERNAME}','{admin.PASSWORD}','{admin.NAME}')";
+            string s = $"INSERT INTO admin VALUES ('{admin.ID}', '{admin.USERNAME}', '{admin.PASSWORD}', N'{admin.NAME}')";
             if (conn.ChangeData(s))
                 return true;
             return false;

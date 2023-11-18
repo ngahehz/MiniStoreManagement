@@ -1,8 +1,12 @@
-﻿using System;
+﻿using MiniStoreManagement.GUI.FormSP;
+using MiniStoreManagement.GUI.UCs;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MiniStoreManagement.DTO
 {
@@ -38,6 +42,17 @@ namespace MiniStoreManagement.DTO
             ConsumerId = consumerId;
             VoucherId = voucherId;
         }
+
+        public SalesInvoiceDTO(DataRow row)
+        {
+            Id = row[0].ToString();
+            EmployeeId = row[1].ToString();
+            Date = DateTime.Parse(row[2].ToString());
+            TotalPayment = decimal.Parse(row[3].ToString());
+            ConsumerId = row[4].ToString();
+            VoucherId = row[5].ToString();
+            State = row[6].ToString();
+        }
     }
 
     public class PurchaseInvoiceDTO : InvoiceDTO
@@ -47,6 +62,15 @@ namespace MiniStoreManagement.DTO
         public PurchaseInvoiceDTO(string id, string employeeId, DateTime date, decimal totalPayment, string state, string providerId) : base(id, employeeId, date, totalPayment, state)
         {
             ProviderId = providerId;
+        }
+        public PurchaseInvoiceDTO(DataRow row)
+        {
+            Id = row[0].ToString();
+            EmployeeId = row[1].ToString();
+            Date = DateTime.Parse(row[2].ToString());
+            TotalPayment = decimal.Parse(row[3].ToString());
+            ProviderId = row[4].ToString();
+            State = row[5].ToString();
         }
     }
 }

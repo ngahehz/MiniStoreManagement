@@ -17,13 +17,13 @@ namespace MiniStoreManagement.GUI.items
     public partial class DetailInvoice : UserControl
     {
         private ProductBUS productBUS = new ProductBUS();
-        public DetailInvoice(InvoiceDetailDTO invoiceDetailDTO)
+        public DetailInvoice(SalesInvoiceDetailDTO invoiceDetailDTO)
         {
             InitializeComponent();
             show(invoiceDetailDTO);
         }
 
-        public void show(InvoiceDetailDTO invoiceDetailDTO)
+        public void show(SalesInvoiceDetailDTO invoiceDetailDTO)
         {
             if (ProductBUS.ProductList == null)
             {

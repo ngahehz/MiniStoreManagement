@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn = new System.Windows.Forms.Button();
             this.txtID1 = new System.Windows.Forms.TextBox();
             this.cbbID_voucher1 = new System.Windows.Forms.ComboBox();
             this.cbbID_consumer1 = new System.Windows.Forms.ComboBox();
@@ -55,7 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnDel = new System.Windows.Forms.Button();
-            this.btnNew = new System.Windows.Forms.Button();
+            this.btnNew1 = new System.Windows.Forms.Button();
             this.btnAdd1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -81,7 +82,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNew2 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
@@ -124,6 +125,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.Controls.Add(this.btn);
             this.panel1.Controls.Add(this.txtID1);
             this.panel1.Controls.Add(this.cbbID_voucher1);
             this.panel1.Controls.Add(this.cbbID_consumer1);
@@ -153,6 +155,18 @@
             this.panel1.Size = new System.Drawing.Size(1134, 347);
             this.panel1.TabIndex = 4;
             // 
+            // btn
+            // 
+            this.btn.Font = new System.Drawing.Font("Arial", 11F);
+            this.btn.Location = new System.Drawing.Point(1060, 36);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(64, 36);
+            this.btn.TabIndex = 52;
+            this.btn.Text = "Áp";
+            this.btn.UseVisualStyleBackColor = true;
+            this.btn.Visible = false;
+            this.btn.Click += new System.EventHandler(this.btn_Click);
+            // 
             // txtID1
             // 
             this.txtID1.Enabled = false;
@@ -166,16 +180,17 @@
             this.cbbID_voucher1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_voucher1.Enabled = false;
             this.cbbID_voucher1.FormattingEnabled = true;
-            this.cbbID_voucher1.Location = new System.Drawing.Point(860, 34);
+            this.cbbID_voucher1.Location = new System.Drawing.Point(830, 34);
             this.cbbID_voucher1.Name = "cbbID_voucher1";
             this.cbbID_voucher1.Size = new System.Drawing.Size(214, 40);
             this.cbbID_voucher1.TabIndex = 51;
+            this.cbbID_voucher1.SelectedIndexChanged += new System.EventHandler(this.cbbID_voucher1_SelectedIndexChanged);
             // 
             // cbbID_consumer1
             // 
             this.cbbID_consumer1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_consumer1.FormattingEnabled = true;
-            this.cbbID_consumer1.Location = new System.Drawing.Point(860, 116);
+            this.cbbID_consumer1.Location = new System.Drawing.Point(830, 116);
             this.cbbID_consumer1.Name = "cbbID_consumer1";
             this.cbbID_consumer1.Size = new System.Drawing.Size(214, 40);
             this.cbbID_consumer1.TabIndex = 50;
@@ -192,12 +207,13 @@
             // txtPayment1
             // 
             this.txtPayment1.Enabled = false;
-            this.txtPayment1.Location = new System.Drawing.Point(860, 198);
+            this.txtPayment1.Location = new System.Drawing.Point(830, 198);
             this.txtPayment1.Name = "txtPayment1";
             this.txtPayment1.Size = new System.Drawing.Size(214, 40);
             this.txtPayment1.TabIndex = 42;
             this.txtPayment1.Text = "0";
             this.txtPayment1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPayment1.TextChanged += new System.EventHandler(this.txtPayment1_TextChanged);
             // 
             // dateTimePicker1
             // 
@@ -215,7 +231,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label12.Location = new System.Drawing.Point(821, 120);
+            this.label12.Location = new System.Drawing.Point(795, 120);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(22, 32);
             this.label12.TabIndex = 48;
@@ -225,7 +241,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label13.Location = new System.Drawing.Point(821, 202);
+            this.label13.Location = new System.Drawing.Point(795, 202);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(22, 32);
             this.label13.TabIndex = 47;
@@ -235,7 +251,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label15.Location = new System.Drawing.Point(821, 38);
+            this.label15.Location = new System.Drawing.Point(795, 38);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(22, 32);
             this.label15.TabIndex = 45;
@@ -245,7 +261,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.Location = new System.Drawing.Point(612, 38);
+            this.label11.Location = new System.Drawing.Point(580, 38);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(159, 32);
             this.label11.TabIndex = 44;
@@ -255,7 +271,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label3.Location = new System.Drawing.Point(612, 120);
+            this.label3.Location = new System.Drawing.Point(580, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(198, 32);
             this.label3.TabIndex = 43;
@@ -334,7 +350,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(612, 202);
+            this.label5.Location = new System.Drawing.Point(580, 202);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(130, 32);
             this.label5.TabIndex = 5;
@@ -374,7 +390,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
             this.panel2.Controls.Add(this.btnDel);
-            this.panel2.Controls.Add(this.btnNew);
+            this.panel2.Controls.Add(this.btnNew1);
             this.panel2.Controls.Add(this.btnAdd1);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnPrint);
@@ -391,18 +407,18 @@
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(114, 66);
             this.btnDel.TabIndex = 35;
-            this.btnDel.Text = "Xóa";
+            this.btnDel.Text = "xóa";
             this.btnDel.UseVisualStyleBackColor = true;
             // 
-            // btnNew
+            // btnNew1
             // 
-            this.btnNew.Location = new System.Drawing.Point(1004, 131);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(114, 66);
-            this.btnNew.TabIndex = 34;
-            this.btnNew.Text = "Reset";
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            this.btnNew1.Location = new System.Drawing.Point(1004, 131);
+            this.btnNew1.Name = "btnNew1";
+            this.btnNew1.Size = new System.Drawing.Size(114, 66);
+            this.btnNew1.TabIndex = 34;
+            this.btnNew1.Text = "mới";
+            this.btnNew1.UseVisualStyleBackColor = true;
+            this.btnNew1.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnAdd1
             // 
@@ -410,7 +426,7 @@
             this.btnAdd1.Name = "btnAdd1";
             this.btnAdd1.Size = new System.Drawing.Size(114, 66);
             this.btnAdd1.TabIndex = 33;
-            this.btnAdd1.Text = "Thêm";
+            this.btnAdd1.Text = "thêm";
             this.btnAdd1.UseVisualStyleBackColor = true;
             this.btnAdd1.Click += new System.EventHandler(this.btnAdd1_Click);
             // 
@@ -433,7 +449,7 @@
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(114, 66);
             this.btnPrint.TabIndex = 32;
-            this.btnPrint.Text = "In";
+            this.btnPrint.Text = "in";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
             // 
@@ -509,6 +525,7 @@
             // 
             // cbbID_provider2
             // 
+            this.cbbID_provider2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_provider2.FormattingEnabled = true;
             this.cbbID_provider2.Location = new System.Drawing.Point(860, 116);
             this.cbbID_provider2.Name = "cbbID_provider2";
@@ -517,6 +534,7 @@
             // 
             // cbbID_employee2
             // 
+            this.cbbID_employee2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_employee2.FormattingEnabled = true;
             this.cbbID_employee2.Location = new System.Drawing.Point(218, 116);
             this.cbbID_employee2.Name = "cbbID_employee2";
@@ -550,6 +568,7 @@
             this.txtPayment2.Name = "txtPayment2";
             this.txtPayment2.Size = new System.Drawing.Size(214, 40);
             this.txtPayment2.TabIndex = 42;
+            this.txtPayment2.Text = "0";
             // 
             // button6
             // 
@@ -664,7 +683,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
-            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.btnNew2);
             this.panel3.Controls.Add(this.dataGridView2);
             this.panel3.Controls.Add(this.button3);
             this.panel3.Controls.Add(this.btnAdd2);
@@ -676,14 +695,15 @@
             this.panel3.Size = new System.Drawing.Size(1134, 429);
             this.panel3.TabIndex = 4;
             // 
-            // button1
+            // btnNew2
             // 
-            this.button1.Location = new System.Drawing.Point(1004, 22);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 66);
-            this.button1.TabIndex = 35;
-            this.button1.Text = "mới";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNew2.Location = new System.Drawing.Point(1004, 131);
+            this.btnNew2.Name = "btnNew2";
+            this.btnNew2.Size = new System.Drawing.Size(114, 66);
+            this.btnNew2.TabIndex = 35;
+            this.btnNew2.Text = "mới";
+            this.btnNew2.UseVisualStyleBackColor = true;
+            this.btnNew2.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // dataGridView2
             // 
@@ -709,7 +729,7 @@
             // 
             // btnAdd2
             // 
-            this.btnAdd2.Location = new System.Drawing.Point(1004, 131);
+            this.btnAdd2.Location = new System.Drawing.Point(1004, 22);
             this.btnAdd2.Name = "btnAdd2";
             this.btnAdd2.Size = new System.Drawing.Size(114, 66);
             this.btnAdd2.TabIndex = 33;
@@ -799,15 +819,16 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnNew2;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnAdd2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button btnAdd1;
-        private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.Button btnNew1;
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button btn;
     }
 }

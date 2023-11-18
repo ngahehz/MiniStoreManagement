@@ -63,6 +63,7 @@
             this.button1.TabIndex = 54;
             this.button1.Text = "ok";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // VoucherID
             // 
@@ -75,6 +76,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "VoucherID";
             this.Text = "VoucherID";
+            this.Load += new System.EventHandler(this.VoucherID_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

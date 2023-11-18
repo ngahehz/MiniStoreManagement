@@ -18,8 +18,8 @@ namespace MiniStoreManagement.GUI.UCs
 {
     public partial class PromotionUC : UserControl
     {
-        private bool id_focus = false;
         private PromotionBUS promotionBUS = new PromotionBUS();
+        private bool id_focus = false;
         public PromotionUC()
         {
             InitializeComponent();
@@ -31,10 +31,8 @@ namespace MiniStoreManagement.GUI.UCs
                 promotionBUS.getPromotion();
 
             new_id();
-
             dataGridView1.DataSource = PromotionBUS.PromotionList;
         }
-
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -66,10 +64,7 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
             dateTimePicker2.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
         }
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            reset_form();
-        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (id_focus)
@@ -96,6 +91,36 @@ namespace MiniStoreManagement.GUI.UCs
             else
                 MessageBox.Show("Lỗi không thể thêm thành công");
         }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            reset_form();
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            if (id_focus)
+            {
+                DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (promotionBUS.removePromotion(txtID.Text))
+                    {
+                        DataRow[] rowsToDelete = PromotionBUS.PromotionList.Select("ID = '" + txtID.Text + "'");
+                        PromotionBUS.PromotionList.Rows.Remove(rowsToDelete[0]);
+                        dataGridView1.DataSource = PromotionBUS.PromotionList;
+
+                        MessageBox.Show("Đã xóa");
+                    }
+                    else
+                        MessageBox.Show("không thể làm theo yêu cầu");
+                }
+            }
+            else
+                MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
+        }
+
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             if (!id_focus)
@@ -106,48 +131,96 @@ namespace MiniStoreManagement.GUI.UCs
             if (!check())
                 return;
 
-            PromotionDTO promotionDTO = new PromotionDTO();
-            promotionDTO.Id = txtID.Text;
-            promotionDTO.Discription = txtDescription.Text;
-            promotionDTO.PercentDiscount = decimal.Parse(txtPercent.Text);
-            promotionDTO.StartDate = dateTimePicker1.Value;
-            promotionDTO.EndDate = dateTimePicker2.Value;
+            DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
 
-            if (promotionBUS.updatePromotion(promotionDTO))
+            if (dialogResult == DialogResult.Yes)
             {
-                DataRow rowToUpdate = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                PromotionDTO promotionDTO = new PromotionDTO();
+                promotionDTO.Id = txtID.Text;
+                promotionDTO.Discription = txtDescription.Text;
+                promotionDTO.PercentDiscount = decimal.Parse(txtPercent.Text);
+                promotionDTO.StartDate = dateTimePicker1.Value;
+                promotionDTO.EndDate = dateTimePicker2.Value;
 
-                if (rowToUpdate != null)
+                if (promotionBUS.updatePromotion(promotionDTO))
                 {
-                    rowToUpdate[1] = promotionDTO.Discription;
-                    rowToUpdate[2] = promotionDTO.PercentDiscount;
-                    rowToUpdate[3] = promotionDTO.StartDate;
-                    rowToUpdate[4] = promotionDTO.EndDate;
+                    DataRow rowToUpdate = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+
+                    if (rowToUpdate != null)
+                    {
+                        rowToUpdate[1] = promotionDTO.Discription;
+                        rowToUpdate[2] = promotionDTO.PercentDiscount;
+                        rowToUpdate[3] = promotionDTO.StartDate;
+                        rowToUpdate[4] = promotionDTO.EndDate;
+                    }
+                    dataGridView1.DataSource = PromotionBUS.PromotionList;
+                    MessageBox.Show("Đã sửa");
                 }
-                dataGridView1.DataSource = PromotionBUS.PromotionList;
+                else
+                    MessageBox.Show("không thể sửa theo yêu cầu");
             }
-            else
-                MessageBox.Show("không thể sửa theo yêu cầu");
         }
-        private void btnDel_Click(object sender, EventArgs e)
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            if (id_focus)
-                promotionBUS.removePromotion(txtID.Text);
-            else
-                MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
+            DataView dv = PromotionBUS.PromotionList.DefaultView;
+            string txt = txtSearch.Text;
+
+            if (txtSearch.Text == "")
+            {
+                dv.RowFilter = "ID LIKE '%{1}%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR DISCRIPTION LIKE '%{txt}%' OR CONVERT(PERCENT_DISCOUNT, 'System.String') LIKE '%{txt}%'";
+            dataGridView1.DataSource = dv.ToTable();
         }
+        
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTimePicker dtp = (DateTimePicker)sender;
+            if (dtp.CustomFormat == " ")
+                dtp.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TimKiemPromotion timkiem = new TimKiemPromotion();
+            timkiem.temp = new TimKiemPromotion.truyenDuLieu(LoadData);
+            timkiem.Show();
+        }
+
+        private void LoadData(string query)
+        {
+            MessageBox.Show(query);
+            DataView dv = PromotionBUS.PromotionList.DefaultView;
+            dv.RowFilter = query;
+            dataGridView1.DataSource = dv.ToTable();
+        }
+        
+        private void new_id()
+        {
+            if (PromotionBUS.PromotionList.Rows.Count > 0)
+            {
+                txtID.Text = (int.Parse(PromotionBUS.PromotionList.Rows[PromotionBUS.PromotionList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
+                return;
+            }
+            txtID.Text = "1000";
+        }
+
         private void reset_form()
         {
             id_focus = false;
             new_id();
             txtDescription.ResetText();
             txtPercent.ResetText();
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker2.Value = DateTime.Now;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
-            txtTimKiem.ResetText();
+            txtSearch.ResetText();
         }
-
-        
 
         private bool check()
         {
@@ -194,55 +267,11 @@ namespace MiniStoreManagement.GUI.UCs
 
             return true;
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            DataView dv = PromotionBUS.PromotionList.DefaultView;
-            string txt = txtTimKiem.Text;
-
-            if (txtTimKiem.Text == "")
-            {
-                dv.RowFilter = "CONVERT(ID, 'System.String') LIKE '%{1}%'";
-                dataGridView1.DataSource = dv.ToTable();
-
-                return;
-            }
-
-            dv.RowFilter = $"CONVERT(ID, 'System.String') LIKE '%{txt}%' OR DISCRIPTION LIKE '%{txt}%' OR CONVERT(PERCENT_DISCOUNT, 'System.String') LIKE '%{txt}%'";
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        private void LoadData(string query)
-        {
-            DataView dv = PromotionBUS.PromotionList.DefaultView;
-            dv.RowFilter = query;
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            TimKiemEmployee timkiem = new TimKiemEmployee();
-            timkiem.temp = new TimKiemEmployee.truyenDuLieu(LoadData);
-            timkiem.Show();
-        }
-
-        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-            DateTimePicker dtp = (DateTimePicker)sender;
-            if (dtp.CustomFormat == " ")
-                dtp.CustomFormat = "dd/MM/yyyy";
-        }
-
-        private void new_id()
-        {
-            if (PromotionBUS.PromotionList.Rows.Count > 0)
-            {
-                txtID.Text = (int.Parse(PromotionBUS.PromotionList.Rows[PromotionBUS.PromotionList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
-                return;
-            }
-            txtID.Text = "1000";
-        }
-
-        
     }
 }
+
+//private DataTable show_data()
+//{
+//    var filteredRows = PromotionBUS.PromotionList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+//    return filteredRows.Any() ? filteredRows.CopyToDataTable() : PromotionBUS.PromotionList.Clone();
+//}

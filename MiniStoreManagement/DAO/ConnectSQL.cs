@@ -101,6 +101,7 @@ namespace MiniStoreManagement.DAO
             catch (SqlException ex)
             {
                 MessageBox.Show(ex.Message);
+                MessageBox.Show(s);
             }
             CloseConnect();
             cmd.Dispose();

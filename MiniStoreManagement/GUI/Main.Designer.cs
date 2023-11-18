@@ -30,8 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.picBack = new System.Windows.Forms.PictureBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.fToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.picBin = new System.Windows.Forms.PictureBox();
+            this.picBack = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelSlideMenu = new System.Windows.Forms.Panel();
             this.btnCategory = new System.Windows.Forms.Button();
@@ -39,28 +46,26 @@
             this.btnProvider = new System.Windows.Forms.Button();
             this.btnPromotion = new System.Windows.Forms.Button();
             this.btnVoucher = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.btnsub_invoice1 = new System.Windows.Forms.Button();
-            this.btnsub_invoice2 = new System.Windows.Forms.Button();
             this.btnInvoice = new System.Windows.Forms.Button();
             this.btnConsumer = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button7 = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBin)).BeginInit();
-            this.panelSlideMenu.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
+            this.panelSlideMenu.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.picBack);
             this.panel1.Controls.Add(this.label1);
@@ -70,19 +75,62 @@
             this.panel1.Size = new System.Drawing.Size(1489, 112);
             this.panel1.TabIndex = 0;
             // 
-            // picBack
+            // panel5
             // 
-            this.picBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.picBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picBack.Image = ((System.Drawing.Image)(resources.GetObject("picBack.Image")));
-            this.picBack.Location = new System.Drawing.Point(12, 18);
-            this.picBack.Name = "picBack";
-            this.picBack.Size = new System.Drawing.Size(92, 76);
-            this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBack.TabIndex = 2;
-            this.picBack.TabStop = false;
-            this.picBack.Visible = false;
-            this.picBack.Click += new System.EventHandler(this.picBack_Click);
+            this.panel5.Controls.Add(this.menuStrip1);
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(192, 100);
+            this.panel5.TabIndex = 3;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ffToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(192, 36);
+            this.menuStrip1.TabIndex = 0;
+            // 
+            // ffToolStripMenuItem
+            // 
+            this.ffToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fToolStripMenuItem,
+            this.fToolStripMenuItem1,
+            this.fToolStripMenuItem2});
+            this.ffToolStripMenuItem.Image = global::MiniStoreManagement.Properties.Resources.setting;
+            this.ffToolStripMenuItem.Name = "ffToolStripMenuItem";
+            this.ffToolStripMenuItem.Size = new System.Drawing.Size(40, 30);
+            // 
+            // fToolStripMenuItem
+            // 
+            this.fToolStripMenuItem.Name = "fToolStripMenuItem";
+            this.fToolStripMenuItem.Size = new System.Drawing.Size(120, 34);
+            this.fToolStripMenuItem.Text = "f";
+            // 
+            // fToolStripMenuItem1
+            // 
+            this.fToolStripMenuItem1.Name = "fToolStripMenuItem1";
+            this.fToolStripMenuItem1.Size = new System.Drawing.Size(120, 34);
+            this.fToolStripMenuItem1.Text = "f";
+            // 
+            // fToolStripMenuItem2
+            // 
+            this.fToolStripMenuItem2.Name = "fToolStripMenuItem2";
+            this.fToolStripMenuItem2.Size = new System.Drawing.Size(120, 34);
+            this.fToolStripMenuItem2.Text = "f";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.picBin);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(1371, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(118, 112);
+            this.panel3.TabIndex = 0;
             // 
             // picBin
             // 
@@ -97,6 +145,20 @@
             this.picBin.TabStop = false;
             this.picBin.Visible = false;
             this.picBin.Click += new System.EventHandler(this.picBin_Click);
+            // 
+            // picBack
+            // 
+            this.picBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picBack.Image = ((System.Drawing.Image)(resources.GetObject("picBack.Image")));
+            this.picBack.Location = new System.Drawing.Point(1263, 18);
+            this.picBack.Name = "picBack";
+            this.picBack.Size = new System.Drawing.Size(92, 76);
+            this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBack.TabIndex = 2;
+            this.picBack.TabStop = false;
+            this.picBack.Visible = false;
+            this.picBack.Click += new System.EventHandler(this.picBack_Click);
             // 
             // label1
             // 
@@ -118,7 +180,6 @@
             this.panelSlideMenu.Controls.Add(this.btnProvider);
             this.panelSlideMenu.Controls.Add(this.btnPromotion);
             this.panelSlideMenu.Controls.Add(this.btnVoucher);
-            this.panelSlideMenu.Controls.Add(this.panel5);
             this.panelSlideMenu.Controls.Add(this.btnInvoice);
             this.panelSlideMenu.Controls.Add(this.btnConsumer);
             this.panelSlideMenu.Controls.Add(this.panel2);
@@ -136,7 +197,7 @@
             this.btnCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategory.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
-            this.btnCategory.Location = new System.Drawing.Point(0, 719);
+            this.btnCategory.Location = new System.Drawing.Point(0, 599);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(341, 77);
             this.btnCategory.TabIndex = 23;
@@ -151,7 +212,7 @@
             this.btnEmployee.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEmployee.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmployee.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
-            this.btnEmployee.Location = new System.Drawing.Point(0, 642);
+            this.btnEmployee.Location = new System.Drawing.Point(0, 522);
             this.btnEmployee.Name = "btnEmployee";
             this.btnEmployee.Size = new System.Drawing.Size(341, 77);
             this.btnEmployee.TabIndex = 22;
@@ -166,7 +227,7 @@
             this.btnProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProvider.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProvider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
-            this.btnProvider.Location = new System.Drawing.Point(0, 565);
+            this.btnProvider.Location = new System.Drawing.Point(0, 445);
             this.btnProvider.Name = "btnProvider";
             this.btnProvider.Size = new System.Drawing.Size(341, 77);
             this.btnProvider.TabIndex = 21;
@@ -181,7 +242,7 @@
             this.btnPromotion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPromotion.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPromotion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
-            this.btnPromotion.Location = new System.Drawing.Point(0, 488);
+            this.btnPromotion.Location = new System.Drawing.Point(0, 368);
             this.btnPromotion.Name = "btnPromotion";
             this.btnPromotion.Size = new System.Drawing.Size(341, 77);
             this.btnPromotion.TabIndex = 20;
@@ -196,46 +257,13 @@
             this.btnVoucher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVoucher.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVoucher.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
-            this.btnVoucher.Location = new System.Drawing.Point(0, 411);
+            this.btnVoucher.Location = new System.Drawing.Point(0, 291);
             this.btnVoucher.Name = "btnVoucher";
             this.btnVoucher.Size = new System.Drawing.Size(341, 77);
             this.btnVoucher.TabIndex = 19;
             this.btnVoucher.Text = "Voucher";
             this.btnVoucher.UseVisualStyleBackColor = false;
             this.btnVoucher.Click += new System.EventHandler(this.Button_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.btnsub_invoice1);
-            this.panel5.Controls.Add(this.btnsub_invoice2);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel5.Location = new System.Drawing.Point(0, 291);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(341, 120);
-            this.panel5.TabIndex = 18;
-            // 
-            // btnsub_invoice1
-            // 
-            this.btnsub_invoice1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnsub_invoice1.Location = new System.Drawing.Point(0, 0);
-            this.btnsub_invoice1.Name = "btnsub_invoice1";
-            this.btnsub_invoice1.Size = new System.Drawing.Size(341, 60);
-            this.btnsub_invoice1.TabIndex = 2;
-            this.btnsub_invoice1.Text = "Invoice";
-            this.btnsub_invoice1.UseVisualStyleBackColor = true;
-            this.btnsub_invoice1.Click += new System.EventHandler(this.SubButton_Click);
-            // 
-            // btnsub_invoice2
-            // 
-            this.btnsub_invoice2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnsub_invoice2.Location = new System.Drawing.Point(0, 60);
-            this.btnsub_invoice2.Name = "btnsub_invoice2";
-            this.btnsub_invoice2.Size = new System.Drawing.Size(341, 60);
-            this.btnsub_invoice2.TabIndex = 1;
-            this.btnsub_invoice2.Text = "Invoice detail";
-            this.btnsub_invoice2.UseVisualStyleBackColor = true;
-            this.btnsub_invoice2.Click += new System.EventHandler(this.SubButton_Click);
             // 
             // btnInvoice
             // 
@@ -312,15 +340,6 @@
             this.panel4.Size = new System.Drawing.Size(1148, 815);
             this.panel4.TabIndex = 3;
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.picBin);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(1371, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(118, 112);
-            this.panel3.TabIndex = 0;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -337,12 +356,15 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picBin)).EndInit();
-            this.panelSlideMenu.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picBin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBack)).EndInit();
+            this.panelSlideMenu.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -356,18 +378,21 @@
         private System.Windows.Forms.Button btnProduct;
         private System.Windows.Forms.Button btnPromotion;
         private System.Windows.Forms.Button btnVoucher;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button btnInvoice;
         private System.Windows.Forms.Button btnConsumer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnProvider;
-        private System.Windows.Forms.Button btnsub_invoice2;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnEmployee;
-        private System.Windows.Forms.Button btnsub_invoice1;
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.PictureBox picBin;
         private System.Windows.Forms.PictureBox picBack;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ffToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem2;
     }
 }

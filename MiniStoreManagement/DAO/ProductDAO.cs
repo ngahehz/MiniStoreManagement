@@ -1,5 +1,6 @@
 ﻿using MiniStoreManagement.DTO;
 using MiniStoreManagement.GUI.items;
+using MiniStoreManagement.GUI.UCs;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,7 +21,20 @@ namespace MiniStoreManagement.DAO
 
         public bool addProduct(ProductDTO product)
         {
-            string s = $"INSERT INTO product VALUES ('{product.Id}', '{product.Name}','{product.CategoryId}','{product.PromotionId}','{product.ProviderId}','{product.Price}','{product.Quantity}','{product.Exp}','{product.Img}','{product.State}')";
+            string cat_id;
+            string pro_id;
+
+            if (string.IsNullOrWhiteSpace(product.CategoryId))
+                cat_id = "NULL";
+            else
+                cat_id = product.CategoryId;
+
+            if (string.IsNullOrWhiteSpace(product.PromotionId))
+                pro_id = "NULL";
+            else
+                pro_id = product.PromotionId;
+
+            string s = $"INSERT INTO product VALUES ('{product.Id}', N'{product.Name}', {cat_id}, {pro_id},'{product.ProviderId}', '{product.Price}', '{product.Quantity}', '{product.Exp}', '{product.Img}', '{product.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -28,8 +42,21 @@ namespace MiniStoreManagement.DAO
 
         public bool updateProduct(ProductDTO product)
         {
-            string s = $"UPDATE product SET ID = '{product.Id}', NAME = '{product.Name}', CATEGORY_ID = '{product.CategoryId}', PROMOTION_ID = '{product.PromotionId}',"
-                   + $" PROVIDER_ID = '{product.ProviderId}', PRICE = '{product.Price}', QUANTITY = '{product.Quantity}',"
+            string cat_id;
+            string pro_id;
+
+            if (string.IsNullOrWhiteSpace(product.CategoryId))
+                cat_id = "NULL";
+            else
+                cat_id = product.CategoryId;
+
+            if (string.IsNullOrWhiteSpace(product.PromotionId))
+                pro_id = "NULL";
+            else
+                pro_id = product.PromotionId;
+
+            string s = $"UPDATE product SET ID = '{product.Id}', NAME = N'{product.Name}', CATEGORY_ID = {cat_id}, PROMOTION_ID = {pro_id}, "
+                   + $" PROVIDER_ID = '{product.ProviderId}', PRICE = '{product.Price}', QUANTITY = '{product.Quantity}', "
                    + $" EXP = '{product.Exp}', IMG = '{product.Img}', STATE = '{product.State}' WHERE ID = '{product.Id}'";
             if (conn.ChangeData(s))
                 return true;

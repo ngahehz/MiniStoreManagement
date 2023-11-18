@@ -49,7 +49,6 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.txtCode = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -91,6 +90,7 @@
             this.btnNew.TabIndex = 35;
             this.btnNew.Text = "mới";
             this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // dataGridView1
             // 
@@ -103,6 +103,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(942, 394);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
             // btnDel
             // 
@@ -112,6 +113,7 @@
             this.btnDel.TabIndex = 34;
             this.btnDel.Text = "xóa";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnAdd
             // 
@@ -131,6 +133,7 @@
             this.BtnUpdate.TabIndex = 32;
             this.BtnUpdate.Text = "sửa";
             this.BtnUpdate.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // panel1
             // 
@@ -149,7 +152,6 @@
             this.panel1.Controls.Add(this.dateTimePicker2);
             this.panel1.Controls.Add(this.txtCode);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -307,18 +309,6 @@
             this.label3.TabIndex = 40;
             this.label3.Text = "Chi tiết ";
             // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.Font = new System.Drawing.Font("Arial", 14F);
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(813, 287);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(299, 64);
-            this.button2.TabIndex = 39;
-            this.button2.Text = "tìm kiếm nâng cao";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -363,7 +353,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label6.Location = new System.Drawing.Point(813, 179);
+            this.label6.Location = new System.Drawing.Point(813, 249);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 32);
             this.label6.TabIndex = 33;
@@ -371,10 +361,11 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(813, 217);
+            this.txtSearch.Location = new System.Drawing.Point(813, 298);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(299, 40);
             this.txtSearch.TabIndex = 32;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // dateTimePicker1
             // 
@@ -438,7 +429,7 @@
             this.txtDescription.Location = new System.Drawing.Point(813, 53);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(299, 117);
+            this.txtDescription.Size = new System.Drawing.Size(299, 178);
             this.txtDescription.TabIndex = 0;
             // 
             // VoucherUC
@@ -473,7 +464,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;

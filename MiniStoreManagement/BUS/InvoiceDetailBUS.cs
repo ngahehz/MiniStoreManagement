@@ -18,13 +18,13 @@ namespace MiniStoreManagement.BUS
         {
             SalesInvoiceDetailList = SalesInvoiceDAO.getInvoice();
         }
-        public bool addInvoiceDetail(InvoiceDetailDTO invoiceDetail)
+        public bool addInvoiceDetail(SalesInvoiceDetailDTO invoiceDetail)
         {
             if (SalesInvoiceDAO.addInvoiceDetail(invoiceDetail))
                 return true;
             return false;
         }
-        public bool updateInvoiceDetail(InvoiceDetailDTO invoiceDetail)
+        public bool updateInvoiceDetail(SalesInvoiceDetailDTO invoiceDetail)
         {
             if (SalesInvoiceDAO.updateInvoiceDetail(invoiceDetail))
                 return true;
@@ -47,13 +47,13 @@ namespace MiniStoreManagement.BUS
         {
             PurchaseInvoiceDetailList = PurchaseInvoiceDAO.getInvoice();
         }
-        public bool addInvoiceDetail(InvoiceDetailDTO invoiceDetail)
+        public bool addInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
         {
             if (PurchaseInvoiceDAO.addInvoiceDetail(invoiceDetail))
                 return true;
             return false;
         }
-        public bool updateInvoiceDetail(InvoiceDetailDTO invoiceDetail)
+        public bool updateInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
         {
             if (PurchaseInvoiceDAO.updateInvoiceDetail(invoiceDetail))
                 return true;

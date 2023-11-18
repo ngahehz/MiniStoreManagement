@@ -52,7 +52,7 @@ namespace MiniStoreManagement.GUI.items
 
             foreach (var _row in find)
             {
-                InvoiceDetailDTO invoiceDetailDTO = new InvoiceDetailDTO();
+                SalesInvoiceDetailDTO invoiceDetailDTO = new SalesInvoiceDetailDTO();
                 invoiceDetailDTO.InvoiceId = _row.Field<string>("INVOICE_ID");
                 invoiceDetailDTO.ProductId = _row.Field<string>("PRODUCT_ID");
                 invoiceDetailDTO.Quantity = _row.Field<int>("QUANTITY");
@@ -64,6 +64,25 @@ namespace MiniStoreManagement.GUI.items
             }
         }
 
+        private void lbExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lbExit_MouseHover(object sender, EventArgs e)
+        {
+            lbExit.ForeColor = Color.Red;
+            Cursor = Cursors.Hand;
+        }
+
+        private void lbExit_MouseLeave(object sender, EventArgs e)
+        {
+            lbExit.ForeColor = Color.Black;
+            Cursor = Cursors.Default;
+        }
+
+        //// DI CHUYỂN TRÊN FORM
+        
         private Point mouseOffset;
         private bool isDragging = false;
 
@@ -92,23 +111,6 @@ namespace MiniStoreManagement.GUI.items
             {
                 isDragging = false;
             }
-        }
-
-        private void lbExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void lbExit_MouseHover(object sender, EventArgs e)
-        {
-            lbExit.ForeColor = Color.Red;
-            Cursor = Cursors.Hand;
-        }
-
-        private void lbExit_MouseLeave(object sender, EventArgs e)
-        {
-            lbExit.ForeColor = Color.Black;
-            Cursor = Cursors.Default;
         }
     }
 }

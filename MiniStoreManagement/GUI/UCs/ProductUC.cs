@@ -29,11 +29,19 @@ namespace MiniStoreManagement.GUI.UCs
         private string fileName;
         private bool id_focus = false;
         private string _state = "1";
+        private string _cat = null;
         public ProductUC()
         {
             InitializeComponent();
         }
+        // này là vô theo phân loại
+        public ProductUC(int i)
+        {
+            InitializeComponent();
+            _cat = i.ToString();
+        }
 
+        // Này là để vô cái xóa
         public ProductUC(string i)
         {
             InitializeComponent();
@@ -84,8 +92,8 @@ namespace MiniStoreManagement.GUI.UCs
                 cbbID_provider.Items.Add(row["ID"].ToString());
             foreach (DataRow row in CategoryBUS.CategoryList.Rows)
                 cbbID_category.Items.Add(row["ID"].ToString());
-            foreach (DataRow row in CategoryBUS.CategoryList.Rows)
-                cbbID_category.Items.Add(row["ID"].ToString());
+            foreach (DataRow row in PromotionBUS.PromotionList.Rows)
+                cbbID_promotion.Items.Add(row["ID"].ToString());
         }
         private void btnUpload_Click(object sender, EventArgs e)
         {
@@ -454,14 +462,23 @@ namespace MiniStoreManagement.GUI.UCs
         }
         private DataTable show_data()
         {
-            if (_state == "0")
+            if (_state == "0" && _cat == null)
             {
                 var filteredRows1 = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
                 return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : ProductBUS.ProductList.Clone();
             }
-
-            var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
-            return filteredRows.Any() ? filteredRows.CopyToDataTable() : ProductBUS.ProductList.Clone();
+            else if (_state == "1" && _cat == null)
+            {
+                var filteredRows2 = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+                return filteredRows2.Any() ? filteredRows2.CopyToDataTable() : ProductBUS.ProductList.Clone();
+            }
+            else if (_state == "0")
+            {
+                var filteredRows3 = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1" && row.Field<string>("CATEGORY_ID") == _cat);
+                return filteredRows3.Any() ? filteredRows3.CopyToDataTable() : ProductBUS.ProductList.Clone();
+            }
+            var filteredRows4 = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0" && row.Field<string>("CATEGORY_ID") == _cat);
+            return filteredRows4.Any() ? filteredRows4.CopyToDataTable() : ProductBUS.ProductList.Clone();
         }
     }
 }

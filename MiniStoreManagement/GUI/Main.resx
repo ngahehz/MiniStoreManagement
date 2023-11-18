@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="picBin.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAGyxJREFUeF7t3bGOZcd1NlA9gUHAmaJJnTGwY9GhHTGQYw/gB9DkCthwpsgDOLMD
+        vAAADrwBlbxySQAAGyxJREFUeF7t3bGOZcd1NlA9gUHAmaJJnTGwY9GhHTGQYw/gB9DkCthwpsgDOLMD
         EXoB8g1IKJKAVvdAhgA7GsYWbM4b2FViSZ65rmH39NnnntpnrwV8EOD/563uvrWrvm52H/4Asri/v/+o
         5e9/85vffHF3d3ff/vd/RKR2xlnwRT8b+hkxjgvgLG5vb3/ShvzbtwdfROQi3/azYhwbQGa90beG/9Vk
         0EVE3pf+EwE/DYCsxuXvR/0i8sHpZ4cSAAm5/EUkID8fRwqQRR/ci0EWEfngtG8mPhnHCrC6NrQufxEJ
@@ -243,7 +249,7 @@
   <data name="picBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAANiNJREFUeF7t3Qu85XO9//EicilEKiTFURm5hf+Rcsl/IpdQo0g5bnUQUX/jlJhI
+        vAAADrwBlbxySQAANiNJREFUeF7t3Qu85XO9//EicilEKiTFURm5hf+Rcsl/IpdQo0g5bnUQUX/jlJhI
         nUiE4wgl16O0c4lJ/VPsZNrtvdeyfmvNtE0MuSVELsMM5rbP+8tHlu/8Zs3aa6/L9/v9vZ6Px/uxdmLm
         9/19r2uvtT7rNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAIjI6OjoMuVyeZNKpXKAcoryQ+XHFvez+2cHuH/H/bv2nwEAgNj09fUtqw1999tv

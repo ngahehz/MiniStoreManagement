@@ -165,19 +165,29 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (dialogResult == DialogResult.Yes)
             {
-                DataRow rowToUpdate = ConsumerBUS.ConsumerList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
-                ConsumerDTO consumerDTO = new ConsumerDTO();
-                if (rowToUpdate != null)
-                {
-                    consumerDTO.Id = txtID.Text;
-                    consumerDTO.Name = rowToUpdate[1].ToString();
-                    consumerDTO.Gender = rowToUpdate[2].ToString();
-                    consumerDTO.DoB = DateTime.Parse(rowToUpdate[3].ToString());
-                    consumerDTO.Cell = rowToUpdate[4].ToString();
-                    consumerBUS.updateConsumer(consumerDTO);
-                }
+                //DataRow rowToUpdate = ConsumerBUS.ConsumerList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                //ConsumerDTO consumerDTO = new ConsumerDTO();
+                //if (rowToUpdate != null)
+                //{
+                //    consumerDTO.Id = txtID.Text;
+                //    consumerDTO.Name = rowToUpdate[1].ToString();
+                //    consumerDTO.Gender = rowToUpdate[2].ToString();
+                //    consumerDTO.DoB = DateTime.Parse(rowToUpdate[3].ToString());
+                //    consumerDTO.Cell = rowToUpdate[4].ToString();
+                //    consumerBUS.updateConsumer(consumerDTO);
+                //}
 
-                dataGridView1.DataSource = ConsumerBUS.ConsumerList;
+                //dataGridView1.DataSource = ConsumerBUS.ConsumerList;
+                if (consumerBUS.removeConsumer(txtID.Text))
+                {
+                    DataRow[] rowsToDelete = ConsumerBUS.ConsumerList.Select("ID = '" + txtID.Text + "'");
+                    ConsumerBUS.ConsumerList.Rows.Remove(rowsToDelete[0]);
+                    dataGridView1.DataSource = ConsumerBUS.ConsumerList;
+
+                    MessageBox.Show("Đã xóa");
+                }
+                else
+                    MessageBox.Show("không thể làm theo yêu cầu");
             }
         }
 

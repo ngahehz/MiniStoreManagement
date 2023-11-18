@@ -16,52 +16,54 @@ namespace MiniStoreManagement.GUI
 {
     public partial class Main : Form
     {
-        //int panelWidth;
-        //bool Hidden;
         private Button selectedButton;
         private Button selectedSubButton;
         private bool form_close = false;
         private bool bin = false;
         private string pic_control = null;
+        private int initial_width; 
         public Main()
         {
             InitializeComponent();
-            //panelWidth = panelSlide.Width;
-            //Hidden = false;
             readCate();
             CustomizeDesign();
-
-            //string fontPath = "D:/font/Truculenta/Truculenta-VariableFont_opsz,wdth,wght.ttf";
-
-            //PrivateFontCollection pfc = new PrivateFontCollection();
-            //pfc.AddFontFile(fontPath);
-            //foreach (Control c in this.Controls)
-            //{
-            //    c.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
-            //}
         }
 
         private void readCate()
         {
             CategoryBUS categoryBUS = new CategoryBUS();
             categoryBUS.getCategory();
-            int row = CategoryBUS.CategoryList.Rows.Count;
+            int row = show_data().Rows.Count;
             panel2.Height = panel2.Height * (row + 1);
-            for(int i = 0; i < row; i++)
-            {
-                buttonSub newbut = new buttonSub();
-                newbut.GetButton().Text = CategoryBUS.CategoryList.Rows[i][1].ToString();
-                newbut.Name = "btn" + i;
-                newbut.Dock = DockStyle.Bottom;
-                panel2.Controls.Add(newbut);
-            }
 
+            //for(int i = 0; i < row; i++)
+            //{
+            //    buttonSub newbut = new buttonSub();
+            //    newbut.GetButton().Text = CategoryBUS.CategoryList.Rows[i][1].ToString();
+            //    newbut.Name = CategoryBUS.CategoryList.Rows[i][0].ToString();
+            //    newbut.Dock = DockStyle.Bottom;
+            //    panel2.Controls.Add(newbut);
+            //}
+
+            foreach (DataRow _row in show_data().Rows)
+            {
+                string id =_row["ID"].ToString();
+                string name = _row["NAME"].ToString();
+
+                buttonSub button = new buttonSub();
+                button.GetButton().Text = name;
+                button.GetButton().Name = "btn_" + id;
+                button.Dock = DockStyle.Bottom;
+                button.GetButton().Click += SubButton_Click;
+
+                panel2.Controls.Add(button);
+            }
         }
 
         private void CustomizeDesign()
         {
             panel2.Visible = false;
-            panel5.Visible = false;
+            initial_width = this.Width;
         }
 
         private void hideSubMenu()
@@ -69,10 +71,6 @@ namespace MiniStoreManagement.GUI
             if(panel2.Visible == true)
             {
                 panel2.Visible = false;
-            }
-            if (panel5.Visible == true)
-            {
-                panel5.Visible = false;
             }
         }
 
@@ -91,7 +89,7 @@ namespace MiniStoreManagement.GUI
         {
             if (selectedSubButton != null)
             {
-                selectedSubButton.BackColor = SystemColors.Info;
+                selectedSubButton.BackColor = SystemColors.HighlightText;
             }
 
             Button clickedButton = (Button)sender;
@@ -108,19 +106,15 @@ namespace MiniStoreManagement.GUI
 
             panel4.Controls.Clear();
 
-            switch (clickedButton.Name)
+            foreach (DataRow _row in show_data().Rows)
             {
-                case "btnsub_invoice1":
-                    InvoiceUC invoiceUC = new InvoiceUC();
-                    invoiceUC.Dock = DockStyle.Fill;
-                    panel4.Controls.Add(invoiceUC);
+                if(clickedButton.Name == "btn_" + _row["ID"].ToString())
+                {
+                    ProductUC productUC = new ProductUC(int.Parse(_row["ID"].ToString()));
+                    productUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(productUC);
                     break;
-
-                case "btnsub_invoice2":
-                    InvoiceDetailUC invoiceDetailUC = new InvoiceDetailUC();
-                    invoiceDetailUC.Dock = DockStyle.Fill;
-                    panel4.Controls.Add(invoiceDetailUC);
-                    break;
+                }
             }
         }
 
@@ -132,7 +126,7 @@ namespace MiniStoreManagement.GUI
             }
             if (selectedSubButton != null)
             {
-                selectedSubButton.BackColor = SystemColors.Info;
+                selectedSubButton.BackColor = SystemColors.HighlightText;
             }
 
             Button clickedButton = (Button)sender;
@@ -148,6 +142,7 @@ namespace MiniStoreManagement.GUI
             //}
 
             panel4.Controls.Clear();
+            this.Width = initial_width;
 
             switch (clickedButton.Name)
             {
@@ -197,7 +192,10 @@ namespace MiniStoreManagement.GUI
                     bin = false;
                     picBin.Visible = true;
                     picBack.Visible = false;
-                    showSubMenu(panel5);
+                    pic_control = "Invoice";
+                    InvoiceUC invoiceUC = new InvoiceUC();
+                    invoiceUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(invoiceUC);
                     break;
 
                 case "btnVoucher":
@@ -280,6 +278,13 @@ namespace MiniStoreManagement.GUI
                     panel4.Controls.Add(providerUC);
                     picBack.Visible = true;
                     break;
+                case "Invoice":
+                    //InvoiceUC invoiceUC = new InvoiceUC("0");
+                    //invoiceUC.Name = "binUC";
+                    //invoiceUC.Dock = DockStyle.Fill;
+                    //panel4.Controls.Add(invoiceUC);
+                    //picBack.Visible = true;
+                    break;
             }
         }
 
@@ -313,6 +318,10 @@ namespace MiniStoreManagement.GUI
                             ProviderUC providerUC = (ProviderUC)control;
                             providerUC.showdata();
                             break;
+                        case "Invoice":
+                            //InvoiceUC invoiceUC = (InvoiceUC)control;
+                            //invoiceUC.showdata();
+                            break;
                     }
                 }
             }
@@ -336,6 +345,17 @@ namespace MiniStoreManagement.GUI
             {
                 e.Cancel = true;
             }
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private DataTable show_data()
+        {
+            var filteredRows = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+            return filteredRows.Any() ? filteredRows.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
         }
 
 
@@ -369,3 +389,29 @@ namespace MiniStoreManagement.GUI
         //}
     }
 }
+
+
+// TÌM CÁCH BỎ FONT VÀO MÀ HONG ĐƯỢC
+
+//string fontPath = "D:/font/Truculenta/Truculenta-VariableFont_opsz,wdth,wght.ttf";
+
+//PrivateFontCollection pfc = new PrivateFontCollection();
+//pfc.AddFontFile(fontPath);
+//foreach (Control c in this.Controls)
+//{
+//    c.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
+//}
+
+// 
+
+//switch (clickedButton.Name)
+//{
+//    case "btnsub_invoice1":
+//        break;
+
+//    case "btnsub_invoice2":
+//        //InvoiceDetailUC invoiceDetailUC = new InvoiceDetailUC();
+//        //invoiceDetailUC.Dock = DockStyle.Fill;
+//        //panel4.Controls.Add(invoiceDetailUC);
+//        break;
+//}

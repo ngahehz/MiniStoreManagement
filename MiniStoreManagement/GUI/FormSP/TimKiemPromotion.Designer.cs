@@ -34,21 +34,25 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtPercent = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.txtPercent2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtPercent1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtPercent1);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.dateTimePicker2);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.txtPercent);
+            this.panel1.Controls.Add(this.txtPercent2);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -113,24 +117,13 @@
             this.label8.TabIndex = 36;
             this.label8.Text = ":";
             // 
-            // txtPercent
+            // txtPercent2
             // 
-            this.txtPercent.Location = new System.Drawing.Point(648, 26);
-            this.txtPercent.Margin = new System.Windows.Forms.Padding(5);
-            this.txtPercent.Name = "txtPercent";
-            this.txtPercent.Size = new System.Drawing.Size(193, 40);
-            this.txtPercent.TabIndex = 10;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label12.Location = new System.Drawing.Point(457, 30);
-            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(164, 32);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Chiết khấu :";
+            this.txtPercent2.Location = new System.Drawing.Point(580, 25);
+            this.txtPercent2.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPercent2.Name = "txtPercent2";
+            this.txtPercent2.Size = new System.Drawing.Size(261, 40);
+            this.txtPercent2.TabIndex = 10;
             // 
             // label15
             // 
@@ -142,6 +135,35 @@
             this.label15.Size = new System.Drawing.Size(139, 32);
             this.label15.TabIndex = 2;
             this.label15.Text = "Thời gian ";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label12.Location = new System.Drawing.Point(14, 29);
+            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(164, 32);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Chiết khấu :";
+            // 
+            // txtPercent1
+            // 
+            this.txtPercent1.Location = new System.Drawing.Point(190, 25);
+            this.txtPercent1.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPercent1.Name = "txtPercent1";
+            this.txtPercent1.Size = new System.Drawing.Size(261, 40);
+            this.txtPercent1.TabIndex = 48;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(504, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 32);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "-";
             // 
             // TimKiemPromotion
             // 
@@ -163,11 +185,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtPercent;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtPercent2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPercent1;
     }
 }

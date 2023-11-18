@@ -24,7 +24,6 @@ namespace MiniStoreManagement.DAO
         public bool addEmployee(EmployeeDTO employee)
         {
             string s = $"INSERT INTO employee VALUES ('{employee.Id}', N'{employee.Name}', N'{employee.Gender}', '{employee.DoB}', '{employee.Cell}', '{employee.Img}', '{employee.State}')";
-            MessageBox.Show(s);
             if (conn.ChangeData(s))
                 return true;
             return false;

@@ -26,7 +26,7 @@ namespace MiniStoreManagement.GUI.FormSP
             List<string> s = new List<string>();
             if (!string.IsNullOrWhiteSpace(txtID.Text))
             {
-                s.Add($"CONVERT(ID, 'System.String') = '{txtID.Text}'");
+                s.Add($"ID = '{txtID.Text}'");
             }
             if (!string.IsNullOrWhiteSpace(txtName.Text))
             {

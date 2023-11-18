@@ -16,37 +16,54 @@ namespace MiniStoreManagement
 {
     public partial class frmBase : Form
     {
-        public string pass;
-        public string user;
         AdminBUS adminBUS = new AdminBUS();
         public frmBase()
         {
             InitializeComponent();
             adminBUS.getAdmin();
-            //ConnectSQL conn = new ConnectSQL();
-            //DataTable temp = conn.ReadData2("select * from employee where TYPE = '1'");
-            //pass = temp.Rows[0][0].ToString();
-            //user = temp.Rows[0][3].ToString();
-            //MessageBox.Show(user);
+            BaseEvent();
         }
-
-        private void textBox1_Enter(object sender, EventArgs e)
+        void BaseEvent()
+        {
+            picExit.Click += picExit_Click;
+            picmini.Click += picmini_Click;
+            picmax.Click += picmax_Click;
+        }
+        
+        private void picExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void picmini_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void picmax_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+        private void txtUsername_Enter(object sender, EventArgs e)
         {
             if (txtUsername.Text == "Username")
             {
                 txtUsername.Text = "";
             }
         }
-
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void txtUsername_Leave(object sender, EventArgs e)
         {
             if (txtUsername.Text == "")
             {
                 txtUsername.Text = "Username";
             }
         }
-
-        private void textBox2_Enter(object sender, EventArgs e)
+        private void txtPassword_Enter(object sender, EventArgs e)
         {
             if (txtPassword.Text == "Password")
             {
@@ -55,7 +72,7 @@ namespace MiniStoreManagement
             }
         }
 
-        private void textBox2_Leave(object sender, EventArgs e)
+        private void txtPassword_Leave(object sender, EventArgs e)
         {
             if (txtPassword.Text == "")
             {
@@ -84,12 +101,44 @@ namespace MiniStoreManagement
             }
         }
 
-        private void frmBase_Load(object sender, EventArgs e)
-        {
-            this.BackColor = Color.Wheat; // Chọn một màu không nên xuất hiện
+        private Point mouseOffset;
+        private bool isDragging = false;
 
-            // Đặt màu chính thức sẽ trở nên trong suốt
-            this.TransparencyKey = Color.Wheat;
+        private void Moving_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                mouseOffset = new Point(-e.X, -e.Y);
+                isDragging = true;
+            }
+        }
+        private void Moving_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                Point mousePos = Control.MousePosition;
+                mousePos.Offset(mouseOffset.X, mouseOffset.Y);
+                Location = mousePos;
+            }
+        }
+        private void Moving_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                isDragging = false;
+            }
         }
     }
 }
+
+// MÀU CƯNG VÃI L
+
+//private void lbExit_MouseHover(object sender, EventArgs e)
+//{
+//    lbExit.ForeColor = Color.FromArgb(255, 128, 255);
+//}
+
+//private void lbExit_MouseLeave(object sender, EventArgs e)
+//{
+//    lbExit.ForeColor = Color.LightCyan;
+//}

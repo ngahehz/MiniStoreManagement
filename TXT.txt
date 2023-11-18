@@ -27,3 +27,11 @@
 ++++ ???/
 - làm kho tạo sp nhó ?
 now we got a problem thatt i cant input the null id by "null"
+- đang chỉnh phần idvoucher ẻ
+- làm giới hạn số lượng sản phẩm thêm vào hóa đơn
+- làm thêm xóa tất cả dữ liệu
+- làm thêm cái control để tránh mở thêm mấy cái tìm nâng cao
+
+////////////////////////////cô ơi
+- có cần xóa hóa đơn không
+- con tính lúc đọc file vourcher dới promotion thì nào hết hạn thì cho state bằng 1 lun, con cũng tính khi đọc product nếu hết hạn cũng tự động loại bỏ cái id đó lun

@@ -19,7 +19,7 @@ namespace MiniStoreManagement.DAO
 
         public bool addCategory(CategoryDTO category)
         {
-            string s = $"INSERT INTO category VALUES ('{category.Id}', '{category.Name}', '{category.State}')";
+            string s = $"INSERT INTO category VALUES ('{category.Id}', N'{category.Name}', '{category.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -27,7 +27,7 @@ namespace MiniStoreManagement.DAO
 
         public bool updateCategory(CategoryDTO category)
         {
-            string s = $"UPDATE category SET ID = '{category.Id}', NAME = '{category.Name}',"
+            string s = $"UPDATE category SET ID = '{category.Id}', NAME = N'{category.Name}',"
                         + $"STATE = '{category.State}' WHERE ID = '{category.Id}'";
             if (conn.ChangeData(s))
                 return true;

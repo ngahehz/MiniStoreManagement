@@ -65,6 +65,7 @@ namespace MiniStoreManagement.GUI.UCs
             dataGridView1.DataSource = show_data();
             dataGridView1.Columns["STATE"].Visible = false;
         }
+        
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
@@ -102,23 +103,11 @@ namespace MiniStoreManagement.GUI.UCs
             {
                 ProviderBUS.ProviderList.Rows.Add(providerDTO.Id, providerDTO.Name, providerDTO.Cell, providerDTO.Address, providerDTO.Email, providerDTO.State);
                 dataGridView1.DataSource = show_data();
-                dataGridView1.Columns["STATE"].Visible = false;
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
             }
             else
                 MessageBox.Show("Lỗi không thể thêm thành công");
-        }
-
-        private void reset_form()
-        {
-            id_focus = false;
-            new_id();
-            txtName.ResetText();
-            txtSĐT.ResetText();
-            txtAddress.ResetText();
-            txtEmail.ResetText();
-            txtSearch.ResetText();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -134,49 +123,19 @@ namespace MiniStoreManagement.GUI.UCs
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    providerBUS.removeProvider(txtID.Text);
-                    DataRow[] rowsToDelete = ProviderBUS.ProviderList.Select("ID = '" + txtID.Text + "'");
-                    ProviderBUS.ProviderList.Rows.Remove(rowsToDelete[0]);
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    if (providerBUS.removeProvider(txtID.Text))
+                    {
+                        DataRow[] rowsToDelete = ProviderBUS.ProviderList.Select("ID = '" + txtID.Text + "'");
+                        ProviderBUS.ProviderList.Rows.Remove(rowsToDelete[0]);
+                        dataGridView1.DataSource = show_data();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                    else
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
             else
                 reset_form();
-        }
-
-        private bool check()
-        {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName.Focus();
-                return false;
-            }
-
-            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
-            if (!Regex.IsMatch(txtSĐT.Text, pattern))
-            {
-                MessageBox.Show("Sai định dạng số điện thoại");
-                txtSĐT.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtAddress.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtAddress.Focus();
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtEmail.Focus();
-                return false;
-            }
-
-            return true;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -212,7 +171,6 @@ namespace MiniStoreManagement.GUI.UCs
                     providerBUS.updateProvider(providerDTO);
 
                     dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
 
                     if (_state == "1")
                         MessageBox.Show("Đã xóa");
@@ -222,33 +180,6 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
             }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            DataView dv = show_data().DefaultView;
-            string txt = txtSearch.Text;
-
-            if (txtSearch.Text == "")
-            {
-                dv.RowFilter = "ID LIKE '%1%'";
-                dataGridView1.DataSource = dv.ToTable();
-
-                return;
-            }
-
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR CELL LIKE '%{txt}%' OR ADDRESS LIKE '%{txt}%' OR EMAIL LIKE '%{txt}%'";
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        private void new_id()
-        {
-            if (ProviderBUS.ProviderList.Rows.Count > 0)
-            {
-                txtID.Text = (int.Parse(ProviderBUS.ProviderList.Rows[ProviderBUS.ProviderList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
-                return;
-            }
-            txtID.Text = "10000";
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -291,13 +222,84 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     MessageBox.Show("không thể sửa theo yêu cầu");
             }
-            
         }
-        public void showdata()
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = show_data().DefaultView;
+            string txt = txtSearch.Text;
+
+            if (txtSearch.Text == "")
+            {
+                dv.RowFilter = "ID LIKE '%1%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR CELL LIKE '%{txt}%' OR ADDRESS LIKE '%{txt}%' OR EMAIL LIKE '%{txt}%'";
+            dataGridView1.DataSource = dv.ToTable();
+        }
+
+        private void new_id()
+        {
+            if (ProviderBUS.ProviderList.Rows.Count > 0)
+            {
+                txtID.Text = (int.Parse(ProviderBUS.ProviderList.Rows[ProviderBUS.ProviderList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
+                return;
+            }
+            txtID.Text = "10000";
+        }
+
+        private void reset_form()
+        {
+            id_focus = false;
+            new_id();
+            txtName.ResetText();
+            txtSĐT.ResetText();
+            txtAddress.ResetText();
+            txtEmail.ResetText();
+            txtSearch.ResetText();
+        }
+
+        private bool check()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtName.Focus();
+                return false;
+            }
+
+            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
+            if (!Regex.IsMatch(txtSĐT.Text, pattern))
+            {
+                MessageBox.Show("Sai định dạng số điện thoại");
+                txtSĐT.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtAddress.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtAddress.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtEmail.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        public void showdata() // này là để ấy từ thùng rác dề form chính
         {
             dataGridView1.DataSource = show_data();
-            dataGridView1.Columns["STATE"].Visible = false;
         }
+
         private DataTable show_data()
         {
             if (_state == "0")

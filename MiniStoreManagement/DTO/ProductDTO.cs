@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,18 +23,18 @@ namespace MiniStoreManagement.DTO
         {
             State = "0";
         }
-        public ProductDTO(string id, string name, string categoryId, string promotionId, string providerId, decimal price, int quantity, DateTime exp, string img, string state)
+        public ProductDTO(DataRow row)
         {
-            Id = id;
-            Name = name;
-            CategoryId = categoryId;
-            PromotionId = promotionId;
-            ProviderId = providerId;
-            Price = price;
-            Quantity = quantity;
-            Exp = exp;
-            Img = img;
-            State = state;
+            Id = row[0].ToString();
+            Name = row[1].ToString();
+            CategoryId = row[2].ToString();
+            PromotionId = row[3].ToString();
+            ProviderId = row[4].ToString();
+            Price = (decimal)row[5];
+            Quantity = (int)row[6];
+            Exp = (DateTime)row[7];
+            Img = row[8].ToString();
+            State = row[9].ToString();
         }
     }
 }
