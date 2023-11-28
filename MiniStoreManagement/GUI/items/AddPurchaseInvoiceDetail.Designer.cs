@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.lbExit = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -87,6 +87,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(874, 245);
             this.panel1.TabIndex = 6;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = " ";
+            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(216, 179);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dateTimePicker1.Size = new System.Drawing.Size(214, 39);
+            this.dateTimePicker1.TabIndex = 61;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // lbExit
             // 
@@ -131,7 +143,6 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Enabled = false;
             this.txtPrice.Location = new System.Drawing.Point(639, 178);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(214, 40);
@@ -193,9 +204,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label3.Location = new System.Drawing.Point(459, 182);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 32);
+            this.label3.Size = new System.Drawing.Size(114, 32);
             this.label3.TabIndex = 43;
-            this.label3.Text = "Thành tiền";
+            this.label3.Text = "Đơn giá";
             // 
             // label10
             // 
@@ -260,6 +271,7 @@
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(828, 432);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
             // BtnPrint
@@ -298,7 +310,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(26, 24);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(99, 68);
+            this.btnAdd.Size = new System.Drawing.Size(116, 68);
             this.btnAdd.TabIndex = 33;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -343,18 +355,6 @@
             this.btnNew.Text = "Mới";
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = " ";
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(216, 179);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dateTimePicker1.Size = new System.Drawing.Size(214, 39);
-            this.dateTimePicker1.TabIndex = 61;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // AddPurchaseInvoiceDetail
             // 

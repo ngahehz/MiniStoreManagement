@@ -32,10 +32,10 @@ namespace MiniStoreManagement.GUI.UCs
         {
             if (ConsumerBUS.ConsumerList == null)
                 consumerBUS.getConsumer();
+
             new_id();
 
             dataGridView1.DataSource = ConsumerBUS.ConsumerList;
-
         }
         
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -52,11 +52,12 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
+            reset_form();
+            if (ConsumerBUS.ConsumerList.Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
             id_focus = true;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
@@ -71,7 +72,6 @@ namespace MiniStoreManagement.GUI.UCs
             else { radioButton2.Checked = true; }
 
             dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -102,24 +102,13 @@ namespace MiniStoreManagement.GUI.UCs
                 {
                     //ConsumerBUS.ConsumerList.Rows.Add(consumerDTO);
                     ConsumerBUS.ConsumerList.Rows.Add(consumerDTO.Id, consumerDTO.Name, consumerDTO.Gender, consumerDTO.DoB, consumerDTO.Cell);
-
                     dataGridView1.DataSource = ConsumerBUS.ConsumerList;
                     id_focus = true;
+                    MessageBox.Show("Thêm thành công");
                 }
                 else
                     MessageBox.Show("Lỗi không thể thêm thành công");
             }
-        }
-
-        private void reset_form()
-        {
-            id_focus = false;
-            new_id();
-            txtName.ResetText();
-            txtSĐT.ResetText();
-            radioButton1.Checked = true;
-            txtSearch.ResetText();
-            dateTimePicker1.CustomFormat = " ";
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -127,33 +116,6 @@ namespace MiniStoreManagement.GUI.UCs
             reset_form();
         }
 
-        private bool check()
-        {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName.Focus();
-                return false;
-            }
-
-            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
-            if (!Regex.IsMatch(txtSĐT.Text, pattern))
-            {
-                MessageBox.Show("Sai định dạng số điện thoại");
-                txtSĐT.Focus();
-                return false;
-            }
-
-            if (dateTimePicker1.CustomFormat == " ")
-            {
-                MessageBox.Show("Không được để trống ngày sinh");
-                dateTimePicker1.Focus();
-                return false;
-            }
-
-            return true;
-          
-        }
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (!id_focus)
@@ -165,19 +127,6 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (dialogResult == DialogResult.Yes)
             {
-                //DataRow rowToUpdate = ConsumerBUS.ConsumerList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
-                //ConsumerDTO consumerDTO = new ConsumerDTO();
-                //if (rowToUpdate != null)
-                //{
-                //    consumerDTO.Id = txtID.Text;
-                //    consumerDTO.Name = rowToUpdate[1].ToString();
-                //    consumerDTO.Gender = rowToUpdate[2].ToString();
-                //    consumerDTO.DoB = DateTime.Parse(rowToUpdate[3].ToString());
-                //    consumerDTO.Cell = rowToUpdate[4].ToString();
-                //    consumerBUS.updateConsumer(consumerDTO);
-                //}
-
-                //dataGridView1.DataSource = ConsumerBUS.ConsumerList;
                 if (consumerBUS.removeConsumer(txtID.Text))
                 {
                     DataRow[] rowsToDelete = ConsumerBUS.ConsumerList.Select("ID = '" + txtID.Text + "'");
@@ -189,39 +138,6 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            DataView dv = ConsumerBUS.ConsumerList.DefaultView;
-            string txt = txtSearch.Text;
-
-            if (txtSearch.Text == "")
-            {
-                dv.RowFilter = "GENDER LIKE '%N%'";
-                dataGridView1.DataSource = dv.ToTable();
-                return;
-            }
-
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR GENDER LIKE '%{txt}%' OR CELL LIKE '%{txt}%'";
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            if (dateTimePicker1.CustomFormat == " ")
-                dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-        }
-
-        private void new_id()
-        {
-            if (ConsumerBUS.ConsumerList.Rows.Count > 0)
-            {
-                txtID.Text = (int.Parse(ConsumerBUS.ConsumerList.Rows[ConsumerBUS.ConsumerList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
-                return;
-            }
-            txtID.Text = "10000";
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -258,14 +174,84 @@ namespace MiniStoreManagement.GUI.UCs
                         rowToUpdate[3] = consumerDTO.DoB;
                         rowToUpdate[4] = consumerDTO.Cell;
                     }
-
                     dataGridView1.DataSource = ConsumerBUS.ConsumerList;
+                    MessageBox.Show("Đã sửa");
                 }
                 else
                     MessageBox.Show("không thể sửa theo yêu cầu");
             }
-            
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = ConsumerBUS.ConsumerList.DefaultView;
+            string txt = txtSearch.Text;
+
+            if (txtSearch.Text == "")
+            {
+                dv.RowFilter = "GENDER LIKE '%N%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR GENDER LIKE '%{txt}%' OR CELL LIKE '%{txt}%'";
+            dataGridView1.DataSource = dv.ToTable();
+        }
+
+        private void new_id()
+        {
+            if (ConsumerBUS.ConsumerList.Rows.Count > 0)
+            {
+                txtID.Text = (int.Parse(ConsumerBUS.ConsumerList.Rows[ConsumerBUS.ConsumerList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
+                return;
+            }
+            txtID.Text = "10000";
+        }
+
+        private void reset_form()
+        {
+            id_focus = false;
+            new_id();
+            txtName.ResetText();
+            txtSĐT.ResetText();
+            radioButton1.Checked = true;
+            txtSearch.ResetText();
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker1.CustomFormat = " ";
+            dataGridView1.ClearSelection();
+        }
+
+        private bool check()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtName.Focus();
+                return false;
+            }
+
+            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
+            if (!Regex.IsMatch(txtSĐT.Text, pattern))
+            {
+                MessageBox.Show("Sai định dạng số điện thoại");
+                txtSĐT.Focus();
+                return false;
+            }
+
+            if (dateTimePicker1.CustomFormat == " ")
+            {
+                MessageBox.Show("Không được để trống ngày sinh");
+                dateTimePicker1.Focus();
+                return false;
+            }
+
+            return true;
+        }
+        
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePicker1.CustomFormat == " ")
+                dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+        }
     }
 }

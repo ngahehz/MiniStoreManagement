@@ -12,7 +12,7 @@ namespace MiniStoreManagement.GUI.FormSP
 {
     public partial class TimKiemPromotion : Form
     {
-        public delegate void truyenDuLieu(string txt);
+        public delegate int truyenDuLieu(string txt);
         public truyenDuLieu temp;
         public TimKiemPromotion()
         {
@@ -86,8 +86,6 @@ namespace MiniStoreManagement.GUI.FormSP
                 s.Add($"PERCENT_DISCOUNT >= {temp1}");
             }
 
-
-
             if (dateTimePicker1.CustomFormat != " " && dateTimePicker2.CustomFormat != " ")
             {
                 if (dateTimePicker1.Value >= dateTimePicker2.Value)
@@ -110,13 +108,29 @@ namespace MiniStoreManagement.GUI.FormSP
             {
                 s.Add($"END_DATE <= #{dateTimePicker2.Value.ToString("MM/dd/yyyy")}#");
             }
-            temp(string.Join(" AND ", s));
+            int count_row = temp(string.Join(" AND ", s));
+            lbCount.Text = "Tìm được " + count_row + " dòng";
         }
+
         private void dateTimePicker_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             if (dtp.CustomFormat == " ")
                 dtp.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void chietkhau_Click(object sender, EventArgs e)
+        {
+            txtPercent1.Text = "";
+            txtPercent2.Text = "";
+        }
+
+        private void thoigian_Click(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker2.Value = DateTime.Now;
+            dateTimePicker1.CustomFormat = " ";
+            dateTimePicker2.CustomFormat = " ";
         }
     }
 }

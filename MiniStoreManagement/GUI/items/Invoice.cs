@@ -2,6 +2,7 @@
 using MiniStoreManagement.DAO;
 using MiniStoreManagement.DTO;
 using MiniStoreManagement.GUI.UCs;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +57,7 @@ namespace MiniStoreManagement.GUI.items
                 invoiceDetailDTO.InvoiceId = _row.Field<string>("INVOICE_ID");
                 invoiceDetailDTO.ProductId = _row.Field<string>("PRODUCT_ID");
                 invoiceDetailDTO.Quantity = _row.Field<int>("QUANTITY");
+                invoiceDetailDTO.Price = _row.Field<decimal>("PRICE");
 
                 DetailInvoice detailInvoice = new DetailInvoice(invoiceDetailDTO);
                 detailInvoice.Dock = DockStyle.Top;

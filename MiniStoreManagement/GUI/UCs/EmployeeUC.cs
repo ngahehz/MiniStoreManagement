@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -47,39 +48,28 @@ namespace MiniStoreManagement.GUI.UCs
             btnDel.Text = "Hoàn";
             make_center();
         }
+
         public void make_center()
         {
-            int spacing = 45; // Khoảng cách giữa hai nút
+            int spacing = 45;
             int panelHeight = panel2.Height;
             int buttonHeight = btnAdd.Height;
 
-            // Tính toán vị trí để đặt nút ở giữa chiều dọc của Panel
             int yPositionButton1 = (panelHeight - buttonHeight * 2 - spacing) / 2;
             int yPositionButton2 = yPositionButton1 + buttonHeight + spacing;
 
             btnNew.Location = new Point(btnAdd.Location.X, yPositionButton1);
             btnDel.Location = new Point(btnDel.Location.X, yPositionButton2);
         }
+
         private void EmployeeUC_Load(object sender, EventArgs e)
         {
             if (EmployeeBUS.EmployeeList == null)
                 employeeBUS.getEmployee();
             new_id();
 
-            dataGridView1.DataSource = show_data();
+            showdata();
             dataGridView1.Columns["STATE"].Visible = false;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Img Files (*.jpg;*.png;*.gif;.*.svg;)|*.jpg;*.png;*.gif;*.svg";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                fileName = Path.GetFileName(ofd.FileName);
-                pictureBox1.Image = new Bitmap(ofd.FileName);
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            }
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -96,11 +86,13 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
+            reset_form();
+            if (show_data().Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
+
             id_focus = true;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
@@ -116,15 +108,30 @@ namespace MiniStoreManagement.GUI.UCs
 
             dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
 
-            if (dataGridView1.CurrentRow.Cells[5].Value.ToString() != "")
+            if (!string.IsNullOrWhiteSpace(dataGridView1.CurrentRow.Cells[5].Value.ToString()))
             {
                 pictureBox1.Image = new Bitmap("..//..//Img//Employee//" + dataGridView1.CurrentRow.Cells[5].Value.ToString());
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.BackgroundImage = null;
+                fileName = dataGridView1.CurrentRow.Cells[5].Value.ToString();
             }
             else
             {
                 pictureBox1.Image = null;
                 fileName = null;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Img Files (*.jpg;*.png;*.gif;.*.svg;)|*.jpg;*.png;*.gif;*.svg";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                fileName = Path.GetFileName(ofd.FileName);
+                pictureBox1.Image = new Bitmap(ofd.FileName);
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.BackgroundImage = null;
             }
         }
 
@@ -159,9 +166,7 @@ namespace MiniStoreManagement.GUI.UCs
                 //EmployeeBUS.EmployeeList.Rows.Add(employeeDTO);
                 EmployeeBUS.EmployeeList.Rows.Add(employeeDTO.Id, employeeDTO.Name, employeeDTO.Gender, employeeDTO.DoB, employeeDTO.Cell, employeeDTO.Img, employeeDTO.State);
 
-                dataGridView1.DataSource = show_data();
-                dataGridView1.Columns["STATE"].Visible = false;
-
+                showdata();
                 SaveImg();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
@@ -170,24 +175,9 @@ namespace MiniStoreManagement.GUI.UCs
                 MessageBox.Show("Lỗi không thể thêm thành công");
         }
 
-        private void reset_form()
-        {
-            id_focus = false;
-            new_id();
-            txtName.ResetText();
-            txtSĐT.ResetText();
-            radioButton1.Checked = true;
-            pictureBox1.Image = null;
-            fileName = null;
-            textBox1.ResetText();
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker1.CustomFormat = " ";
-            dataGridView1.ClearSelection();
-        }
-
         private void btnNew_Click(object sender, EventArgs e)
         {
-            if(_state == "0")
+            if (_state == "0")
             {
                 if (!id_focus)
                 {
@@ -198,50 +188,19 @@ namespace MiniStoreManagement.GUI.UCs
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    employeeBUS.removeEmployee(txtID.Text);
-                    DataRow[] rowsToDelete = EmployeeBUS.EmployeeList.Select("ID = '" + txtID.Text + "'");
-                    EmployeeBUS.EmployeeList.Rows.Remove(rowsToDelete[0]);
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    if (employeeBUS.removeEmployee(txtID.Text))
+                    {
+                        DataRow[] rowsToDelete = EmployeeBUS.EmployeeList.Select("ID = '" + txtID.Text + "'");
+                        EmployeeBUS.EmployeeList.Rows.Remove(rowsToDelete[0]);
+                        showdata();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                    else
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
-            else 
+            else
                 reset_form();
-        }
-
-        private bool check()
-        {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName.Focus();
-                return false;
-            }
-
-            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
-            if (!Regex.IsMatch(txtSĐT.Text, pattern))
-            {
-                MessageBox.Show("Sai định dạng số điện thoại");
-                txtSĐT.Focus();
-                return false;
-            }
-
-            if (dateTimePicker1.CustomFormat == " ")
-            {
-                MessageBox.Show("Không được để trống ngày sinh");
-                dateTimePicker1.Focus();
-                return false;
-            }
-
-            if (DateTime.Now.Year - dateTimePicker1.Value.Year < 18)
-            {
-                MessageBox.Show("Người này chưa đủ tuổi vào làm");
-                dateTimePicker1.Focus();
-                return false;
-            }
-
-            return true;
-                // được thì làm màu báo lỗi cho mấy viền
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -264,66 +223,30 @@ namespace MiniStoreManagement.GUI.UCs
             if (dialogResult == DialogResult.Yes)
             {
                 DataRow rowToUpdate = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
-                EmployeeDTO employeeDTO = new EmployeeDTO();
+                EmployeeDTO employeeDTO = new EmployeeDTO(rowToUpdate);
                 if (rowToUpdate != null)
                 {
-                    employeeDTO.Id = txtID.Text;
-                    employeeDTO.Name = rowToUpdate[1].ToString();
-                    employeeDTO.Gender = rowToUpdate[2].ToString();
-                    employeeDTO.DoB = DateTime.Parse(rowToUpdate[3].ToString());
-                    employeeDTO.Cell = rowToUpdate[4].ToString();
-                    employeeDTO.Img = rowToUpdate[5].ToString();
                     employeeDTO.State = _state;
-                    rowToUpdate[6] = _state;
-                    employeeBUS.updateEmployee(employeeDTO);
+                    if (employeeBUS.updateEmployee(employeeDTO))
+                    {
+                        rowToUpdate[6] = _state;
+                        showdata();
+                        reset_form();
 
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
-
-                    if (_state == "1")
-                        MessageBox.Show("Đã xóa");
-                    else
-                        MessageBox.Show("Đã khôi phục");
+                        if (_state == "1")
+                            MessageBox.Show("Đã xóa");
+                        else
+                            MessageBox.Show("Đã khôi phục");
+                    }
                 }
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            DataView dv = show_data().DefaultView;
-            string txt = textBox1.Text;
-
-            if (textBox1.Text == "")
-            {
-                dv.RowFilter = "GENDER LIKE '%N%'";
-                dataGridView1.DataSource = dv.ToTable();
-                return;
-            }
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR GENDER LIKE '%{txt}%' OR CELL LIKE '%{txt}%'";
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            if(dateTimePicker1.CustomFormat == " ")
-                dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-        }
-
-        private void new_id()
-        {
-            if (EmployeeBUS.EmployeeList.Rows.Count > 0)
-            {
-                txtID.Text = (int.Parse(EmployeeBUS.EmployeeList.Rows[EmployeeBUS.EmployeeList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
-                return;
-            }
-            txtID.Text = "10000";
-        }
-
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if(!id_focus)
+            if (!id_focus)
             {
                 MessageBox.Show("Đối tượng chưa được lưu nên không thể sửa");
                 return;
@@ -362,8 +285,7 @@ namespace MiniStoreManagement.GUI.UCs
                         if (employeeDTO.Img != null)
                             rowToUpdate[5] = employeeDTO.Img;
 
-                        dataGridView1.DataSource = show_data();
-                        dataGridView1.Columns["STATE"].Visible = false;
+                        showdata();
 
                         SaveImg();
                         MessageBox.Show("Đã sửa");
@@ -372,6 +294,87 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     MessageBox.Show("không thể sửa theo yêu cầu");
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = show_data().DefaultView;
+            string txt = textBox1.Text;
+
+            if (textBox1.Text == "")
+            {
+                dv.RowFilter = "GENDER LIKE '%N%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR GENDER LIKE '%{txt}%' OR CELL LIKE '%{txt}%'";
+            dataGridView1.DataSource = dv.ToTable();
+        }
+
+        private void new_id()
+        {
+            if (EmployeeBUS.EmployeeList.Rows.Count > 0)
+            {
+                txtID.Text = (int.Parse(EmployeeBUS.EmployeeList.Rows[EmployeeBUS.EmployeeList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
+                return;
+            }
+            txtID.Text = "10000";
+        }
+
+        private void reset_form()
+        {
+            id_focus = false;
+            new_id();
+            txtName.ResetText();
+            txtSĐT.ResetText();
+            radioButton1.Checked = true;
+            pictureBox1.Image = null;
+            fileName = null;
+            textBox1.ResetText();
+            dateTimePicker1.Value = DateTime.Now;
+            dateTimePicker1.CustomFormat = " ";
+            dataGridView1.ClearSelection();
+        }
+
+        private bool check()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtName.Focus();
+                return false;
+            }
+
+            string pattern = @"^0\d{9}$"; //@"^(09|02|03|08)\d{8}$";
+            if (!Regex.IsMatch(txtSĐT.Text, pattern))
+            {
+                MessageBox.Show("Sai định dạng số điện thoại");
+                txtSĐT.Focus();
+                return false;
+            }
+
+            if (dateTimePicker1.CustomFormat == " ")
+            {
+                MessageBox.Show("Không được để trống ngày sinh");
+                dateTimePicker1.Focus();
+                return false;
+            }
+
+            if (DateTime.Now.Year - dateTimePicker1.Value.Year < 18)
+            {
+                MessageBox.Show("Người này chưa đủ tuổi vào làm");
+                dateTimePicker1.Focus();
+                return false;
+            }
+
+            return true;
+                // được thì làm màu báo lỗi cho mấy viền
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            if(dateTimePicker1.CustomFormat == " ")
+                dateTimePicker1.CustomFormat = "dd/MM/yyyy";
         }
 
         private void SaveImg()
@@ -390,10 +393,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
         }
+
         public void showdata()
         {
             dataGridView1.DataSource = show_data();
-            dataGridView1.Columns["STATE"].Visible = false;
         }
 
         private DataTable show_data()
@@ -425,8 +428,113 @@ namespace MiniStoreManagement.GUI.UCs
                 radioButton1.Enabled = true;
             }
         }
+
+        private void btneexcel_Click(object sender, EventArgs e)
+        {
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+            app.Visible = true;
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+            {
+                worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+            }
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                {
+                    if (dataGridView1.Rows[i].Cells[j].Value != null)
+                    {
+                        worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    }
+                    else
+                    {
+                        worksheet.Cells[i + 2, j + 1] = "";
+                    }
+                }
+            }
+        }
+        /*private void ToExcel(DataGridView dataGridView1, string fileName)
+        {
+            //khai báo thư viện hỗ trợ Microsoft.Office.Interop.Excel
+            Microsoft.Office.Interop.Excel.Application excel;
+            Microsoft.Office.Interop.Excel.Workbook workbook;
+            Microsoft.Office.Interop.Excel.Worksheet worksheet;
+            try
+            {
+                //Tạo đối tượng COM.
+                excel = new Microsoft.Office.Interop.Excel.Application();
+                excel.Visible = false;
+                excel.DisplayAlerts = false;
+                //tạo mới một Workbooks bằng phương thức add()
+                workbook = excel.Workbooks.Add(Type.Missing);
+                worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets["Sheet1"];
+                //đặt tên cho sheet
+                worksheet.Name = "Quản lý nhân viên";
+
+                // export header trong DataGridView
+                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                {
+                    worksheet.Cells[1, i + 1] = dataGridView1.Columns[i].HeaderText;
+                }
+                // export nội dung trong DataGridView
+                for (int i = 0; i < dataGridView1.RowCount-1; i++)
+                {
+                    for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                    {
+                        //MessageBox.Show(dataGridView1.Rows[i].Cells[j].Value.ToString());
+                        worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                    }
+                }
+                // sử dụng phương thức SaveAs() để lưu workbook với filename
+                workbook.SaveAs(fileName);
+                //đóng workbook
+                workbook.Close();
+                excel.Quit();
+                MessageBox.Show("Xuất dữ liệu ra Excel thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                workbook = null;
+                worksheet = null;
+            }
+        }*/
+
+        private void btniexcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel WorkBook |*.xls|Excel WorkBook|*.xlsx", ValidateNames = true })
+                {
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                    {
+                        String name = "Sheet1";
+                        String constr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                        ofd.FileName +
+                                        ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
+
+                        OleDbConnection con = new OleDbConnection(constr);
+                        OleDbCommand oconn = new OleDbCommand("Select * From [" + name + "$]", con);
+                        con.Open();
+
+                        OleDbDataAdapter sda = new OleDbDataAdapter(oconn);
+                        DataTable data = new DataTable();
+                        sda.Fill(data);
+                        dataGridView1.DataSource = data;
+                    }
+                }
+            }
+            catch (Exception ex) { string errormsg = ex.ToString(); }
+        }
     }
-}
+    }
+
 
 // TÌM KIẾM NÂNG CAO
 

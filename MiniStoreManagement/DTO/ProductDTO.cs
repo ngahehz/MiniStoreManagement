@@ -16,7 +16,6 @@ namespace MiniStoreManagement.DTO
         public string ProviderId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public DateTime Exp { get; set; }
         public string Img { get; set; }
         public string State { get; set; } // 0 là bth, 1 là xóa tạm
         public ProductDTO()
@@ -32,9 +31,8 @@ namespace MiniStoreManagement.DTO
             ProviderId = row[4].ToString();
             Price = (decimal)row[5];
             Quantity = (int)row[6];
-            Exp = (DateTime)row[7];
-            Img = row[8].ToString();
-            State = row[9].ToString();
+            Img = row[7].ToString();
+            State = row[8].ToString();
         }
     }
 }

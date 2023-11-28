@@ -30,18 +30,19 @@ namespace MiniStoreManagement.GUI.items
                 productBUS.getProduct();
             }
 
-            DataRow row = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == invoiceDetailDTO.ProductId);
+            DataRow row_product = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == invoiceDetailDTO.ProductId);
+            //DataRow row_promotion = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == row_product[3].ToString());
 
-            if (row != null)
+            if (row_product != null)
             {
-                label1.Text = row["NAME"].ToString();
+                label1.Text = row_product["NAME"].ToString();
                 label4.Text = invoiceDetailDTO.Quantity.ToString();
-                label3.Text = row.Field<decimal>("PRICE").ToString("#,##0");
-                label2.Text = (row.Field<decimal>("PRICE") * int.Parse(label4.Text)).ToString("#,##0");
-                if(label1.Width > 150)
+                label3.Text = invoiceDetailDTO.Price.ToString("#,##0");
+                label2.Text = (invoiceDetailDTO.Price * int.Parse(label4.Text)).ToString("#,##0");
+                if (label1.Width > 150)
                 {
                     this.Height = this.Height + label1.Height;
-                    label1.MaximumSize = new Size(150, label1.Height*2);
+                    label1.MaximumSize = new Size(150, label1.Height * 2);
                 }
             }
         }

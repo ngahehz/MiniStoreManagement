@@ -55,6 +55,9 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
+            this.btneexcel = new System.Windows.Forms.Button();
+            this.btniexcel = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -64,6 +67,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.Controls.Add(this.btneexcel);
+            this.panel1.Controls.Add(this.btniexcel);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -202,9 +207,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(927, 296);
+            this.button1.Location = new System.Drawing.Point(928, 316);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 45);
+            this.button1.Size = new System.Drawing.Size(121, 46);
             this.button1.TabIndex = 1;
             this.button1.Text = "upload";
             this.button1.UseVisualStyleBackColor = true;
@@ -345,6 +350,28 @@
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
+            // btneexcel
+            // 
+            this.btneexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btneexcel.Location = new System.Drawing.Point(332, 314);
+            this.btneexcel.Name = "btneexcel";
+            this.btneexcel.Size = new System.Drawing.Size(156, 56);
+            this.btneexcel.TabIndex = 36;
+            this.btneexcel.Text = "Xuất file Excel";
+            this.btneexcel.UseVisualStyleBackColor = true;
+            this.btneexcel.Click += new System.EventHandler(this.btneexcel_Click);
+            // 
+            // btniexcel
+            // 
+            this.btniexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btniexcel.Location = new System.Drawing.Point(564, 314);
+            this.btniexcel.Name = "btniexcel";
+            this.btniexcel.Size = new System.Drawing.Size(167, 56);
+            this.btniexcel.TabIndex = 37;
+            this.btniexcel.Text = "Nhập file Excel";
+            this.btniexcel.UseVisualStyleBackColor = true;
+            this.btniexcel.Click += new System.EventHandler(this.btniexcel_Click);
+            // 
             // EmployeeUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -391,5 +418,8 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btneexcel;
+        private System.Windows.Forms.Button btniexcel;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

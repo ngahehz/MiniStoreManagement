@@ -15,10 +15,10 @@ namespace MiniStoreManagement.GUI.items
     public partial class AddPurchaseInvoiceDetail : UserControl
     {
         private ProductBUS productBUS = new ProductBUS();
+        private StockroomBUS stockroomBUS = new StockroomBUS();
         private PurchaseInvoiceBUS purchaseInvoiceBUS = new PurchaseInvoiceBUS();
         private PurchaseInvoiceDetailBUS purchaseInvoiceDetailBUS = new PurchaseInvoiceDetailBUS();
         private string invoice_id;
-        private bool active = false;
 
         public delegate void truyenDuLieu(decimal txt);
         public truyenDuLieu temp;
@@ -42,10 +42,11 @@ namespace MiniStoreManagement.GUI.items
         {
             if (ProductBUS.ProductList == null)
                 productBUS.getProduct();
+            if(StockroomBUS.StockroomList == null)
+                stockroomBUS.getStockroom();
             if (PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList == null)
-            {
                 purchaseInvoiceDetailBUS.getInvoiceDetail();
-            }
+
 
             foreach (DataRow row in ProductBUS.ProductList.Rows)
             {
@@ -83,22 +84,23 @@ namespace MiniStoreManagement.GUI.items
         private void cbbID_product_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbbID_product.SelectedItem == null)
-            {
                 return;
-            }
 
             string id_product = cbbID_product.SelectedItem.ToString();
 
-            DataRow find = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("PRODUCT_ID") == id_product && row.Field<string>("INVOICE_ID") == invoice_id);
+            DataRow find = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.AsEnumerable().FirstOrDefault(row => row.Field<string>("PRODUCT_ID") == id_product && row.Field<string>("INVOICE_ID") == invoice_id);
             if (find != null)
             {
                 numericUpDown1.Value = find.Field<int>("QUANTITY");
                 txtPrice.Text = find[3].ToString();
+                dateTimePicker1.Value = (DateTime)find[4];
             }
             else
             {
                 numericUpDown1.Value = 0;
                 txtPrice.Text = "";
+                dateTimePicker1.Value = DateTime.Now;
+                dateTimePicker1.CustomFormat = " ";
             }
         }
 
@@ -247,60 +249,49 @@ namespace MiniStoreManagement.GUI.items
                 return;
             }
 
-            DataRow rowToUpdate = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<int>("ID") == int.Parse(invoice_id));
+            DataRow rowToUpdate = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == invoice_id);
             PurchaseInvoiceDTO purchaseInvoiceDTO = new PurchaseInvoiceDTO(rowToUpdate);
 
             purchaseInvoiceDTO.State = "1"; // vế sau từ từ tính nè
             if (purchaseInvoiceBUS.updateInvoice(purchaseInvoiceDTO))
             {
                 rowToUpdate[5] = "1";
+
+                var filteredRows = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.AsEnumerable().Where(row => row.Field<string>("INVOICE_ID") == invoice_id);
+                int id_stockroom;
+                if (StockroomBUS.StockroomList.Rows.Count > 0)
+                    id_stockroom = int.Parse(StockroomBUS.StockroomList.Rows[StockroomBUS.StockroomList.Rows.Count - 1]["ID"].ToString()) + 1;
+                else
+                    id_stockroom = 100000;
+
+                foreach (var row in filteredRows)
+                {
+                    StockroomDTO stockroomDTO = new StockroomDTO();
+                    stockroomDTO.ID = id_stockroom.ToString();
+                    stockroomDTO.PRODUCT_ID = row[1].ToString();
+                    stockroomDTO.QUANTITY = (int)row[2];
+                    stockroomDTO.EXP = (DateTime)row[4];
+                    if (stockroomBUS.addStockroom(stockroomDTO))
+                    {
+                        StockroomBUS.StockroomList.Rows.Add(stockroomDTO.ID, stockroomDTO.PRODUCT_ID, stockroomDTO.QUANTITY, stockroomDTO.EXP);
+                        MessageBox.Show("Cập nhật vào kho hàng");
+
+                        DataRow find = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(_row => _row.Field<string>("ID") == stockroomDTO.PRODUCT_ID);
+                        ProductDTO productDTO = new ProductDTO(find);
+                        productDTO.Price = updatePrice((decimal)row[3]);
+                        productDTO.Quantity += stockroomDTO.QUANTITY;
+                        if (productBUS.updateProduct(productDTO)){
+                            find[5] = productDTO.Price;
+                            find[6] = productDTO.Quantity;
+                        }
+                    }
+                    else
+                        MessageBox.Show("Không đưa vào kho hàng được");
+                    id_stockroom += 1;
+                }
             }
-
-            //decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-
-
-            //if (purchaseInvoiceBUS.updateInvoice(purchaseInvoiceDTO))
-            //{
-            //    rowToUpdate[5] = "1";
-
-            //    DataRow[] filteredRows = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Select("INVOICE_ID = " + invoice_id);
-            //    foreach (DataRow row in filteredRows)
-            //    {
-            //        DataRow rowProduct = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(_row => _row.Field<int>("ID") == row.Field<int>("PRODUCT_ID"));
-
-            //        ProductDTO productDTO = new ProductDTO();
-            //        productDTO.Id = rowProduct.Field<string>("ID");
-            //        productDTO.Name = rowProduct.Field<string>("NAME");
-            //        productDTO.CategoryId = rowProduct.Field<string>("CATEGORY_ID");
-            //        productDTO.PromotionId = rowProduct.Field<string>("PROMOTION_ID");
-            //        productDTO.ProviderId = rowProduct.Field<string>("PROVIDER_ID");
-            //        productDTO.Price = row.Field<decimal>("PRICE") * 16 / 10; /////// này nè
-            //        productDTO.Quantity = rowProduct.Field<int>("QUANTITY") + row.Field<int>("QUANTITY");
-            //        productDTO.Exp = rowProduct.Field<DateTime>("EXP"); ////HMMMMMMMMMMMMM
-            //        productDTO.Img = rowProduct.Field<string>("IMG");
-
-            //        if (productBUS.updateProduct(productDTO))
-            //        {
-            //            rowProduct[5] = productDTO.Price;
-            //            rowProduct[6] = productDTO.Quantity;
-            //        }
-            //    }
-
-            //}
-
-
             pnlControl.Visible = false;
         }
-        //private void show_data()
-        //{
-        //    DataRow[] filteredRows = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Select("INVOICE_ID = " + invoice_id);
-        //    dataShow.Clear();
-        //    foreach (DataRow row in filteredRows)
-        //    {
-        //        dataShow.ImportRow(row);
-        //    }
-        //    dataGridView1.DataSource = dataShow;
-        //}
 
         private DataTable show_data()
         {
@@ -368,6 +359,28 @@ namespace MiniStoreManagement.GUI.items
         {
             if (dateTimePicker1.CustomFormat == " ")
                 dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "EXP")
+            {
+                if (e.Value != null && e.Value is DateTime)
+                {
+                    e.Value = ((DateTime)e.Value).ToString("dd/MM/yyyy");
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        public Panel getP()
+        {
+            return pnlControl;
+        }
+
+        private decimal updatePrice(decimal PurchasePrice)
+        {
+            return PurchasePrice * 1.6m;
         }
     }
 }

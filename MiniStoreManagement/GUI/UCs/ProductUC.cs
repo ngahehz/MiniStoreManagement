@@ -12,10 +12,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using MiniStoreManagement.DAO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -34,6 +30,7 @@ namespace MiniStoreManagement.GUI.UCs
         {
             InitializeComponent();
         }
+
         // này là vô theo phân loại
         public ProductUC(int i)
         {
@@ -51,7 +48,6 @@ namespace MiniStoreManagement.GUI.UCs
             txtName.Enabled = false;
             cbbID_promotion.Enabled = false;
             cbbID_provider.Enabled = false;
-            dateTimePicker1.Enabled = false;
 
             btnAdd.Visible = false;
             BtnUpdate.Visible = false;
@@ -59,6 +55,7 @@ namespace MiniStoreManagement.GUI.UCs
             btnDel.Text = "Hoàn";
             make_center();
         }
+
         public void make_center()
         {
             int spacing = 45; // Khoảng cách giữa hai nút
@@ -69,9 +66,10 @@ namespace MiniStoreManagement.GUI.UCs
             int yPositionButton1 = (panelHeight - buttonHeight * 2 - spacing) / 2;
             int yPositionButton2 = yPositionButton1 + buttonHeight + spacing;
 
-            btnNew.Location = new System.Drawing.Point(btnAdd.Location.X, yPositionButton1);
-            btnDel.Location = new System.Drawing.Point(btnDel.Location.X, yPositionButton2);
+            btnNew.Location = new Point(btnAdd.Location.X, yPositionButton1);
+            btnDel.Location = new Point(btnDel.Location.X, yPositionButton2);
         }
+
         private void ProductUC_Load(object sender, EventArgs e)
         {
             if (ProductBUS.ProductList == null)
@@ -83,18 +81,67 @@ namespace MiniStoreManagement.GUI.UCs
             if(PromotionBUS.PromotionList == null)
                 promotionBUS.getPromotion();
 
+            if(show_data(1) != null)
+                foreach (DataRow row in show_data(1).Rows)
+                    cbbID_provider.Items.Add(row["ID"].ToString());
+            if (show_data(2) != null)
+                foreach (DataRow row in show_data(2).Rows)
+                    cbbID_category.Items.Add(row["ID"].ToString());
+            if (show_data(3) != null)
+                foreach (DataRow row in show_data(3).Rows)
+                    cbbID_promotion.Items.Add(row["ID"].ToString());
+
             new_id();
 
-            dataGridView1.DataSource = show_data();
+            showdata();
             dataGridView1.Columns["STATE"].Visible = false;
-
-            foreach (DataRow row in ProviderBUS.ProviderList.Rows)
-                cbbID_provider.Items.Add(row["ID"].ToString());
-            foreach (DataRow row in CategoryBUS.CategoryList.Rows)
-                cbbID_category.Items.Add(row["ID"].ToString());
-            foreach (DataRow row in PromotionBUS.PromotionList.Rows)
-                cbbID_promotion.Items.Add(row["ID"].ToString());
         }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            reset_form();
+            if (show_data().Rows.Count == 0)
+                return;
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
+
+            id_focus = true;
+            txtID.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            txtName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+            cbbID_category.SelectedItem = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+            cbbID_promotion.SelectedItem = dataGridView1.CurrentRow.Cells[3].Value.ToString();
+            cbbID_provider.SelectedItem = dataGridView1.CurrentRow.Cells[4].Value.ToString();
+            numericUpDown1.Value = int.Parse(dataGridView1.CurrentRow.Cells[6].Value.ToString());
+
+            decimal price = decimal.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+            if (cbbID_promotion.SelectedItem != null)
+            {
+                DataRow row_promotion = PromotionBUS.PromotionList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == cbbID_promotion.SelectedItem.ToString());
+                decimal newprice = price * (decimal)(1 - (double)row_promotion[2]);
+                txtPrice.Text = newprice.ToString("#,##0");
+                lbPrice.Text = price.ToString("#,##0");
+                lbPrice.Visible = true;
+            }
+            else
+            {
+                txtPrice.Text = price.ToString("#,##0");
+            }
+
+            if (!string.IsNullOrWhiteSpace(dataGridView1.CurrentRow.Cells[7].Value.ToString()))
+            {
+                pictureBox1.Image = new Bitmap("..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() +"//"+ dataGridView1.CurrentRow.Cells[7].Value.ToString());
+                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBox1.BackgroundImage = null;
+                fileName = dataGridView1.CurrentRow.Cells[7].Value.ToString();
+            }
+            else
+            {
+                pictureBox1.Image = null;
+                fileName = null;
+            }
+        }
+
         private void btnUpload_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -104,50 +151,7 @@ namespace MiniStoreManagement.GUI.UCs
                 fileName = Path.GetFileName(ofd.FileName);
                 pictureBox1.Image = new Bitmap(ofd.FileName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-        }
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "EXP")
-            {
-                if (e.Value != null && e.Value is DateTime)
-                {
-                    e.Value = ((DateTime)e.Value).ToString("dd/MM/yyyy");
-                    e.FormattingApplied = true;
-                }
-            }
-        }
-
-        private void dataGridView1_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
-                return;
-            }
-            id_focus = true;
-            dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-
-            txtID.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            txtName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-            numericUpDown1.Value = int.Parse(dataGridView1.CurrentRow.Cells[6].Value.ToString());
-            txtPrice.Text = dataGridView1.CurrentRow.Cells[5].Value.ToString();
-
-            cbbID_category.SelectedItem = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-            cbbID_promotion.SelectedItem = dataGridView1.CurrentRow.Cells[3].Value.ToString();
-            cbbID_provider.SelectedItem = dataGridView1.CurrentRow.Cells[4].Value.ToString();
-
-            dateTimePicker1.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[7].Value.ToString());
-
-            if (dataGridView1.CurrentRow.Cells[8].Value.ToString() != "")
-            {
-                pictureBox1.Image = new Bitmap("..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() +"//"+ dataGridView1.CurrentRow.Cells[8].Value.ToString());
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            }
-            else
-            {
-                pictureBox1.Image = null;
-                fileName = null;
+                pictureBox1.BackgroundImage = null;
             }
         }
 
@@ -166,9 +170,10 @@ namespace MiniStoreManagement.GUI.UCs
             productDTO.Id = txtID.Text;
             productDTO.Name = txtName.Text;
             productDTO.ProviderId = cbbID_provider.SelectedItem.ToString();
-            productDTO.Quantity = int.Parse(numericUpDown1.Value.ToString());
-            productDTO.Price = int.Parse(txtPrice.Text);
-            productDTO.Exp = dateTimePicker1.Value;
+            //productDTO.Quantity = int.Parse(numericUpDown1.Value.ToString());
+            //productDTO.Price = decimal.Parse(txtPrice.Text.Replace(",", ""));
+            productDTO.Quantity = 0;
+            productDTO.Price = 0;
 
             if (cbbID_category.SelectedIndex != -1)
                 productDTO.CategoryId = cbbID_category.SelectedItem.ToString();
@@ -188,11 +193,8 @@ namespace MiniStoreManagement.GUI.UCs
             if (productBUS.addProduct(productDTO))
             {
                 ProductBUS.ProductList.Rows.Add(productDTO.Id, productDTO.Name, productDTO.CategoryId, productDTO.PromotionId, productDTO.ProviderId,
-                                                productDTO.Price, productDTO.Quantity, productDTO.Exp, productDTO.Img, productDTO.State);
-
-                dataGridView1.DataSource = show_data();
-                dataGridView1.Columns["STATE"].Visible = false;
-
+                                                productDTO.Price, productDTO.Quantity, productDTO.Img, productDTO.State);
+                showdata();
                 SaveImg();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
@@ -201,26 +203,7 @@ namespace MiniStoreManagement.GUI.UCs
                 MessageBox.Show("Lỗi không thể thêm thành công");
         }
 
-        private void reset_form()
-        {
-            id_focus = false;
-            new_id();
-            txtName.ResetText();
-            txtPrice.ResetText();
-            txtPrice.Text = "0";
-            txtSearch.ResetText();
-            numericUpDown1.Value = 0;
-            cbbID_category.SelectedItem = null;
-            cbbID_promotion.SelectedItem = null;
-            cbbID_provider.SelectedItem = null;
-            pictureBox1.Image = null;
-            fileName = null;
-            dateTimePicker1.Value = DateTime.Now;
-            dateTimePicker1.CustomFormat = " ";
-            dataGridView1.ClearSelection();
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
+        private void btnNew_Click(object sender, EventArgs e) // del hoặc new
         {
             if (_state == "0")
             {
@@ -233,47 +216,19 @@ namespace MiniStoreManagement.GUI.UCs
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    productBUS.removeProduct(txtID.Text);
-                    DataRow[] rowsToDelete = ProductBUS.ProductList.Select("ID = '" + txtID.Text + "'");
-                    ProductBUS.ProductList.Rows.Remove(rowsToDelete[0]);
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    if (productBUS.removeProduct(txtID.Text))
+                    {
+                        DataRow[] rowsToDelete = ProductBUS.ProductList.Select("ID = '" + txtID.Text + "'");
+                        ProductBUS.ProductList.Rows.Remove(rowsToDelete[0]);
+                        showdata();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                    else
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
             else
                 reset_form();
-        }
-
-        private bool check()
-        {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName.Focus();
-                return false;
-            }
-            if (cbbID_provider.SelectedIndex == -1)
-            {
-                MessageBox.Show("Không được để trống id nguồn cung");
-                cbbID_provider.Focus();
-                return false;
-            }
-
-            if (dateTimePicker1.CustomFormat == " ")
-            {
-                MessageBox.Show("Không được để trống HSD");
-                dateTimePicker1.Focus();
-                return false;
-            }
-
-            if (DateTime.Now > dateTimePicker1.Value)
-            {
-                MessageBox.Show("Món này đã hết hạn sử dụng");
-                dateTimePicker1.Focus();
-                return false;
-            }
-
-            return true;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -296,33 +251,13 @@ namespace MiniStoreManagement.GUI.UCs
             if (dialogResult == DialogResult.Yes)
             {
                 DataRow rowToUpdate = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
-                ProductDTO productDTO = new ProductDTO();
-                if (rowToUpdate != null)
+                ProductDTO productDTO = new ProductDTO(rowToUpdate);
+                productDTO.State = _state;
+                if (productBUS.updateProduct(productDTO))
                 {
-                    productDTO.Id = txtID.Text;
-                    productDTO.Name = rowToUpdate[1].ToString();
-
-                    if (string.IsNullOrEmpty(rowToUpdate[2].ToString()))
-                        productDTO.CategoryId = null;
-                    else
-                        productDTO.CategoryId = rowToUpdate[2].ToString();
-
-                    if (string.IsNullOrEmpty(rowToUpdate[3].ToString()))
-                        productDTO.PromotionId = null;
-                    else
-                        productDTO.PromotionId = rowToUpdate[3].ToString();
-
-                    productDTO.ProviderId = rowToUpdate[4].ToString();
-                    productDTO.Price = (decimal)rowToUpdate[5];
-                    productDTO.Quantity = (int)rowToUpdate[6];
-                    productDTO.Exp = DateTime.Parse(rowToUpdate[7].ToString());
-                    productDTO.Img = rowToUpdate[8].ToString();
-                    productDTO.State = "1";
-                    rowToUpdate[9] = "1";
-                    productBUS.updateProduct(productDTO);
-
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    rowToUpdate[8] = _state;
+                    showdata();
+                    reset_form();
 
                     if (_state == "1")
                         MessageBox.Show("Đã xóa");
@@ -332,53 +267,6 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
             }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            DataView dv = show_data().DefaultView;
-            string txt = txtSearch.Text;
-
-            if (txtSearch.Text == "")
-            {
-                dv.RowFilter = "GENDER LIKE '%N%'";
-                dataGridView1.DataSource = dv.ToTable();
-                return;
-            }
-
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR CATEGORY_ID LIKE '%{txt}%' OR PROMOTION_ID LIKE '%{txt}%' OR PROVIDER_ID LIKE '%{txt}%' "
-                         + $"OR CONVERT(PRICE, 'System.String') LIKE '%{txt}%' OR CONVERT(QUANTITY, 'System.String') LIKE '%{txt}%' ";
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        private void LoadData(string query)
-        {
-            DataView dv = ProductBUS.ProductList.DefaultView;
-            dv.RowFilter = query;
-            dataGridView1.DataSource = dv.ToTable();
-        }
-
-        //private void btnSearch_Click(object sender, EventArgs e)
-        //{
-        //    TimKiemProduct timkiem = new TimKiemProduct();
-        //    timkiem.temp = new TimKiemProduct.truyenDuLieu(LoadData);
-        //    timkiem.Show();
-        //}
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            if (dateTimePicker1.CustomFormat == " ")
-                dateTimePicker1.CustomFormat = "dd/MM/yyyy";
-        }
-
-        private void new_id()
-        {
-            if (ProductBUS.ProductList.Rows.Count > 0)
-            {
-                txtID.Text = (int.Parse(ProductBUS.ProductList.Rows[ProductBUS.ProductList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
-                return;
-            }
-            txtID.Text = "100000";
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -395,13 +283,11 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (dialogResult == DialogResult.Yes)
             {
-                ProductDTO productDTO = new ProductDTO();
+                DataRow rowToUpdate = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                ProductDTO productDTO = new ProductDTO(rowToUpdate);
                 productDTO.Id = txtID.Text;
                 productDTO.Name = txtName.Text;
                 productDTO.ProviderId = cbbID_provider.Text;
-                productDTO.Quantity = int.Parse(numericUpDown1.Value.ToString());
-                productDTO.Price = int.Parse(txtPrice.Text);
-                productDTO.Exp = dateTimePicker1.Value;
 
                 if (cbbID_category.SelectedIndex != -1)
                     productDTO.CategoryId = cbbID_category.Text;
@@ -420,23 +306,17 @@ namespace MiniStoreManagement.GUI.UCs
 
                 if (productBUS.updateProduct(productDTO))
                 {
-                    DataRow rowToUpdate = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
-
                     if (rowToUpdate != null)
                     {
                         rowToUpdate[1] = productDTO.Name;
                         rowToUpdate[2] = productDTO.CategoryId;
                         rowToUpdate[3] = productDTO.PromotionId;
                         rowToUpdate[4] = productDTO.ProviderId;
-                        rowToUpdate[5] = productDTO.Price;
-                        rowToUpdate[6] = productDTO.Quantity;
-                        rowToUpdate[7] = productDTO.Exp;
-                        rowToUpdate[9] = productDTO.State;
+                        rowToUpdate[8] = productDTO.State;
                         if (productDTO.Img != null)
-                            rowToUpdate[8] = productDTO.Img;
+                            rowToUpdate[7] = productDTO.Img;
 
-                        dataGridView1.DataSource = show_data();
-                        dataGridView1.Columns["STATE"].Visible = false;
+                        showdata();
 
                         SaveImg();
                         MessageBox.Show("Đã sửa");
@@ -447,6 +327,68 @@ namespace MiniStoreManagement.GUI.UCs
             }
         }
 
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = show_data().DefaultView;
+            string txt = txtSearch.Text;
+
+            if (txtSearch.Text == "")
+            {
+                dv.RowFilter = "ID LIKE '%1%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR NAME LIKE '%{txt}%' OR CATEGORY_ID LIKE '%{txt}%' OR PROMOTION_ID LIKE '%{txt}%' OR PROVIDER_ID LIKE '%{txt}%' "
+                         + $"OR CONVERT(PRICE, 'System.String') LIKE '%{txt}%' OR CONVERT(QUANTITY, 'System.String') LIKE '%{txt}%' ";
+            dataGridView1.DataSource = dv.ToTable();
+        }
+
+        private void new_id()
+        {
+            if (ProductBUS.ProductList.Rows.Count > 0)
+            {
+                txtID.Text = (int.Parse(ProductBUS.ProductList.Rows[ProductBUS.ProductList.Rows.Count - 1]["ID"].ToString()) + 1).ToString();
+                return;
+            }
+            txtID.Text = "100000";
+        }
+
+        private void reset_form()
+        {
+            id_focus = false;
+            new_id();
+            txtName.ResetText();
+            txtPrice.ResetText();
+            txtPrice.Text = "0";
+            txtSearch.ResetText();
+            numericUpDown1.Value = 0;
+            cbbID_category.SelectedItem = null;
+            cbbID_promotion.SelectedItem = null;
+            cbbID_provider.SelectedItem = null;
+            pictureBox1.Image = null;
+            fileName = null;
+            lbPrice.Visible = false;
+            dataGridView1.ClearSelection();
+        }
+
+        private bool check()
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Không được để trống tên");
+                txtName.Focus();
+                return false;
+            }
+            if (cbbID_provider.SelectedIndex == -1)
+            {
+                MessageBox.Show("Không được để trống id nguồn cung");
+                cbbID_provider.Focus();
+                return false;
+            }
+            return true;
+        }
+
         private void SaveImg()
         {
             if (pictureBox1.Image != null && fileName != null)
@@ -455,11 +397,29 @@ namespace MiniStoreManagement.GUI.UCs
                 pictureBox1.Image.Save(filePath);
             }
         }
+
+        private int LoadData(string query)
+        {
+            DataView dv = show_data().DefaultView;
+            dv.RowFilter = query;
+            dataGridView1.DataSource = dv.ToTable();
+            return dv.ToTable().Rows.Count;
+        }
+
+        private void btnsearch_click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms["TimKiemProduct"] != null)
+                return;
+            TimKiemProduct timkiem = new TimKiemProduct();
+            timkiem.temp = new TimKiemProduct.truyenDuLieu(LoadData);
+            timkiem.Show();
+        }
+
         public void showdata()
         {
             dataGridView1.DataSource = show_data();
-            dataGridView1.Columns["STATE"].Visible = false;
         }
+
         private DataTable show_data()
         {
             if (_state == "0" && _cat == null)
@@ -479,6 +439,22 @@ namespace MiniStoreManagement.GUI.UCs
             }
             var filteredRows4 = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0" && row.Field<string>("CATEGORY_ID") == _cat);
             return filteredRows4.Any() ? filteredRows4.CopyToDataTable() : ProductBUS.ProductList.Clone();
+        }
+
+        private DataTable show_data(int number)
+        {
+            if (number == 1)
+            {
+                var filteredRows1 = ProviderBUS.ProviderList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+                return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : ProviderBUS.ProviderList.Clone();
+            }
+            if (number == 2)
+            {
+                var filteredRows2 = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+                return filteredRows2.Any() ? filteredRows2.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
+            }
+            var filteredRows4 = PromotionBUS.PromotionList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+            return filteredRows4.Any() ? filteredRows4.CopyToDataTable() : PromotionBUS.PromotionList.Clone();
         }
     }
 }

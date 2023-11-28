@@ -41,6 +41,8 @@
             this.picBack = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelSlideMenu = new System.Windows.Forms.Panel();
+            this.btnStockroom = new System.Windows.Forms.Button();
+            this.btnStatistics = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnProvider = new System.Windows.Forms.Button();
@@ -49,9 +51,9 @@
             this.btnInvoice = new System.Windows.Forms.Button();
             this.btnConsumer = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.button7 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -78,21 +80,24 @@
             // panel5
             // 
             this.panel5.Controls.Add(this.menuStrip1);
-            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel5.Font = new System.Drawing.Font("MV Boli", 16F);
+            this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(192, 100);
+            this.panel5.Size = new System.Drawing.Size(118, 112);
             this.panel5.TabIndex = 3;
             // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ffToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(192, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(64, 48);
             this.menuStrip1.TabIndex = 0;
             // 
             // ffToolStripMenuItem
@@ -101,27 +106,36 @@
             this.fToolStripMenuItem,
             this.fToolStripMenuItem1,
             this.fToolStripMenuItem2});
+            this.ffToolStripMenuItem.Font = new System.Drawing.Font("MV Boli", 16F);
             this.ffToolStripMenuItem.Image = global::MiniStoreManagement.Properties.Resources.setting;
             this.ffToolStripMenuItem.Name = "ffToolStripMenuItem";
-            this.ffToolStripMenuItem.Size = new System.Drawing.Size(40, 30);
+            this.ffToolStripMenuItem.Size = new System.Drawing.Size(56, 44);
             // 
             // fToolStripMenuItem
             // 
+            this.fToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.fToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.fToolStripMenuItem.Name = "fToolStripMenuItem";
-            this.fToolStripMenuItem.Size = new System.Drawing.Size(120, 34);
-            this.fToolStripMenuItem.Text = "f";
+            this.fToolStripMenuItem.Size = new System.Drawing.Size(353, 50);
+            this.fToolStripMenuItem.Text = "ListAccount";
+            this.fToolStripMenuItem.Click += new System.EventHandler(this.fToolStripMenuItem_Click);
             // 
             // fToolStripMenuItem1
             // 
+            this.fToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.fToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.fToolStripMenuItem1.Name = "fToolStripMenuItem1";
-            this.fToolStripMenuItem1.Size = new System.Drawing.Size(120, 34);
-            this.fToolStripMenuItem1.Text = "f";
+            this.fToolStripMenuItem1.Size = new System.Drawing.Size(353, 50);
+            this.fToolStripMenuItem1.Text = "UpdateAccount";
+            this.fToolStripMenuItem1.Click += new System.EventHandler(this.fToolStripMenuItem1_Click);
             // 
             // fToolStripMenuItem2
             // 
+            this.fToolStripMenuItem2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.fToolStripMenuItem2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.fToolStripMenuItem2.Name = "fToolStripMenuItem2";
-            this.fToolStripMenuItem2.Size = new System.Drawing.Size(120, 34);
-            this.fToolStripMenuItem2.Text = "f";
+            this.fToolStripMenuItem2.Size = new System.Drawing.Size(353, 50);
+            this.fToolStripMenuItem2.Text = "Logout";
             // 
             // panel3
             // 
@@ -175,6 +189,8 @@
             // 
             this.panelSlideMenu.AutoScroll = true;
             this.panelSlideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.panelSlideMenu.Controls.Add(this.btnStockroom);
+            this.panelSlideMenu.Controls.Add(this.btnStatistics);
             this.panelSlideMenu.Controls.Add(this.btnCategory);
             this.panelSlideMenu.Controls.Add(this.btnEmployee);
             this.panelSlideMenu.Controls.Add(this.btnProvider);
@@ -190,6 +206,36 @@
             this.panelSlideMenu.Size = new System.Drawing.Size(341, 815);
             this.panelSlideMenu.TabIndex = 1;
             // 
+            // btnStockroom
+            // 
+            this.btnStockroom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.btnStockroom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockroom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockroom.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStockroom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
+            this.btnStockroom.Location = new System.Drawing.Point(0, 753);
+            this.btnStockroom.Name = "btnStockroom";
+            this.btnStockroom.Size = new System.Drawing.Size(315, 77);
+            this.btnStockroom.TabIndex = 25;
+            this.btnStockroom.Text = "Stockroom";
+            this.btnStockroom.UseVisualStyleBackColor = false;
+            this.btnStockroom.Click += new System.EventHandler(this.Button_Click);
+            // 
+            // btnStatistics
+            // 
+            this.btnStatistics.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
+            this.btnStatistics.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStatistics.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatistics.Font = new System.Drawing.Font("MV Boli", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatistics.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
+            this.btnStatistics.Location = new System.Drawing.Point(0, 676);
+            this.btnStatistics.Name = "btnStatistics";
+            this.btnStatistics.Size = new System.Drawing.Size(315, 77);
+            this.btnStatistics.TabIndex = 24;
+            this.btnStatistics.Text = "Statistics";
+            this.btnStatistics.UseVisualStyleBackColor = false;
+            this.btnStatistics.Click += new System.EventHandler(this.Button_Click);
+            // 
             // btnCategory
             // 
             this.btnCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(70)))), ((int)(((byte)(112)))));
@@ -199,7 +245,7 @@
             this.btnCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnCategory.Location = new System.Drawing.Point(0, 599);
             this.btnCategory.Name = "btnCategory";
-            this.btnCategory.Size = new System.Drawing.Size(341, 77);
+            this.btnCategory.Size = new System.Drawing.Size(315, 77);
             this.btnCategory.TabIndex = 23;
             this.btnCategory.Text = "Category";
             this.btnCategory.UseVisualStyleBackColor = false;
@@ -214,7 +260,7 @@
             this.btnEmployee.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnEmployee.Location = new System.Drawing.Point(0, 522);
             this.btnEmployee.Name = "btnEmployee";
-            this.btnEmployee.Size = new System.Drawing.Size(341, 77);
+            this.btnEmployee.Size = new System.Drawing.Size(315, 77);
             this.btnEmployee.TabIndex = 22;
             this.btnEmployee.Text = "Employee";
             this.btnEmployee.UseVisualStyleBackColor = false;
@@ -229,7 +275,7 @@
             this.btnProvider.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnProvider.Location = new System.Drawing.Point(0, 445);
             this.btnProvider.Name = "btnProvider";
-            this.btnProvider.Size = new System.Drawing.Size(341, 77);
+            this.btnProvider.Size = new System.Drawing.Size(315, 77);
             this.btnProvider.TabIndex = 21;
             this.btnProvider.Text = "Provider";
             this.btnProvider.UseVisualStyleBackColor = false;
@@ -244,7 +290,7 @@
             this.btnPromotion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnPromotion.Location = new System.Drawing.Point(0, 368);
             this.btnPromotion.Name = "btnPromotion";
-            this.btnPromotion.Size = new System.Drawing.Size(341, 77);
+            this.btnPromotion.Size = new System.Drawing.Size(315, 77);
             this.btnPromotion.TabIndex = 20;
             this.btnPromotion.Text = "Promotion";
             this.btnPromotion.UseVisualStyleBackColor = false;
@@ -259,7 +305,7 @@
             this.btnVoucher.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnVoucher.Location = new System.Drawing.Point(0, 291);
             this.btnVoucher.Name = "btnVoucher";
-            this.btnVoucher.Size = new System.Drawing.Size(341, 77);
+            this.btnVoucher.Size = new System.Drawing.Size(315, 77);
             this.btnVoucher.TabIndex = 19;
             this.btnVoucher.Text = "Voucher";
             this.btnVoucher.UseVisualStyleBackColor = false;
@@ -274,7 +320,7 @@
             this.btnInvoice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnInvoice.Location = new System.Drawing.Point(0, 214);
             this.btnInvoice.Name = "btnInvoice";
-            this.btnInvoice.Size = new System.Drawing.Size(341, 77);
+            this.btnInvoice.Size = new System.Drawing.Size(315, 77);
             this.btnInvoice.TabIndex = 14;
             this.btnInvoice.Text = "Invoice";
             this.btnInvoice.UseVisualStyleBackColor = false;
@@ -289,7 +335,7 @@
             this.btnConsumer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnConsumer.Location = new System.Drawing.Point(0, 137);
             this.btnConsumer.Name = "btnConsumer";
-            this.btnConsumer.Size = new System.Drawing.Size(341, 77);
+            this.btnConsumer.Size = new System.Drawing.Size(315, 77);
             this.btnConsumer.TabIndex = 13;
             this.btnConsumer.Text = "Consumer";
             this.btnConsumer.UseVisualStyleBackColor = false;
@@ -301,19 +347,8 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 77);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(341, 60);
+            this.panel2.Size = new System.Drawing.Size(315, 60);
             this.panel2.TabIndex = 12;
-            // 
-            // button7
-            // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button7.Font = new System.Drawing.Font("MV Boli", 16F);
-            this.button7.Location = new System.Drawing.Point(0, 0);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(341, 60);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "(+)";
-            this.button7.UseVisualStyleBackColor = true;
             // 
             // btnProduct
             // 
@@ -324,7 +359,7 @@
             this.btnProduct.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(254)))), ((int)(((byte)(250)))));
             this.btnProduct.Location = new System.Drawing.Point(0, 0);
             this.btnProduct.Name = "btnProduct";
-            this.btnProduct.Size = new System.Drawing.Size(341, 77);
+            this.btnProduct.Size = new System.Drawing.Size(315, 77);
             this.btnProduct.TabIndex = 0;
             this.btnProduct.Text = "Product";
             this.btnProduct.UseVisualStyleBackColor = false;
@@ -339,6 +374,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1148, 815);
             this.panel4.TabIndex = 3;
+            // 
+            // button7
+            // 
+            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button7.Font = new System.Drawing.Font("MV Boli", 16F);
+            this.button7.Location = new System.Drawing.Point(0, 0);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(315, 60);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "(+)";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -373,7 +419,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelSlideMenu;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnProduct;
         private System.Windows.Forms.Button btnPromotion;
@@ -382,7 +427,6 @@
         private System.Windows.Forms.Button btnConsumer;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnProvider;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnEmployee;
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.PictureBox picBin;
@@ -394,5 +438,9 @@
         private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem2;
+        private System.Windows.Forms.Button btnStatistics;
+        private System.Windows.Forms.Button btnStockroom;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button button7;
     }
 }

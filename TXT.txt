@@ -31,7 +31,20 @@ now we got a problem thatt i cant input the null id by "null"
 - làm giới hạn số lượng sản phẩm thêm vào hóa đơn
 - làm thêm xóa tất cả dữ liệu
 - làm thêm cái control để tránh mở thêm mấy cái tìm nâng cao
+- giờ t làm cái phần put từ chi tiết thông tin lên thì t thấy là lỡ z thì mỗi lần chỉnh phải chỉnh từng sản phẩm thì chỉnh tới bao giờ :)
+
+
 
 ////////////////////////////cô ơi
 - có cần xóa hóa đơn không
 - con tính lúc đọc file vourcher dới promotion thì nào hết hạn thì cho state bằng 1 lun, con cũng tính khi đọc product nếu hết hạn cũng tự động loại bỏ cái id đó lun
+
+
+?/
+	tự dưng t nghĩ tới cái update cho DAO làm thêm mấy cái hàm nhỏ trường hơp chỉ muốn thay đỏi state, hay vài cái linh tinh mà t lười quá
+	có nên làm thêm cái ẩn không :) ẩn xong xóa fake rồi xóa real
+	ờ chưa làm VAT nữa ó
+?/
+
+========
+làm mỗi lần vô app thì sẽ check lại xem promotion với voucher xem còn hạn hong thì bỏ 

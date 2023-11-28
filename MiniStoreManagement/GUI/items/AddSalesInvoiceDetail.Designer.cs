@@ -44,18 +44,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.BtnPrint = new System.Windows.Forms.Button();
             this.pnlControl = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
+            this.pnlPrint = new System.Windows.Forms.Panel();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnlControl.SuspendLayout();
+            this.pnlPrint.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -166,9 +168,9 @@
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.label3.Location = new System.Drawing.Point(460, 155);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 32);
+            this.label3.Size = new System.Drawing.Size(114, 32);
             this.label3.TabIndex = 43;
-            this.label3.Text = "Thành tiền";
+            this.label3.Text = "Đơn giá";
             // 
             // label10
             // 
@@ -214,8 +216,8 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
             this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Controls.Add(this.BtnPrint);
             this.panel2.Controls.Add(this.pnlControl);
+            this.panel2.Controls.Add(this.pnlPrint);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
             this.panel2.Location = new System.Drawing.Point(0, 218);
@@ -235,15 +237,6 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
-            // BtnPrint
-            // 
-            this.BtnPrint.Location = new System.Drawing.Point(1004, 181);
-            this.BtnPrint.Name = "BtnPrint";
-            this.BtnPrint.Size = new System.Drawing.Size(114, 66);
-            this.BtnPrint.TabIndex = 32;
-            this.BtnPrint.Text = "In";
-            this.BtnPrint.UseVisualStyleBackColor = true;
-            // 
             // pnlControl
             // 
             this.pnlControl.Controls.Add(this.btnAdd);
@@ -252,7 +245,7 @@
             this.pnlControl.Controls.Add(this.btnSave);
             this.pnlControl.Controls.Add(this.btnNew);
             this.pnlControl.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlControl.Location = new System.Drawing.Point(0, 495);
+            this.pnlControl.Location = new System.Drawing.Point(0, 393);
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(874, 102);
             this.pnlControl.TabIndex = 38;
@@ -307,6 +300,26 @@
             this.btnNew.UseVisualStyleBackColor = true;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
+            // pnlPrint
+            // 
+            this.pnlPrint.Controls.Add(this.btnPrint);
+            this.pnlPrint.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlPrint.Location = new System.Drawing.Point(0, 495);
+            this.pnlPrint.Name = "pnlPrint";
+            this.pnlPrint.Size = new System.Drawing.Size(874, 102);
+            this.pnlPrint.TabIndex = 52;
+            this.pnlPrint.Visible = false;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(364, 17);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(146, 68);
+            this.btnPrint.TabIndex = 38;
+            this.btnPrint.Text = "In";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
             // AddSalesInvoiceDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -322,6 +335,7 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.pnlControl.ResumeLayout(false);
+            this.pnlPrint.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -342,7 +356,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button BtnPrint;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Button btnSave;
@@ -351,5 +364,7 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Panel pnlControl;
         private System.Windows.Forms.Label lbExit;
+        private System.Windows.Forms.Panel pnlPrint;
+        private System.Windows.Forms.Button btnPrint;
     }
 }

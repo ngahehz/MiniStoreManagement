@@ -47,11 +47,13 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
+            reset_form();
+            if (VoucherBUS.VoucherList.Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
+
             id_focus = true;
             dateTimePicker1.CustomFormat = "dd/MM/yyyy";
             dateTimePicker2.CustomFormat = "dd/MM/yyyy";
@@ -144,6 +146,7 @@ namespace MiniStoreManagement.GUI.UCs
                     DataRow[] rowsToDelete = VoucherBUS.VoucherList.Select("ID = '" + txtID.Text + "'");
                     VoucherBUS.VoucherList.Rows.Remove(rowsToDelete[0]);
                     dataGridView1.DataSource = VoucherBUS.VoucherList;
+                    reset_form();
 
                     MessageBox.Show("Đã xóa");
                 }
@@ -277,6 +280,7 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker2.Value = DateTime.Now;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
+            dataGridView1.ClearSelection();
         }
 
         private bool check()

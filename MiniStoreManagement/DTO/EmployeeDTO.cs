@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MiniStoreManagement.GUI.UCs;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,15 +21,15 @@ namespace MiniStoreManagement.DTO
         {
             State = "0";
         }
-        public EmployeeDTO(string id, string name, string gender, DateTime doB, string cell, string img, string state)
+        public EmployeeDTO(DataRow row)
         {
-            Id = id;
-            Name = name;
-            Gender = gender;
-            DoB = doB;
-            Cell = cell;
-            Img = img;
-            State = state;
+            Id = row[0].ToString();
+            Name = row[1].ToString();
+            Gender = row[2].ToString();
+            DoB = (DateTime)row[3];
+            Cell = row[4].ToString();
+            Img = row[5].ToString();
+            State = row[6].ToString();
         }
     }
 }

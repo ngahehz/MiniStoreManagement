@@ -40,7 +40,6 @@ namespace MiniStoreManagement.GUI.UCs
             txtName_category.Enabled = false;
         }
 
-
         public void make_center()
         {
             int spacing = 45; // Khoảng cách giữa hai nút
@@ -52,10 +51,10 @@ namespace MiniStoreManagement.GUI.UCs
             int yPositionButton2 = yPositionButton1 + buttonHeight + spacing;
 
             // Đặt vị trí của nút 1
-            btnNew.Location = new System.Drawing.Point(btnAdd.Location.X, yPositionButton1);
+            btnNew.Location = new Point(btnAdd.Location.X, yPositionButton1);
 
             // Đặt vị trí của nút 2
-            btnDel.Location = new System.Drawing.Point(btnDel.Location.X, yPositionButton2);
+            btnDel.Location = new Point(btnDel.Location.X, yPositionButton2);
         }
 
         private void CategoryUC_Load(object sender, EventArgs e)
@@ -71,16 +70,19 @@ namespace MiniStoreManagement.GUI.UCs
 
             new_id();
 
-            dataGridView1.DataSource = show_data();
+            showdata();
             dataGridView1.Columns["STATE"].Visible = false;
         }
+
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
+            reset_form();
+            if (show_data().Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
+
             id_focus = true;
 
             txtID_category.Text = dataGridView1.CurrentRow.Cells[0].Value.ToString();
@@ -105,23 +107,12 @@ namespace MiniStoreManagement.GUI.UCs
             if (categoryBUS.addCategory(categoryDTO))
             {
                 CategoryBUS.CategoryList.Rows.Add(categoryDTO.Id, categoryDTO.Name, categoryDTO.State);
-                dataGridView1.DataSource = show_data();
-                dataGridView1.Columns["STATE"].Visible = false;
+                showdata();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
             }
             else
                 MessageBox.Show("Lỗi không thể thêm thành công");
-        }
-
-        private void reset_form()
-        {
-            id_focus = false;
-            new_id();
-            txtName_category.ResetText();
-            txtName_product.ResetText();
-            cbbID_product.SelectedItem = null;
-            txtSearch.ResetText();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -137,26 +128,19 @@ namespace MiniStoreManagement.GUI.UCs
 
                 if (dialogResult == DialogResult.Yes)
                 {
-                    categoryBUS.removeCategory(txtID_category.Text);
-                    DataRow[] rowsToDelete = CategoryBUS.CategoryList.Select("ID = '" + txtID_category.Text + "'");
-                    CategoryBUS.CategoryList.Rows.Remove(rowsToDelete[0]);
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    if (categoryBUS.removeCategory(txtID_category.Text))
+                    {
+                        DataRow[] rowsToDelete = CategoryBUS.CategoryList.Select("ID = '" + txtID_category.Text + "'");
+                        CategoryBUS.CategoryList.Rows.Remove(rowsToDelete[0]);
+                        showdata();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                    else
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
             else
                 reset_form();
-        }
-
-        private bool check()
-        {
-            if (string.IsNullOrWhiteSpace(txtName_category.Text))
-            {
-                MessageBox.Show("Không được để trống tên");
-                txtName_category.Focus();
-                return false;
-            }
-            return true;
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -181,16 +165,14 @@ namespace MiniStoreManagement.GUI.UCs
             {
                 DataRow rowToUpdate = CategoryBUS.CategoryList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID_category.Text);
                 CategoryDTO categoryDTO = new CategoryDTO();
-                if (rowToUpdate != null)
+                categoryDTO.Id = txtID_category.Text;
+                categoryDTO.Name = rowToUpdate[1].ToString();
+                categoryDTO.State = _state;
+                if( categoryBUS.updateCategory(categoryDTO))
                 {
-                    categoryDTO.Id = txtID_category.Text;
-                    categoryDTO.Name = rowToUpdate[1].ToString();
-                    categoryDTO.State = _state;
                     rowToUpdate[2] = _state;
-                    categoryBUS.updateCategory(categoryDTO);
-
-                    dataGridView1.DataSource = show_data();
-                    dataGridView1.Columns["STATE"].Visible = false;
+                    showdata();
+                    reset_form();
 
                     if (_state == "1")
                         MessageBox.Show("Đã xóa");
@@ -199,6 +181,40 @@ namespace MiniStoreManagement.GUI.UCs
                 }
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
+            }
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (!id_focus)
+            {
+                MessageBox.Show("Đối tượng chưa được lưu nên không thể sửa");
+                return;
+            }
+            if (!check())
+                return;
+
+            DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                CategoryDTO categoryDTO = new CategoryDTO();
+                categoryDTO.Id = txtID_category.Text;
+                categoryDTO.Name = txtName_category.Text;
+
+                if (categoryBUS.updateCategory(categoryDTO))
+                {
+                    DataRow rowToUpdate = CategoryBUS.CategoryList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID_category.Text);
+
+                    if (rowToUpdate != null)
+                    {
+                        rowToUpdate[1] = categoryDTO.Name;
+                        showdata();
+                        MessageBox.Show("Đã sửa");
+                    }
+                }
+                else
+                    MessageBox.Show("không thể sửa theo yêu cầu");
             }
         }
 
@@ -229,57 +245,26 @@ namespace MiniStoreManagement.GUI.UCs
             txtID_category.Text = "100";
         }
 
-        private void BtnUpdate_Click(object sender, EventArgs e)
+        private void reset_form()
         {
-            if (!id_focus)
-            {
-                MessageBox.Show("Đối tượng chưa được lưu nên không thể sửa");
-                return;
-            }
-            if (!check())
-                return;
-
-            DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                CategoryDTO categoryDTO = new CategoryDTO();
-                categoryDTO.Id = txtID_category.Text;
-                categoryDTO.Name = txtName_category.Text;
-
-                if (categoryBUS.updateCategory(categoryDTO))
-                {
-                    DataRow rowToUpdate = CategoryBUS.CategoryList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID_category.Text);
-
-                    if (rowToUpdate != null)
-                    {
-                        rowToUpdate[1] = categoryDTO.Name;
-                        dataGridView1.DataSource = show_data();
-                        dataGridView1.Columns["STATE"].Visible = false;
-                        MessageBox.Show("Đã sửa");
-                    }
-                }
-                else
-                    MessageBox.Show("không thể sửa theo yêu cầu");
-            }
+            id_focus = false;
+            new_id();
+            txtName_category.ResetText();
+            txtName_product.ResetText();
+            cbbID_product.SelectedItem = null;
+            txtSearch.ResetText();
+            dataGridView1.ClearSelection();
         }
 
-        private DataTable show_data()
+        private bool check()
         {
-            if (_state == "0")
+            if (string.IsNullOrWhiteSpace(txtName_category.Text))
             {
-                var filteredRows1 = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
-                return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
+                MessageBox.Show("Không được để trống tên");
+                txtName_category.Focus();
+                return false;
             }
-
-            var filteredRows = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
-            return filteredRows.Any() ? filteredRows.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
-        }
-
-        private DataTable show_data_pro()
-        {
-            var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0" && row.Field<string>("CATEGORY_ID") == null);
-            return filteredRows.Any() ? filteredRows.CopyToDataTable() : null;
+            return true;
         }
 
         private void cbbID_product_SelectedIndexChanged(object sender, EventArgs e)
@@ -310,21 +295,36 @@ namespace MiniStoreManagement.GUI.UCs
                     productDTO.ProviderId = rowToUpdate[4].ToString();
                     productDTO.Price = decimal.Parse(rowToUpdate[5].ToString());
                     productDTO.Quantity = int.Parse(rowToUpdate[6].ToString());
-                    productDTO.Exp = DateTime.Parse(rowToUpdate[7].ToString());
                     productDTO.Img = rowToUpdate[8].ToString();
                     productDTO.State = rowToUpdate[9].ToString();
                     rowToUpdate[2] = productDTO.CategoryId;
                     productBUS.updateProduct(productDTO);
                     MessageBox.Show("Đã thêm phân loại cho sản phẩm " + cbbID_product.Text);
                 }
-            }           
-            
+            }
+        }
+
+        private DataTable show_data()
+        {
+            if (_state == "0")
+            {
+                var filteredRows1 = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
+                return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
+            }
+
+            var filteredRows = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+            return filteredRows.Any() ? filteredRows.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
+        }
+
+        private DataTable show_data_pro()
+        {
+            var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0" && row.Field<string>("CATEGORY_ID") == null);
+            return filteredRows.Any() ? filteredRows.CopyToDataTable() : null;
         }
 
         public void showdata()
         {
             dataGridView1.DataSource = show_data();
-            dataGridView1.Columns["STATE"].Visible = false;
         }
     }
 }

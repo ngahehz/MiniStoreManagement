@@ -90,7 +90,7 @@
             // picmax
             // 
             this.picmax.Image = global::MiniStoreManagement.Properties.Resources.maximize;
-            this.picmax.Location = new System.Drawing.Point(424, 3);
+            this.picmax.Location = new System.Drawing.Point(412, 3);
             this.picmax.Name = "picmax";
             this.picmax.Size = new System.Drawing.Size(20, 20);
             this.picmax.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -100,7 +100,7 @@
             // picmini
             // 
             this.picmini.Image = global::MiniStoreManagement.Properties.Resources.minimize_sign;
-            this.picmini.Location = new System.Drawing.Point(398, 3);
+            this.picmini.Location = new System.Drawing.Point(373, 3);
             this.picmini.Name = "picmini";
             this.picmini.Size = new System.Drawing.Size(20, 20);
             this.picmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

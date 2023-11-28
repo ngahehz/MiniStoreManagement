@@ -105,11 +105,13 @@
     <Compile Include="BUS\CategoryBUS.cs" />
     <Compile Include="BUS\ConsumerBUS.cs" />
     <Compile Include="BUS\EmployeeBUS.cs" />
+    <Compile Include="BUS\InitialBUS.cs" />
     <Compile Include="BUS\InvoiceBUS.cs" />
     <Compile Include="BUS\InvoiceDetailBUS.cs" />
     <Compile Include="BUS\ProductBUS.cs" />
     <Compile Include="BUS\PromotionBUS.cs" />
     <Compile Include="BUS\ProviderBUS.cs" />
+    <Compile Include="BUS\StockroomBUS.cs" />
     <Compile Include="BUS\VoucherBUS.cs" />
     <Compile Include="DAO\AdminDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\PromotionDAO.cs" />
     <Compile Include="DAO\ProviderDAO.cs" />
+    <Compile Include="DAO\StockroomDAO.cs" />
     <Compile Include="DAO\VoucherDAO.cs" />
     <Compile Include="DTO\AdminDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
@@ -131,6 +134,7 @@
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\PromotionDTO.cs" />
     <Compile Include="DTO\ProviderDTO.cs" />
+    <Compile Include="DTO\StockroomDTO.cs" />
     <Compile Include="DTO\VoucherDTO.cs" />
     <Compile Include="GUI\Base.cs">
       <SubType>Form</SubType>
@@ -138,17 +142,29 @@
     <Compile Include="GUI\Base.Designer.cs">
       <DependentUpon>Base.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\FormSP\TimKiemEmployee.cs">
+    <Compile Include="GUI\FormSP\NhapHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\FormSP\TimKiemEmployee.Designer.cs">
-      <DependentUpon>TimKiemEmployee.cs</DependentUpon>
+    <Compile Include="GUI\FormSP\NhapHang.Designer.cs">
+      <DependentUpon>NhapHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormSP\TimKiemProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormSP\TimKiemProduct.Designer.cs">
+      <DependentUpon>TimKiemProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormSP\TimKiemPromotion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\FormSP\TimKiemPromotion.Designer.cs">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FormSP\TimKiemStockroom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\FormSP\TimKiemStockroom.Designer.cs">
+      <DependentUpon>TimKiemStockroom.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\FormSP\VoucherID.cs">
       <SubType>Form</SubType>
@@ -228,6 +244,12 @@
     <Compile Include="GUI\UCs\InvoiceUC.Designer.cs">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UCs\ListAdminUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\ListAdminUC.Designer.cs">
+      <DependentUpon>ListAdminUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UCs\ProductUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -246,6 +268,24 @@
     <Compile Include="GUI\UCs\ProviderUC.Designer.cs">
       <DependentUpon>ProviderUC.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\UCs\StockroomUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\StockroomUC.Designer.cs">
+      <DependentUpon>StockroomUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UCs\ThongKeUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\ThongKeUC.Designer.cs">
+      <DependentUpon>ThongKeUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UCs\UpaccountUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\UCs\UpaccountUC.Designer.cs">
+      <DependentUpon>UpaccountUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UCs\VoucherUC.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -257,11 +297,17 @@
     <EmbeddedResource Include="GUI\Base.resx">
       <DependentUpon>Base.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\FormSP\TimKiemEmployee.resx">
-      <DependentUpon>TimKiemEmployee.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\FormSP\NhapHang.resx">
+      <DependentUpon>NhapHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormSP\TimKiemProduct.resx">
+      <DependentUpon>TimKiemProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormSP\TimKiemPromotion.resx">
       <DependentUpon>TimKiemPromotion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\FormSP\TimKiemStockroom.resx">
+      <DependentUpon>TimKiemStockroom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormSP\VoucherID.resx">
       <DependentUpon>VoucherID.cs</DependentUpon>
@@ -302,6 +348,9 @@
     <EmbeddedResource Include="GUI\UCs\InvoiceUC.resx">
       <DependentUpon>InvoiceUC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\ListAdminUC.resx">
+      <DependentUpon>ListAdminUC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\ProductUC.resx">
       <DependentUpon>ProductUC.cs</DependentUpon>
     </EmbeddedResource>
@@ -310,6 +359,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\ProviderUC.resx">
       <DependentUpon>ProviderUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\StockroomUC.resx">
+      <DependentUpon>StockroomUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\ThongKeUC.resx">
+      <DependentUpon>ThongKeUC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\UCs\UpaccountUC.resx">
+      <DependentUpon>UpaccountUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\UCs\VoucherUC.resx">
       <DependentUpon>VoucherUC.cs</DependentUpon>
@@ -379,6 +437,35 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

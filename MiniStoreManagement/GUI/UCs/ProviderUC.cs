@@ -68,6 +68,9 @@ namespace MiniStoreManagement.GUI.UCs
         
         private void dataGridView1_Click(object sender, EventArgs e)
         {
+            reset_form();
+            if (show_data().Rows.Count == 0)
+                return;
             if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
             {
                 reset_form();
@@ -102,7 +105,7 @@ namespace MiniStoreManagement.GUI.UCs
             if (providerBUS.addProvider(providerDTO))
             {
                 ProviderBUS.ProviderList.Rows.Add(providerDTO.Id, providerDTO.Name, providerDTO.Cell, providerDTO.Address, providerDTO.Email, providerDTO.State);
-                dataGridView1.DataSource = show_data();
+                showdata();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
             }
@@ -167,18 +170,20 @@ namespace MiniStoreManagement.GUI.UCs
                     providerDTO.Address = rowToUpdate[3].ToString();
                     providerDTO.Email = rowToUpdate[4].ToString();
                     providerDTO.State = "1";
-                    rowToUpdate[5] = "1";
-                    providerBUS.updateProvider(providerDTO);
+                    if (providerBUS.updateProvider(providerDTO))
+                    {
+                        rowToUpdate[5] = "1";
+                        showdata();
+                        reset_form();
 
-                    dataGridView1.DataSource = show_data();
-
-                    if (_state == "1")
-                        MessageBox.Show("Đã xóa");
+                        if (_state == "1")
+                            MessageBox.Show("Đã xóa");
+                        else
+                            MessageBox.Show("Đã khôi phục");
+                    }
                     else
-                        MessageBox.Show("Đã khôi phục");
+                        MessageBox.Show("không thể làm theo yêu cầu");
                 }
-                else
-                    MessageBox.Show("không thể làm theo yêu cầu");
             }
         }
 
@@ -215,7 +220,6 @@ namespace MiniStoreManagement.GUI.UCs
                         rowToUpdate[4] = providerDTO.Email;
 
                         dataGridView1.DataSource = show_data();
-                        dataGridView1.Columns["STATE"].Visible = false;
                         MessageBox.Show("Đã sửa");
                     }
                 }
@@ -259,6 +263,7 @@ namespace MiniStoreManagement.GUI.UCs
             txtAddress.ResetText();
             txtEmail.ResetText();
             txtSearch.ResetText();
+            dataGridView1.ClearSelection();
         }
 
         private bool check()

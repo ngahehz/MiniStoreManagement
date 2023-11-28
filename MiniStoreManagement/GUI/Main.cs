@@ -21,12 +21,16 @@ namespace MiniStoreManagement.GUI
         private bool form_close = false;
         private bool bin = false;
         private string pic_control = null;
-        private int initial_width; 
+        private int initial_width;
         public Main()
         {
             InitializeComponent();
+
             readCate();
             CustomizeDesign();
+
+            InitialBUS initialBUS = new InitialBUS();
+            initialBUS.checkPromotion();
         }
 
         private void readCate()
@@ -47,7 +51,7 @@ namespace MiniStoreManagement.GUI
 
             foreach (DataRow _row in show_data().Rows)
             {
-                string id =_row["ID"].ToString();
+                string id = _row["ID"].ToString();
                 string name = _row["NAME"].ToString();
 
                 buttonSub button = new buttonSub();
@@ -68,7 +72,7 @@ namespace MiniStoreManagement.GUI
 
         private void hideSubMenu()
         {
-            if(panel2.Visible == true)
+            if (panel2.Visible == true)
             {
                 panel2.Visible = false;
             }
@@ -108,7 +112,7 @@ namespace MiniStoreManagement.GUI
 
             foreach (DataRow _row in show_data().Rows)
             {
-                if(clickedButton.Name == "btn_" + _row["ID"].ToString())
+                if (clickedButton.Name == "btn_" + _row["ID"].ToString())
                 {
                     ProductUC productUC = new ProductUC(int.Parse(_row["ID"].ToString()));
                     productUC.Dock = DockStyle.Fill;
@@ -171,8 +175,9 @@ namespace MiniStoreManagement.GUI
                 case "btnPromotion":
                     hideSubMenu();
                     bin = false;
-                    picBin.Visible = false;
+                    picBin.Visible = true;
                     picBack.Visible = false;
+                    pic_control = "Promotion";
                     PromotionUC promotionUC = new PromotionUC();
                     promotionUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(promotionUC);
@@ -229,11 +234,39 @@ namespace MiniStoreManagement.GUI
                     categoryUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(categoryUC);
                     break;
-            }
 
+                case "btnStatistics":
+                    hideSubMenu();
+                    bin = false;
+                    picBin.Visible = false;
+                    picBack.Visible = false;
+                    ThongKeUC thongKeUC = new ThongKeUC();
+                    thongKeUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(thongKeUC);
+                    break;
+
+                case "btnStockroom":
+                    hideSubMenu();
+                    bin = false;
+                    picBin.Visible = false;
+                    picBack.Visible = false;
+                    StockroomUC stockroomUC = new StockroomUC();
+                    stockroomUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(stockroomUC);
+                    break;
+            }
         }
 
-        private void picBin_Click (object sender, EventArgs e)
+        private void updateAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel4.Controls.Clear();
+            hideSubMenu();
+            UpaccountUC upaccount = new UpaccountUC();
+            upaccount.Dock = DockStyle.Fill;
+            panel4.Controls.Add(upaccount);
+        }
+
+        private void picBin_Click(object sender, EventArgs e)
         {
             if (bin)
             {
@@ -285,6 +318,13 @@ namespace MiniStoreManagement.GUI
                     //panel4.Controls.Add(invoiceUC);
                     //picBack.Visible = true;
                     break;
+                case "Promotion":
+                    PromotionUC promotionUC = new PromotionUC("0");
+                    promotionUC.Name = "binUC";
+                    promotionUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(promotionUC);
+                    picBack.Visible = true;
+                    break;
             }
         }
 
@@ -298,7 +338,8 @@ namespace MiniStoreManagement.GUI
                 {
                     panel4.Controls.Remove(control);
                 }
-                else { 
+                else
+                {
                     control.Visible = true;
                     switch (pic_control)
                     {
@@ -321,6 +362,10 @@ namespace MiniStoreManagement.GUI
                         case "Invoice":
                             //InvoiceUC invoiceUC = (InvoiceUC)control;
                             //invoiceUC.showdata();
+                            break;
+                        case "Promotion":
+                            PromotionUC promotionUC = (PromotionUC)control;
+                            promotionUC.showdata();
                             break;
                     }
                 }
@@ -347,15 +392,29 @@ namespace MiniStoreManagement.GUI
             }
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private DataTable show_data()
         {
             var filteredRows = CategoryBUS.CategoryList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
             return filteredRows.Any() ? filteredRows.CopyToDataTable() : CategoryBUS.CategoryList.Clone();
+        }
+
+        private void fToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            panel4.Controls.Clear();
+            hideSubMenu();
+            UpaccountUC upaccount = new UpaccountUC();
+            upaccount.Dock = DockStyle.Fill;
+            panel4.Controls.Add(upaccount);
+        }
+
+
+        private void fToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panel4.Controls.Clear();
+            hideSubMenu();
+            ListAdminUC listAccount = new ListAdminUC();
+            listAccount.Dock = DockStyle.Fill;
+            panel4.Controls.Add(listAccount);
         }
 
 

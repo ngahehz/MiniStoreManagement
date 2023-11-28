@@ -34,7 +34,7 @@ namespace MiniStoreManagement.DAO
             else
                 pro_id = product.PromotionId;
 
-            string s = $"INSERT INTO product VALUES ('{product.Id}', N'{product.Name}', {cat_id}, {pro_id},'{product.ProviderId}', '{product.Price}', '{product.Quantity}', '{product.Exp}', '{product.Img}', '{product.State}')";
+            string s = $"INSERT INTO product VALUES ('{product.Id}', N'{product.Name}', {cat_id}, {pro_id},'{product.ProviderId}', '{product.Price}', '{product.Quantity}', '{product.Img}', '{product.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -57,7 +57,7 @@ namespace MiniStoreManagement.DAO
 
             string s = $"UPDATE product SET ID = '{product.Id}', NAME = N'{product.Name}', CATEGORY_ID = {cat_id}, PROMOTION_ID = {pro_id}, "
                    + $" PROVIDER_ID = '{product.ProviderId}', PRICE = '{product.Price}', QUANTITY = '{product.Quantity}', "
-                   + $" EXP = '{product.Exp}', IMG = '{product.Img}', STATE = '{product.State}' WHERE ID = '{product.Id}'";
+                   + $" IMG = '{product.Img}', STATE = '{product.State}' WHERE ID = '{product.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

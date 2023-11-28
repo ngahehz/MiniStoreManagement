@@ -52,6 +52,7 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -60,6 +61,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.dateTimePicker2);
             this.panel1.Controls.Add(this.label11);
@@ -320,6 +322,17 @@
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(50, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1093, 32);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "Mã khuyến mãi có thể hết trước thời gian quy định nếu cửa hàng hết ngân sách hehe" +
+    " ";
+            // 
             // PromotionUC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -363,5 +376,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label1;
     }
 }

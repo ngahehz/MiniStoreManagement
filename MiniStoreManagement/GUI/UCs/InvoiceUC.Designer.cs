@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InvoiceUC));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnPrint = new System.Windows.Forms.PictureBox();
             this.btn = new System.Windows.Forms.Button();
             this.txtID1 = new System.Windows.Forms.TextBox();
             this.cbbID_voucher1 = new System.Windows.Forms.ComboBox();
@@ -55,11 +57,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnDel = new System.Windows.Forms.Button();
+            this.btnDel1 = new System.Windows.Forms.Button();
             this.btnNew1 = new System.Windows.Forms.Button();
             this.btnAdd1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnUpdate1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
@@ -84,12 +86,13 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnNew2 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnDel2 = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnUpdate2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -120,11 +123,11 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Sales_Invoice";
             this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Enter += new System.EventHandler(this.tabPage_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.Controls.Add(this.btnPrint);
             this.panel1.Controls.Add(this.btn);
             this.panel1.Controls.Add(this.txtID1);
             this.panel1.Controls.Add(this.cbbID_voucher1);
@@ -154,6 +157,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1134, 347);
             this.panel1.TabIndex = 4;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.BackColor = System.Drawing.Color.Transparent;
+            this.btnPrint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPrint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.Location = new System.Drawing.Point(1050, 165);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(74, 86);
+            this.btnPrint.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrint.TabIndex = 53;
+            this.btnPrint.TabStop = false;
+            this.btnPrint.Visible = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btn
             // 
@@ -206,9 +224,9 @@
             // 
             // txtPayment1
             // 
-            this.txtPayment1.Enabled = false;
             this.txtPayment1.Location = new System.Drawing.Point(830, 198);
             this.txtPayment1.Name = "txtPayment1";
+            this.txtPayment1.ReadOnly = true;
             this.txtPayment1.Size = new System.Drawing.Size(214, 40);
             this.txtPayment1.TabIndex = 42;
             this.txtPayment1.Text = "0";
@@ -283,6 +301,7 @@
             this.txtSearch1.Name = "txtSearch1";
             this.txtSearch1.Size = new System.Drawing.Size(592, 40);
             this.txtSearch1.TabIndex = 32;
+            this.txtSearch1.TextChanged += new System.EventHandler(this.txtSearch1_TextChanged);
             // 
             // btnSearch1
             // 
@@ -389,11 +408,11 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
-            this.panel2.Controls.Add(this.btnDel);
+            this.panel2.Controls.Add(this.btnDel1);
             this.panel2.Controls.Add(this.btnNew1);
             this.panel2.Controls.Add(this.btnAdd1);
             this.panel2.Controls.Add(this.dataGridView1);
-            this.panel2.Controls.Add(this.btnPrint);
+            this.panel2.Controls.Add(this.btnUpdate1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
             this.panel2.Location = new System.Drawing.Point(3, 350);
@@ -401,14 +420,15 @@
             this.panel2.Size = new System.Drawing.Size(1134, 429);
             this.panel2.TabIndex = 3;
             // 
-            // btnDel
+            // btnDel1
             // 
-            this.btnDel.Location = new System.Drawing.Point(1004, 349);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(114, 66);
-            this.btnDel.TabIndex = 35;
-            this.btnDel.Text = "xóa";
-            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel1.Location = new System.Drawing.Point(1004, 349);
+            this.btnDel1.Name = "btnDel1";
+            this.btnDel1.Size = new System.Drawing.Size(114, 66);
+            this.btnDel1.TabIndex = 35;
+            this.btnDel1.Text = "xóa";
+            this.btnDel1.UseVisualStyleBackColor = true;
+            this.btnDel1.Click += new System.EventHandler(this.btnDel1_Click);
             // 
             // btnNew1
             // 
@@ -443,15 +463,15 @@
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
-            // btnPrint
+            // btnUpdate1
             // 
-            this.btnPrint.Location = new System.Drawing.Point(1004, 240);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(114, 66);
-            this.btnPrint.TabIndex = 32;
-            this.btnPrint.Text = "in";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.BtnPrint_Click);
+            this.btnUpdate1.Location = new System.Drawing.Point(1004, 240);
+            this.btnUpdate1.Name = "btnUpdate1";
+            this.btnUpdate1.Size = new System.Drawing.Size(114, 66);
+            this.btnUpdate1.TabIndex = 32;
+            this.btnUpdate1.Text = "sửa";
+            this.btnUpdate1.UseVisualStyleBackColor = true;
+            this.btnUpdate1.Click += new System.EventHandler(this.btnUpdate1_Click);
             // 
             // tabPage2
             // 
@@ -464,7 +484,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Purchase_Invoice";
             this.tabPage2.UseVisualStyleBackColor = true;
-            this.tabPage2.Enter += new System.EventHandler(this.tabPage_Click);
             // 
             // panel4
             // 
@@ -628,6 +647,7 @@
             this.txtSearch2.Name = "txtSearch2";
             this.txtSearch2.Size = new System.Drawing.Size(592, 40);
             this.txtSearch2.TabIndex = 32;
+            this.txtSearch2.TextChanged += new System.EventHandler(this.txtSearch2_TextChanged);
             // 
             // dateTimePicker2
             // 
@@ -685,9 +705,9 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
             this.panel3.Controls.Add(this.btnNew2);
             this.panel3.Controls.Add(this.dataGridView2);
-            this.panel3.Controls.Add(this.button3);
+            this.panel3.Controls.Add(this.btnDel2);
             this.panel3.Controls.Add(this.btnAdd2);
-            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.btnUpdate2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Font = new System.Drawing.Font("Arial", 14F);
             this.panel3.Location = new System.Drawing.Point(3, 350);
@@ -718,14 +738,15 @@
             this.dataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView_CellFormatting);
             this.dataGridView2.Click += new System.EventHandler(this.dataGridView2_Click);
             // 
-            // button3
+            // btnDel2
             // 
-            this.button3.Location = new System.Drawing.Point(1004, 240);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 66);
-            this.button3.TabIndex = 34;
-            this.button3.Text = "xóa";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnDel2.Location = new System.Drawing.Point(1004, 240);
+            this.btnDel2.Name = "btnDel2";
+            this.btnDel2.Size = new System.Drawing.Size(114, 66);
+            this.btnDel2.TabIndex = 34;
+            this.btnDel2.Text = "xóa";
+            this.btnDel2.UseVisualStyleBackColor = true;
+            this.btnDel2.Click += new System.EventHandler(this.btnDel2_Click);
             // 
             // btnAdd2
             // 
@@ -737,14 +758,15 @@
             this.btnAdd2.UseVisualStyleBackColor = true;
             this.btnAdd2.Click += new System.EventHandler(this.btnAdd2_Click);
             // 
-            // button5
+            // btnUpdate2
             // 
-            this.button5.Location = new System.Drawing.Point(1004, 349);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(114, 66);
-            this.button5.TabIndex = 32;
-            this.button5.Text = "sửa";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnUpdate2.Location = new System.Drawing.Point(1004, 349);
+            this.btnUpdate2.Name = "btnUpdate2";
+            this.btnUpdate2.Size = new System.Drawing.Size(114, 66);
+            this.btnUpdate2.TabIndex = 32;
+            this.btnUpdate2.Text = "sửa";
+            this.btnUpdate2.UseVisualStyleBackColor = true;
+            this.btnUpdate2.Click += new System.EventHandler(this.btnUpdate2_Click);
             // 
             // InvoiceUC
             // 
@@ -758,6 +780,7 @@
             this.tabPage1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrint)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -775,7 +798,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnUpdate1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnSearch1;
@@ -821,14 +844,15 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnNew2;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnDel2;
         private System.Windows.Forms.Button btnAdd2;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnUpdate2;
         private System.Windows.Forms.Button btnAdd1;
         private System.Windows.Forms.Button btnNew1;
-        private System.Windows.Forms.Button btnDel;
+        private System.Windows.Forms.Button btnDel1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button btn;
+        private System.Windows.Forms.PictureBox btnPrint;
     }
 }
