@@ -370,18 +370,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Picture3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1.1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\white12.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\z4315710880663_4b9d78ec47e59faa9675b6b054b25a3e.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Img\Employee\" />
     <Folder Include="Img\Product\100\" />
     <Folder Include="Img\Product\101\" />
@@ -389,12 +377,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\vòng tròn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\imgbase.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\imgbase1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\imgbase2.jpeg" />

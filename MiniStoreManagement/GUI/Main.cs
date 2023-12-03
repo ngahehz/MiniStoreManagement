@@ -433,6 +433,9 @@ namespace MiniStoreManagement.GUI
         private void label1_Click(object sender, EventArgs e)
         {
             panel4.Controls.Clear();
+            bin = false;
+            picBin.Visible = false;
+            picBack.Visible = false;
         }
 
 

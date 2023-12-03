@@ -32,6 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReset = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.PictureBox();
             this.btn = new System.Windows.Forms.Button();
             this.txtID1 = new System.Windows.Forms.TextBox();
@@ -91,7 +92,6 @@
             this.btnDel2 = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
             this.btnUpdate2 = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -161,6 +161,22 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1134, 347);
             this.panel1.TabIndex = 4;
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset.BackgroundImage")));
+            this.btnReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset.FlatAppearance.BorderSize = 0;
+            this.btnReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Location = new System.Drawing.Point(1060, 120);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(37, 31);
+            this.btnReset.TabIndex = 102;
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnPrint
             // 
@@ -794,22 +810,6 @@
             this.btnUpdate2.Text = "sửa";
             this.btnUpdate2.UseVisualStyleBackColor = true;
             this.btnUpdate2.Click += new System.EventHandler(this.btnUpdate2_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset.BackgroundImage")));
-            this.btnReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnReset.FlatAppearance.BorderSize = 0;
-            this.btnReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Location = new System.Drawing.Point(1060, 120);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(37, 31);
-            this.btnReset.TabIndex = 102;
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // InvoiceUC
             // 
