@@ -299,12 +299,13 @@
             // 
             // btnPD
             // 
-            this.btnPD.Location = new System.Drawing.Point(726, 24);
+            this.btnPD.Location = new System.Drawing.Point(723, 24);
             this.btnPD.Name = "btnPD";
             this.btnPD.Size = new System.Drawing.Size(122, 68);
             this.btnPD.TabIndex = 38;
             this.btnPD.Text = "Tạo SP";
             this.btnPD.UseVisualStyleBackColor = true;
+            this.btnPD.Click += new System.EventHandler(this.btnPD_Click);
             // 
             // btnAdd
             // 
@@ -318,7 +319,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(166, 24);
+            this.btnUpdate.Location = new System.Drawing.Point(179, 24);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(99, 68);
             this.btnUpdate.TabIndex = 34;
@@ -328,7 +329,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(306, 24);
+            this.btnDel.Location = new System.Drawing.Point(315, 24);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(99, 68);
             this.btnDel.TabIndex = 35;
@@ -338,7 +339,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(446, 24);
+            this.btnSave.Location = new System.Drawing.Point(451, 24);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(99, 68);
             this.btnSave.TabIndex = 36;
@@ -348,7 +349,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(586, 24);
+            this.btnNew.Location = new System.Drawing.Point(587, 24);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(99, 68);
             this.btnNew.TabIndex = 37;

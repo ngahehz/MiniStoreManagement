@@ -89,6 +89,7 @@
             // 
             // picmax
             // 
+            this.picmax.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picmax.Image = global::MiniStoreManagement.Properties.Resources.maximize;
             this.picmax.Location = new System.Drawing.Point(412, 3);
             this.picmax.Name = "picmax";
@@ -96,9 +97,11 @@
             this.picmax.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picmax.TabIndex = 22;
             this.picmax.TabStop = false;
+            this.picmax.Click += new System.EventHandler(this.picmax_Click);
             // 
             // picmini
             // 
+            this.picmini.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picmini.Image = global::MiniStoreManagement.Properties.Resources.minimize_sign;
             this.picmini.Location = new System.Drawing.Point(373, 3);
             this.picmini.Name = "picmini";
@@ -106,9 +109,11 @@
             this.picmini.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picmini.TabIndex = 21;
             this.picmini.TabStop = false;
+            this.picmini.Click += new System.EventHandler(this.picmini_Click);
             // 
             // picExit
             // 
+            this.picExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picExit.Image = global::MiniStoreManagement.Properties.Resources.close;
             this.picExit.Location = new System.Drawing.Point(450, 3);
             this.picExit.Name = "picExit";
@@ -116,6 +121,7 @@
             this.picExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picExit.TabIndex = 20;
             this.picExit.TabStop = false;
+            this.picExit.Click += new System.EventHandler(this.picExit_Click);
             // 
             // label2
             // 
@@ -159,6 +165,7 @@
             this.txtPassword.TabIndex = 17;
             this.txtPassword.Text = "Password";
             this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
+            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
             this.txtPassword.Leave += new System.EventHandler(this.txtPassword_Leave);
             // 
             // frmBase

@@ -48,3 +48,5 @@ now we got a problem thatt i cant input the null id by "null"
 
 ========
 làm mỗi lần vô app thì sẽ check lại xem promotion với voucher xem còn hạn hong thì bỏ 
+
+tao làm cái phần nhập hàng thì id sản phẩm ấy theo id nguồn cung chưa á ta .

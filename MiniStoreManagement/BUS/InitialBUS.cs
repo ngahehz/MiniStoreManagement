@@ -13,6 +13,7 @@ namespace MiniStoreManagement.BUS
     internal class InitialBUS
     {
         private PromotionBUS promotionBUS = new PromotionBUS();
+        private VoucherBUS voucherBUS = new VoucherBUS();
         private ProductBUS productBUS = new ProductBUS();
 
         public void checkPromotion()
@@ -52,7 +53,33 @@ namespace MiniStoreManagement.BUS
                 }
             }
             if(count > 0)
-                MessageBox.Show("Có " + count + " hết hạn");
+                MessageBox.Show("Có " + count + " promotion hết hạn");
+        }
+
+        public void checkVoucher()
+        {
+            if (VoucherBUS.VoucherList == null)
+                voucherBUS.getVoucher();
+
+            int count = 0;
+
+            var filteredRows = VoucherBUS.VoucherList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+
+            foreach (DataRow row in filteredRows)
+            {
+                if ((DateTime)row[8] < DateTime.Now)
+                {
+                    VoucherDTO voucherDTO = new VoucherDTO(row);
+                    voucherDTO.State = "1";
+                    if (voucherBUS.updateVoucher(voucherDTO))
+                    {
+                        count++;
+                        row[9] = "1";
+                    }
+                }
+            }
+            if (count > 0)
+                MessageBox.Show("Có " + count + " voucher hết hạn");
         }
 
 

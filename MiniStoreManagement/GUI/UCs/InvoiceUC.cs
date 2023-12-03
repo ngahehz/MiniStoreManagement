@@ -9,13 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MiniStoreManagement.GUI.items;
-using MySqlX.XDevAPI.Relational;
-using System.Text.RegularExpressions;
-using MiniStoreManagement.DAO;
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -34,9 +28,46 @@ namespace MiniStoreManagement.GUI.UCs
         private bool id_voucher = false;
         private bool id_focus1 = false;
         private bool id_focus2 = false;
+        private string _state = "1";
         public InvoiceUC()
         {
             InitializeComponent();
+        }
+
+        public InvoiceUC(string i)
+        {
+            InitializeComponent();
+
+            _state = i;
+            btnUpdate1.Visible = false;
+            btnUpdate2.Visible = false;
+            btnAdd1.Visible = false;
+            btnAdd2.Visible = false;
+            btnDel1.Visible = false;
+            btnDel2.Visible = false;
+            btnNew1.Text = "Xóa";
+            btnNew2.Text = "Xóa";
+            //btnDel1.Text = "Hoàn";
+            //btnDel2.Text = "Hoàn";
+            cbbID_consumer1.Enabled = false;
+            cbbID_employee1.Enabled = false;
+            cbbID_employee2.Enabled = false;
+            cbbID_provider2.Enabled = false;
+            dateTimePicker2.Enabled = false;
+            make_center();
+        }
+
+        public void make_center()
+        {
+            int panelHeight = panel2.Height;
+            int buttonHeight1 = btnAdd1.Height;
+            int buttonHeight2 = btnAdd2.Height;
+
+            int yPositionButton1 = (panelHeight - buttonHeight1) / 2;
+            int yPositionButton2 = (panelHeight - buttonHeight2) / 2;
+
+            btnNew1.Location = new Point(btnNew1.Location.X, yPositionButton1);
+            btnNew2.Location = new Point(btnNew1.Location.X, yPositionButton2);
         }
 
         private void InvoiceUC_Load(object sender, EventArgs e)
@@ -76,22 +107,16 @@ namespace MiniStoreManagement.GUI.UCs
             }
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            reset_form1();
-            reset_form2();
-        }
-
         private DataTable show_data(int temp)
         {
             if (temp == 1)
             {
-                var filteredRows1 = SalesInvoiceBUS.SalesInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
+                var filteredRows1 = SalesInvoiceBUS.SalesInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == _state);
                 return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : SalesInvoiceBUS.SalesInvoiceList.Clone();
             }
             else if (temp == 2)
             {
-                var filteredRows1 = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
+                var filteredRows1 = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == _state);
                 return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : PurchaseInvoiceBUS.PurchaseInvoiceList.Clone();
             }
             else if (temp == 3)
@@ -104,6 +129,14 @@ namespace MiniStoreManagement.GUI.UCs
                 var filteredRows1 = ProviderBUS.ProviderList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
                 return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : ProviderBUS.ProviderList.Clone();
             }
+        }
+
+        public void showdata(decimal i)
+        {
+            if (i == 1)
+                dataGridView1.DataSource = show_data(1);
+            else
+                dataGridView2.DataSource = show_data(2);
         }
 
 
@@ -133,11 +166,12 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form1();
+            reset_form1();
+            if (show_data(1).Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView1.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
             id_focus1 = true;
             //dateTimePicker1.CustomFormat = "dd/MM/yyyy";
 
@@ -152,34 +186,48 @@ namespace MiniStoreManagement.GUI.UCs
             btnPrint.Visible = true;
         }
 
-        private void btnAdd1_Click(object sender, EventArgs e)
+        private void btnNew1_Click(object sender, EventArgs e)
         {
-            Form main = this.FindForm();
-            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
-
-            foreach (Control control in pn.Controls)
+            if (_state == "0")
             {
-                if (control is AddSalesInvoiceDetail)
+                if (!id_focus1)
                 {
-                    AddSalesInvoiceDetail ASID = (AddSalesInvoiceDetail)control;
-                    if (ASID.getP().Visible)
+                    MessageBox.Show("Chưa chọn đối tượng, không thể xóa");
+                    return;
+                }
+                DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    DataRow[] rowsToDelete = SalesInvoiceDetailBUS.SalesInvoiceDetailList.Select("INVOICE_ID = '" + txtID1.Text + "'");
+                    foreach (DataRow row in rowsToDelete)
                     {
-                        MessageBox.Show("Hãy hoàn thành công việc");
-                        return;
+                        if(salesInvoiceDetailBUS.removeInvoiceDetail(row[0].ToString(), row[1].ToString()))
+                            SalesInvoiceDetailBUS.SalesInvoiceDetailList.Rows.Remove(row);
+                    }
+
+                    if (salesInvoiceBUS.removeInvoice(txtID1.Text))
+                    {
+                        rowsToDelete = SalesInvoiceBUS.SalesInvoiceList.Select("ID = '" + txtID1.Text + "'");
+                        SalesInvoiceBUS.SalesInvoiceList.Rows.Remove(rowsToDelete[0]);
+                        showdata(1);
+                        MessageBox.Show("Xóa thành công");
                     }
                     else
-                    {
-                        main.Width -= ASID.Width;
-                        main.Controls.Remove(ASID);
-
-                        main.StartPosition = FormStartPosition.Manual;
-                        Screen sc = Screen.PrimaryScreen;
-                        int z = (sc.WorkingArea.Width - main.Width) / 2;
-                        int w = (sc.WorkingArea.Height - main.Height) / 2;
-                        main.Location = new Point(z, w);
-                    }
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
+            else
+            {
+                dataGridView1.ClearSelection();
+                reset_form1();
+            }
+        }
+
+        private void btnAdd1_Click(object sender, EventArgs e)
+        {
+            if (!checkUC1())
+                return;
 
             if (id_focus1)
             {
@@ -221,19 +269,13 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             AddSalesInvoiceDetail addSalesInvoiceDetail = new AddSalesInvoiceDetail(txtID1.Text);
-            addSalesInvoiceDetail.Payment = new AddSalesInvoiceDetail.truyenDuLieu(Payment1);
+            addSalesInvoiceDetail.txt_payment = new AddSalesInvoiceDetail.truyenDuLieu(Payment1);
+            addSalesInvoiceDetail.showdata = new AddSalesInvoiceDetail.truyenDuLieu(showdata);
             addSalesInvoiceDetail.Enable_cbbVoucher = new AddSalesInvoiceDetail.truyenDuLieu2(Enable_cbbVoucher);
             addSalesInvoiceDetail.Dock = DockStyle.Right;
             this.Dock = DockStyle.Left;
 
-            main.Width += addSalesInvoiceDetail.Width;
-            pn.Controls.Add(addSalesInvoiceDetail);
-
-            main.StartPosition = FormStartPosition.Manual;
-            Screen screen = Screen.PrimaryScreen;
-            int x = (screen.WorkingArea.Width - main.Width) / 2;
-            int y = (screen.WorkingArea.Height - main.Height) / 2;
-            main.Location = new Point(x, y);
+            addUC1(addSalesInvoiceDetail);
         }
 
         private void btnUpdate1_Click(object sender, EventArgs e)
@@ -318,6 +360,17 @@ namespace MiniStoreManagement.GUI.UCs
             }
         }
 
+        private void btnCTHD1_Click(object sender, EventArgs e)
+        {
+            if (!checkUC1())
+                return;
+
+            AddSalesInvoiceDetail addSalesInvoiceDetail = new AddSalesInvoiceDetail();
+            addSalesInvoiceDetail.Dock = DockStyle.Right;
+            this.Dock = DockStyle.Left;
+            addUC1(addSalesInvoiceDetail);
+        }
+
         private void txtSearch1_TextChanged(object sender, EventArgs e)
         {
             DataView dv = show_data(1).DefaultView;
@@ -330,7 +383,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
 
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR PRODUCT_ID LIKE '%{txt}%' OR CONSUMER_ID LIKE '%{txt}%' OR PROMOTION_ID LIKE '%{txt}%' "
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR EMPLOYEE_ID LIKE '%{txt}%' OR CONSUMER_ID LIKE '%{txt}%' OR VOUCHER_ID LIKE '%{txt}%' "
                          + $"OR CONVERT(TOTAL_PAYMENT, 'System.String') LIKE '%{txt}%'";
             dataGridView1.DataSource = dv.ToTable();
         }
@@ -356,7 +409,6 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker1.Value = DateTime.Now;
             txtPayment1.Text = "0";
             txtSearch1.ResetText();
-            dataGridView1.ClearSelection();
         }
 
         private bool check1()
@@ -459,6 +511,11 @@ namespace MiniStoreManagement.GUI.UCs
             }
         }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            cbbID_consumer1.SelectedIndex = -1;
+        }
+
         private void updateSalesInvoice() // cần sửa thêm cho nút button sửa
         {
             // hàm này kiểu mỗi lần thay đổi giá tiền hay voucher là nó thay đổi trong data luôn
@@ -475,6 +532,65 @@ namespace MiniStoreManagement.GUI.UCs
             _row[3] = salesInvoiceDTO.TotalPayment;
             _row[5] = salesInvoiceDTO.VoucherId;
             salesInvoiceBUS.updateInvoice(salesInvoiceDTO);
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (id == 0)
+            {
+                return;
+            }
+
+            DataRow _row = SalesInvoiceBUS.SalesInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID1.Text);
+            SalesInvoiceDTO salesInvoiceDTO = new SalesInvoiceDTO(_row);
+
+            Invoice invoice = new Invoice(salesInvoiceDTO);
+            invoice.Show();
+        }
+
+        private bool checkUC1()
+        {
+            Form main = this.FindForm();
+            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+
+            foreach (Control control in pn.Controls)
+            {
+                if (control is AddSalesInvoiceDetail)
+                {
+                    AddSalesInvoiceDetail ASID = (AddSalesInvoiceDetail)control;
+                    if (ASID.getP().Visible)
+                    {
+                        MessageBox.Show("Hãy hoàn thành công việc");
+                        return false;
+                    }
+                    else
+                    {
+                        main.Width -= ASID.Width;
+                        main.Controls.Remove(ASID);
+
+                        main.StartPosition = FormStartPosition.Manual;
+                        Screen sc = Screen.PrimaryScreen;
+                        int z = (sc.WorkingArea.Width - main.Width) / 2;
+                        int w = (sc.WorkingArea.Height - main.Height) / 2;
+                        main.Location = new Point(z, w);
+                    }
+                }
+            }
+            return true;
+        }
+
+        private void addUC1(AddSalesInvoiceDetail addSalesInvoiceDetail)
+        {
+            Form main = this.FindForm();
+            main.Width += addSalesInvoiceDetail.Width;
+            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+            pn.Controls.Add(addSalesInvoiceDetail);
+
+            main.StartPosition = FormStartPosition.Manual;
+            Screen screen = Screen.PrimaryScreen;
+            int x = (screen.WorkingArea.Width - main.Width) / 2;
+            int y = (screen.WorkingArea.Height - main.Height) / 2;
+            main.Location = new Point(x, y);
         }
 
         // TAB 2 CHO PURCHASE INVOICE
@@ -497,50 +613,66 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dataGridView2_Click(object sender, EventArgs e)
         {
-            if (dataGridView2.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form2();
+            reset_form2();
+            if (show_data(2).Rows.Count == 0)
                 return;
-            }
+
+            if (dataGridView2.CurrentRow.Cells[0].Value.ToString() == "")
+                return;
             id_focus2 = true;
             //dateTimePicker2.CustomFormat = "dd/MM/yyyy";
 
             txtID2.Text = dataGridView2.CurrentRow.Cells[0].Value.ToString();
-            txtPayment2.Text = decimal.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString()).ToString("#,##0");
+            txtPayment2.Text = decimal.Parse(dataGridView2.CurrentRow.Cells[3].Value.ToString()).ToString("#,##0");
             cbbID_employee2.SelectedItem = dataGridView2.CurrentRow.Cells[1].Value.ToString();
             cbbID_provider2.SelectedItem = dataGridView2.CurrentRow.Cells[4].Value.ToString();
 
             dateTimePicker2.Value = DateTime.Parse(dataGridView2.CurrentRow.Cells[2].Value.ToString());
         }
 
-        private void btnAdd2_Click(object sender, EventArgs e)
+        private void btnNew2_Click(object sender, EventArgs e)
         {
-            Form main = this.FindForm();
-            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
-
-            foreach (Control control in pn.Controls)
+            if (_state == "0")
             {
-                if (control is AddPurchaseInvoiceDetail)
+                if (!id_focus2)
                 {
-                    AddPurchaseInvoiceDetail APID = (AddPurchaseInvoiceDetail)control;
-                    if (APID.getP().Visible)
+                    MessageBox.Show("Chưa chọn đối tượng, không thể xóa");
+                    return;
+                }
+                DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    DataRow[] rowsToDelete = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Select("INVOICE_ID = '" + txtID2.Text + "'");
+                    foreach (DataRow row in rowsToDelete)
                     {
-                        MessageBox.Show("Hãy hoàn thành công việc");
-                        return;
+                        if (purchaseInvoiceDetailBUS.removeInvoiceDetail(row[0].ToString(), row[1].ToString()))
+                            PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Rows.Remove(row);
+                    }
+
+                    if (purchaseInvoiceBUS.removeInvoice(txtID2.Text))
+                    {
+                        rowsToDelete = PurchaseInvoiceBUS.PurchaseInvoiceList.Select("ID = '" + txtID2.Text + "'");
+                        PurchaseInvoiceBUS.PurchaseInvoiceList.Rows.Remove(rowsToDelete[0]);
+                        showdata(2);
+                        MessageBox.Show("Xóa thành công");
                     }
                     else
-                    {
-                        main.Width -= APID.Width;
-                        main.Controls.Remove(APID);
-
-                        main.StartPosition = FormStartPosition.Manual;
-                        Screen sc = Screen.PrimaryScreen;
-                        int z = (sc.WorkingArea.Width - main.Width) / 2;
-                        int w = (sc.WorkingArea.Height - main.Height) / 2;
-                        main.Location = new Point(z, w);
-                    }
+                        MessageBox.Show("Không thể xóa đối tượng!");
                 }
             }
+            else
+            {
+                dataGridView2.ClearSelection();
+                reset_form2();
+            }
+        }
+
+        private void btnAdd2_Click(object sender, EventArgs e)
+        {
+            if (!checkUC2())
+                return;
+
             if (id_focus2)
             {
                 MessageBox.Show("Ấn nút mới để tạo mới form");
@@ -571,19 +703,13 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
 
-            AddPurchaseInvoiceDetail addPurchaseDetailInvoice = new AddPurchaseInvoiceDetail(txtID2.Text);
-            addPurchaseDetailInvoice.temp = new AddPurchaseInvoiceDetail.truyenDuLieu(Payment2);
+            AddPurchaseInvoiceDetail addPurchaseDetailInvoice = new AddPurchaseInvoiceDetail(txtID2.Text, cbbID_provider2.Text);
+            addPurchaseDetailInvoice.txt_payment = new AddPurchaseInvoiceDetail.truyenDuLieu(Payment2);
+            addPurchaseDetailInvoice.showdata = new AddPurchaseInvoiceDetail.truyenDuLieu(showdata); 
             addPurchaseDetailInvoice.Dock = DockStyle.Right;
             this.Dock = DockStyle.Left;
 
-            main.Width += addPurchaseDetailInvoice.Width;
-            pn.Controls.Add(addPurchaseDetailInvoice);
-
-            main.StartPosition = FormStartPosition.Manual;
-            Screen screen = Screen.PrimaryScreen;
-            int x = (screen.WorkingArea.Width - main.Width) / 2;
-            int y = (screen.WorkingArea.Height - main.Height) / 2;
-            main.Location = new Point(x, y);
+            addUC2(addPurchaseDetailInvoice);
         }
 
         private void btnUpdate2_Click(object sender, EventArgs e)
@@ -684,7 +810,7 @@ namespace MiniStoreManagement.GUI.UCs
                 return;
             }
 
-            dv.RowFilter = $"ID LIKE '%{txt}%' OR PRODUCT_ID LIKE '%{txt}%' OR PROVIDER_ID LIKE '%{txt}%' "
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR EMPLOYEE_ID LIKE '%{txt}%' OR PROVIDER_ID LIKE '%{txt}%' "
                          + $"OR CONVERT(TOTAL_PAYMENT, 'System.String') LIKE '%{txt}%'";
             dataGridView2.DataSource = dv.ToTable();
         }
@@ -708,7 +834,6 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker2.Value = DateTime.Now;
             txtPayment2.Text = "0";
             txtSearch2.ResetText();
-            dataGridView2.ClearSelection();
         }
 
         private bool check2()
@@ -735,9 +860,6 @@ namespace MiniStoreManagement.GUI.UCs
             updatePurchaseInvoice();
         }
 
-        
-
-
         private void updatePurchaseInvoice()
         {
             DataRow _row = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID2.Text);
@@ -749,19 +871,68 @@ namespace MiniStoreManagement.GUI.UCs
             purchaseInvoiceBUS.updateInvoice(purchaseInvoiceDTO);
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+        private bool checkUC2()
         {
-            if (id == 0)
+            Form main = this.FindForm();
+            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+
+            foreach (Control control in pn.Controls)
             {
-                return;
+                if (control is AddPurchaseInvoiceDetail)
+                {
+                    AddPurchaseInvoiceDetail APID = (AddPurchaseInvoiceDetail)control;
+                    if (APID.getP().Visible)
+                    {
+                        MessageBox.Show("Hãy hoàn thành công việc");
+                        return false;
+                    }
+                    else
+                    {
+                        main.Width -= APID.Width;
+                        main.Controls.Remove(APID);
+
+                        main.StartPosition = FormStartPosition.Manual;
+                        Screen sc = Screen.PrimaryScreen;
+                        int z = (sc.WorkingArea.Width - main.Width) / 2;
+                        int w = (sc.WorkingArea.Height - main.Height) / 2;
+                        main.Location = new Point(z, w);
+                    }
+                }
             }
-
-            DataRow _row = SalesInvoiceBUS.SalesInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID1.Text);
-            SalesInvoiceDTO salesInvoiceDTO = new SalesInvoiceDTO(_row);
-
-            Invoice invoice = new Invoice(salesInvoiceDTO);
-            invoice.Show();
+            return true;
         }
+
+        private void addUC2(AddPurchaseInvoiceDetail addPurchaseDetailInvoice)
+        {
+            Form main = this.FindForm();
+            Panel pn = main.Controls.Find("panel4", true).FirstOrDefault() as Panel;
+            main.Width += addPurchaseDetailInvoice.Width;
+            pn.Controls.Add(addPurchaseDetailInvoice);
+
+            main.StartPosition = FormStartPosition.Manual;
+            Screen screen = Screen.PrimaryScreen;
+            int x = (screen.WorkingArea.Width - main.Width) / 2;
+            int y = (screen.WorkingArea.Height - main.Height) / 2;
+            main.Location = new Point(x, y);
+        }
+
+        private void btnCTHD2_Click(object sender, EventArgs e)
+        {
+            if (!checkUC2())
+                return;
+
+            AddPurchaseInvoiceDetail addPurchaseDetailInvoice = new AddPurchaseInvoiceDetail();
+            addPurchaseDetailInvoice.Dock = DockStyle.Right;
+            this.Dock = DockStyle.Left;
+            addUC2(addPurchaseDetailInvoice);
+        }
+
+        private void btnSearch1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
 

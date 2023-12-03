@@ -19,7 +19,6 @@ namespace MiniStoreManagement.DTO
     public class PurchaseInvoiceDetailDTO : SalesInvoiceDetailDTO
     {
         public DateTime Exp { get; set; }
-        public string State { get; set; }
         public PurchaseInvoiceDetailDTO() : base() { }
 
         //public PurchaseInvoiceDetailDTO(DataRow row)
@@ -29,7 +28,6 @@ namespace MiniStoreManagement.DTO
         //    Date = DateTime.Parse(row[2].ToString());
         //    TotalPayment = decimal.Parse(row[3].ToString());
         //    ProviderId = row[4].ToString();
-        //    State = row[5].ToString();
         //}
     }
 

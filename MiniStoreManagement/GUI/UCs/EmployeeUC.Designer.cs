@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeUC));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btneexcel = new System.Windows.Forms.Button();
+            this.btniexcel = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -55,8 +58,6 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
-            this.btneexcel = new System.Windows.Forms.Button();
-            this.btniexcel = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,7 +67,8 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(70)))), ((int)(((byte)(128)))));
+            this.panel1.Controls.Add(this.btnReset);
             this.panel1.Controls.Add(this.btneexcel);
             this.panel1.Controls.Add(this.btniexcel);
             this.panel1.Controls.Add(this.label10);
@@ -94,6 +96,44 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1148, 378);
             this.panel1.TabIndex = 0;
+            // 
+            // btnReset
+            // 
+            this.btnReset.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset.BackgroundImage")));
+            this.btnReset.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset.FlatAppearance.BorderSize = 0;
+            this.btnReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset.Location = new System.Drawing.Point(1067, 324);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(37, 31);
+            this.btnReset.TabIndex = 99;
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btneexcel
+            // 
+            this.btneexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btneexcel.Location = new System.Drawing.Point(311, 318);
+            this.btneexcel.Name = "btneexcel";
+            this.btneexcel.Size = new System.Drawing.Size(190, 56);
+            this.btneexcel.TabIndex = 36;
+            this.btneexcel.Text = "Xuất file Excel";
+            this.btneexcel.UseVisualStyleBackColor = true;
+            this.btneexcel.Click += new System.EventHandler(this.btneexcel_Click);
+            // 
+            // btniexcel
+            // 
+            this.btniexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btniexcel.Location = new System.Drawing.Point(564, 318);
+            this.btniexcel.Name = "btniexcel";
+            this.btniexcel.Size = new System.Drawing.Size(190, 56);
+            this.btniexcel.TabIndex = 37;
+            this.btniexcel.Text = "Nhập file Excel";
+            this.btniexcel.UseVisualStyleBackColor = true;
+            this.btniexcel.Click += new System.EventHandler(this.btniexcel_Click);
             // 
             // label10
             // 
@@ -174,9 +214,9 @@
             // 
             // txtID
             // 
-            this.txtID.Enabled = false;
             this.txtID.Location = new System.Drawing.Point(218, 30);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(105, 40);
             this.txtID.TabIndex = 9;
             // 
@@ -217,7 +257,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImage = global::MiniStoreManagement.Properties.Resources.vòng_tròn;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Location = new System.Drawing.Point(871, 27);
             this.pictureBox1.Name = "pictureBox1";
@@ -284,7 +324,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(70)))), ((int)(((byte)(128)))));
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnDel);
@@ -322,7 +362,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(1004, 240);
+            this.btnDel.Location = new System.Drawing.Point(1004, 349);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(114, 66);
             this.btnDel.TabIndex = 34;
@@ -342,35 +382,13 @@
             // 
             // BtnUpdate
             // 
-            this.BtnUpdate.Location = new System.Drawing.Point(1004, 349);
+            this.BtnUpdate.Location = new System.Drawing.Point(1004, 240);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(114, 66);
             this.BtnUpdate.TabIndex = 32;
             this.BtnUpdate.Text = "sửa";
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
-            // 
-            // btneexcel
-            // 
-            this.btneexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneexcel.Location = new System.Drawing.Point(332, 314);
-            this.btneexcel.Name = "btneexcel";
-            this.btneexcel.Size = new System.Drawing.Size(156, 56);
-            this.btneexcel.TabIndex = 36;
-            this.btneexcel.Text = "Xuất file Excel";
-            this.btneexcel.UseVisualStyleBackColor = true;
-            this.btneexcel.Click += new System.EventHandler(this.btneexcel_Click);
-            // 
-            // btniexcel
-            // 
-            this.btniexcel.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btniexcel.Location = new System.Drawing.Point(564, 314);
-            this.btniexcel.Name = "btniexcel";
-            this.btniexcel.Size = new System.Drawing.Size(167, 56);
-            this.btniexcel.TabIndex = 37;
-            this.btniexcel.Text = "Nhập file Excel";
-            this.btniexcel.UseVisualStyleBackColor = true;
-            this.btniexcel.Click += new System.EventHandler(this.btniexcel_Click);
             // 
             // EmployeeUC
             // 
@@ -421,5 +439,6 @@
         private System.Windows.Forms.Button btneexcel;
         private System.Windows.Forms.Button btniexcel;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button btnReset;
     }
 }

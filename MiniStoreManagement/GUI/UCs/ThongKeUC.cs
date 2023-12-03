@@ -38,6 +38,7 @@ namespace MiniStoreManagement.GUI.UCs
 
             tabThuChi1();
             tabSanPham1();
+            tabHoaDon1();
         }
 
         private void ThongKeThuChi()
@@ -172,6 +173,44 @@ namespace MiniStoreManagement.GUI.UCs
             ThongKeSanPham();
         }
 
+        private void ThongKeHoaDon()
+        {
+            DataTable dataTable = (DataTable)dataGridView3.DataSource;
+
+            var result = from row in SalesInvoiceBUS.SalesInvoiceList.AsEnumerable()
+                         group row by row.Field<DateTime>("DATE") into grp
+                         select new
+                         {
+                             DATE = grp.Key,
+                             QUANTITY = grp.Count(r => r.Field<string>("ID") != null),
+                             TOTAL = grp.Sum(r => r.Field<decimal>("TOTAL_PAYMENT"))
+                         };
+
+
+            foreach (var item in result)
+            {
+                dataTable.Rows.Add(item.DATE, item.QUANTITY, item.TOTAL);
+            }
+
+
+            dataTable.DefaultView.Sort = "Ngày ASC";
+
+            // Cập nhật DataGridView
+            dataGridView3.DataSource = dataTable;
+            dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void tabHoaDon1()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Ngày", typeof(DateTime));
+            dataTable.Columns.Add("Số hóa đơn", typeof(int));
+            dataTable.Columns.Add("Tổng tiền", typeof(decimal));
+
+            dataGridView3.DataSource = dataTable;
+            ThongKeHoaDon();
+        }
+
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             if (dateTimePicker1.CustomFormat == " ")
@@ -241,6 +280,15 @@ namespace MiniStoreManagement.GUI.UCs
                 if (e.Value != null && e.Value is decimal)
                 {
                     e.Value = ((decimal)e.Value).ToString("#,##0");
+                    e.FormattingApplied = true;
+                }
+            }
+
+            if (dgv.Columns[e.ColumnIndex].Name == "Ngày")
+            {
+                if (e.Value != null && e.Value is DateTime)
+                {
+                    e.Value = ((DateTime)e.Value).ToString("dd/MM/yyyy");
                     e.FormattingApplied = true;
                 }
             }

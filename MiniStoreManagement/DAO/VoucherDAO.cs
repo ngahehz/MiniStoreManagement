@@ -43,7 +43,7 @@ namespace MiniStoreManagement.DAO
             }
                
             string s = $"INSERT INTO voucher VALUES ('{voucher.Id}', '{voucher.Code}', N'{voucher.Discription}', {DiscountAmount}, {MinInvoiceValue},"
-                    + $" {PercentDiscount}, {MaxDiscount},'{voucher.StartDate}','{voucher.EndDate}')";
+                    + $" {PercentDiscount}, {MaxDiscount},'{voucher.StartDate}','{voucher.EndDate}','{voucher.State}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -71,7 +71,7 @@ namespace MiniStoreManagement.DAO
             }
             string s = $"UPDATE voucher SET ID = '{voucher.Id}', CODE = '{voucher.Code}', DISCRIPTION = N'{voucher.Discription}', DISCOUNT_AMOUNT = {DiscountAmount}, "
                     + $" MIN_INVOICE_VALUE = {MinInvoiceValue}, PERCENT_DISCOUNT = {PercentDiscount}, MAX_DISCOUNT = {MaxDiscount}, "
-                    + $" START_DATE = '{voucher.StartDate}', END_DATE = '{voucher.EndDate}' WHERE ID = '{voucher.Id}'";
+                    + $" START_DATE = '{voucher.StartDate}', END_DATE = '{voucher.EndDate}', STATE = '{voucher.State}' WHERE ID = '{voucher.Id}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

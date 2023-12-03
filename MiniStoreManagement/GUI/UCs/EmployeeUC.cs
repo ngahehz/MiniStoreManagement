@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -15,8 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -36,8 +36,8 @@ namespace MiniStoreManagement.GUI.UCs
             InitializeComponent();
 
             _state = i;
-            txtSĐT.Enabled = false;
-            txtName.Enabled = false;
+            txtSĐT.ReadOnly = true;
+            txtName.ReadOnly = true;
             radioButton2.Enabled = false;
             dateTimePicker1.Enabled = false;
 
@@ -112,8 +112,9 @@ namespace MiniStoreManagement.GUI.UCs
             {
                 pictureBox1.Image = new Bitmap("..//..//Img//Employee//" + dataGridView1.CurrentRow.Cells[5].Value.ToString());
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox1.BackgroundImage = null;
-                fileName = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                //pictureBox1.BackgroundImage = null;
+                //fileName = dataGridView1.CurrentRow.Cells[5].Value.ToString();
+                fileName = Path.GetExtension(dataGridView1.CurrentRow.Cells[5].Value.ToString());
             }
             else
             {
@@ -128,10 +129,10 @@ namespace MiniStoreManagement.GUI.UCs
             ofd.Filter = "Img Files (*.jpg;*.png;*.gif;.*.svg;)|*.jpg;*.png;*.gif;*.svg";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                fileName = Path.GetFileName(ofd.FileName);
+                fileName = Path.GetExtension(ofd.FileName);
                 pictureBox1.Image = new Bitmap(ofd.FileName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBox1.BackgroundImage = null;
+                //pictureBox1.BackgroundImage = null;
             }
         }
 
@@ -156,8 +157,8 @@ namespace MiniStoreManagement.GUI.UCs
             employeeDTO.DoB = dateTimePicker1.Value;
             employeeDTO.Cell = txtSĐT.Text;
 
-            if (fileName != null && fileName != "")
-                employeeDTO.Img = fileName;
+            if (!string.IsNullOrEmpty(fileName))
+                employeeDTO.Img = txtID.Text + fileName;
             else
                 employeeDTO.Img = null;
 
@@ -167,7 +168,7 @@ namespace MiniStoreManagement.GUI.UCs
                 EmployeeBUS.EmployeeList.Rows.Add(employeeDTO.Id, employeeDTO.Name, employeeDTO.Gender, employeeDTO.DoB, employeeDTO.Cell, employeeDTO.Img, employeeDTO.State);
 
                 showdata();
-                SaveImg();
+                SaveImg(employeeDTO.Id);
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
             }
@@ -190,7 +191,17 @@ namespace MiniStoreManagement.GUI.UCs
                 {
                     if (employeeBUS.removeEmployee(txtID.Text))
                     {
+
+
                         DataRow[] rowsToDelete = EmployeeBUS.EmployeeList.Select("ID = '" + txtID.Text + "'");
+
+                        if (!string.IsNullOrEmpty(rowsToDelete[7].ToString()))
+                        {
+                            string filePath = "..//..//Img//Employee//" + rowsToDelete[7].ToString();
+                            if (File.Exists(filePath))
+                                File.Delete(filePath);
+                        }
+
                         EmployeeBUS.EmployeeList.Rows.Remove(rowsToDelete[0]);
                         showdata();
                         MessageBox.Show("Xóa thành công");
@@ -200,7 +211,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
             else
+            {
+                dataGridView1.ClearSelection();
                 reset_form();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -267,8 +281,8 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     employeeDTO.Gender = "Nữ";
                 employeeDTO.Cell = txtSĐT.Text;
-                if (fileName != null && fileName != "")
-                    employeeDTO.Img = fileName;
+                if (!string.IsNullOrEmpty(fileName))
+                    employeeDTO.Img = txtID.Text + fileName;
                 else
                     employeeDTO.Img = null;
 
@@ -287,7 +301,7 @@ namespace MiniStoreManagement.GUI.UCs
 
                         showdata();
 
-                        SaveImg();
+                        SaveImg(employeeDTO.Id);
                         MessageBox.Show("Đã sửa");
                     }
                 }
@@ -333,7 +347,6 @@ namespace MiniStoreManagement.GUI.UCs
             textBox1.ResetText();
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.CustomFormat = " ";
-            dataGridView1.ClearSelection();
         }
 
         private bool check()
@@ -368,29 +381,25 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             return true;
-                // được thì làm màu báo lỗi cho mấy viền
+            // được thì làm màu báo lỗi cho mấy viền
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            if(dateTimePicker1.CustomFormat == " ")
+            if (dateTimePicker1.CustomFormat == " ")
                 dateTimePicker1.CustomFormat = "dd/MM/yyyy";
         }
 
-        private void SaveImg()
+        private void SaveImg(string name)
         {
             if (pictureBox1.Image != null && fileName != null)
             {
-                string filePath = "..//..//Img//Employee//" + fileName;
+                string filePath = "..//..//Img//Employee//" + name + fileName;
+
                 if (File.Exists(filePath))
-                {
-                    MessageBox.Show("Tên ảnh đã tồn tại. Vui lòng chọn một tên khác.");
-                }
-                else
-                {
-                    pictureBox1.Image.Save(filePath); // CẦN XEM XÉT CHỈNH SỬA 
-                    //MessageBox.Show("Lưu ảnh thành công.");
-                }
+                    File.Delete(filePath);
+
+                pictureBox1.Image.Save(filePath);
             }
         }
 
@@ -411,9 +420,15 @@ namespace MiniStoreManagement.GUI.UCs
             return filteredRows.Any() ? filteredRows.CopyToDataTable() : EmployeeBUS.EmployeeList.Clone();
         }
 
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = null;
+            fileName = null;
+        }
+
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if(_state == "1")
+            if (_state == "1")
             {
                 return;
             }
@@ -508,32 +523,52 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btniexcel_Click(object sender, EventArgs e)
         {
-            try
-            {
-                using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel WorkBook |*.xls|Excel WorkBook|*.xlsx", ValidateNames = true })
-                {
-                    if (ofd.ShowDialog() == DialogResult.OK)
-                    {
-                        String name = "Sheet1";
-                        String constr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
-                                        ofd.FileName +
-                                        ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
+            /* try
+             {
+                 using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Excel WorkBook |*.xls|Excel WorkBook|*.xlsx", ValidateNames = true })
+                 {
+                     if (ofd.ShowDialog() == DialogResult.OK)
+                     {
+                         EmployeeDTO employeeDTO = new EmployeeDTO();
+                         String name = "Sheet1";
+                         String constr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+                                         ofd.FileName +
+                                         ";Extended Properties='Excel 12.0 XML;HDR=YES;';";
+                         if (id_focus)
+                         {
+                             MessageBox.Show("Ấn nút mới để tạo mới form");
+                             return;
+                         }
 
-                        OleDbConnection con = new OleDbConnection(constr);
-                        OleDbCommand oconn = new OleDbCommand("Select * From [" + name + "$]", con);
-                        con.Open();
 
-                        OleDbDataAdapter sda = new OleDbDataAdapter(oconn);
-                        DataTable data = new DataTable();
-                        sda.Fill(data);
-                        dataGridView1.DataSource = data;
-                    }
-                }
-            }
-            catch (Exception ex) { string errormsg = ex.ToString(); }
+                         if (employeeBUS.addEmployee(employeeDTO))
+                         {
+                             //EmployeeBUS.EmployeeList.Rows.Add(employeeDTO);
+                             EmployeeBUS.EmployeeList.Rows.Add(employeeDTO.Id, employeeDTO.Name, employeeDTO.Gender, employeeDTO.DoB, employeeDTO.Cell, employeeDTO.Img, employeeDTO.State);
+
+                             showdata();
+                             SaveImg();
+                             id_focus = true;
+                             MessageBox.Show("Thêm thành công");
+                         }
+                         else
+                             MessageBox.Show("Lỗi không thể thêm thành công");
+                     }
+                 }
+             }
+             catch (Exception ex) { string errormsg = ex.ToString(); }*/
+
+            //Import Excel file and Save data to a table in Database
+
+
+
         }
+
+        
     }
-    }
+}
+    
+    
 
 
 // TÌM KIẾM NÂNG CAO

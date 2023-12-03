@@ -52,7 +52,7 @@ namespace MiniStoreManagement.DAO
 
         public bool addInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
         {
-            string s = $"INSERT INTO purchase_invoice_detail VALUES ('{invoiceDetail.InvoiceId}', '{invoiceDetail.ProductId}','{invoiceDetail.Quantity}','{invoiceDetail.Price}','{invoiceDetail.Exp}','{invoiceDetail.State}')";
+            string s = $"INSERT INTO purchase_invoice_detail VALUES ('{invoiceDetail.InvoiceId}', '{invoiceDetail.ProductId}','{invoiceDetail.Quantity}','{invoiceDetail.Price}','{invoiceDetail.Exp}')";
             if (conn.ChangeData(s))
                 return true;
             return false;
@@ -61,7 +61,7 @@ namespace MiniStoreManagement.DAO
         public bool updateInvoiceDetail(PurchaseInvoiceDetailDTO invoiceDetail)
         {
             string s = $"UPDATE purchase_invoice_detail SET INVOICE_ID = '{invoiceDetail.InvoiceId}', PRODUCT_ID = '{invoiceDetail.ProductId}', QUANTITY = '{invoiceDetail.Quantity}',"
-                        + $"PRICE = '{invoiceDetail.Price}', EXP = '{invoiceDetail.Exp}', STATE = '{invoiceDetail.State}' WHERE INVOICE_ID = '{invoiceDetail.InvoiceId}' AND PRODUCT_ID = '{invoiceDetail.ProductId}'";
+                        + $"PRICE = '{invoiceDetail.Price}', EXP = '{invoiceDetail.Exp}' WHERE INVOICE_ID = '{invoiceDetail.InvoiceId}' AND PRODUCT_ID = '{invoiceDetail.ProductId}'";
             if (conn.ChangeData(s))
                 return true;
             return false;

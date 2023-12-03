@@ -107,9 +107,9 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Enabled = false;
             this.txtPrice.Location = new System.Drawing.Point(640, 152);
             this.txtPrice.Name = "txtPrice";
+            this.txtPrice.ReadOnly = true;
             this.txtPrice.Size = new System.Drawing.Size(214, 40);
             this.txtPrice.TabIndex = 9;
             // 
@@ -121,6 +121,7 @@
             this.cbbID_invoice.Name = "cbbID_invoice";
             this.cbbID_invoice.Size = new System.Drawing.Size(214, 40);
             this.cbbID_invoice.TabIndex = 50;
+            this.cbbID_invoice.SelectedIndexChanged += new System.EventHandler(this.cbbID_invoice_SelectedIndexChanged);
             // 
             // cbbID_product
             // 
@@ -235,6 +236,7 @@
             this.dataGridView1.RowTemplate.Height = 28;
             this.dataGridView1.Size = new System.Drawing.Size(828, 432);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
             // pnlControl

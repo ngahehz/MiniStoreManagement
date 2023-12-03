@@ -263,7 +263,6 @@
             // 
             // cbbID_product
             // 
-            this.cbbID_product.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbID_product.FormattingEnabled = true;
             this.cbbID_product.Location = new System.Drawing.Point(185, 41);
             this.cbbID_product.Name = "cbbID_product";

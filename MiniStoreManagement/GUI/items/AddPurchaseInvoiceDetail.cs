@@ -19,14 +19,17 @@ namespace MiniStoreManagement.GUI.items
         private PurchaseInvoiceBUS purchaseInvoiceBUS = new PurchaseInvoiceBUS();
         private PurchaseInvoiceDetailBUS purchaseInvoiceDetailBUS = new PurchaseInvoiceDetailBUS();
         private string invoice_id;
+        private string provider_id;
 
         public delegate void truyenDuLieu(decimal txt);
-        public truyenDuLieu temp;
+        public truyenDuLieu txt_payment;
+        public truyenDuLieu showdata;
 
-        public AddPurchaseInvoiceDetail(string id)
+        public AddPurchaseInvoiceDetail(string invoice_id, string provider_id)
         {
             InitializeComponent();
-            invoice_id = id;
+            this.invoice_id = invoice_id;
+            this.provider_id = provider_id;
             LoadDetail();
         }
 
@@ -34,8 +37,12 @@ namespace MiniStoreManagement.GUI.items
         {
             InitializeComponent();
             LoadDetail();
-            btnAdd.Visible = false;
-            btnUpdate.Visible = false;
+            pnlControl.Visible = false;
+            cbbID_invoice.Enabled = true;
+            numericUpDown1.ReadOnly = true;
+            cbbID_product.Enabled = false;
+            dateTimePicker1.Enabled = false;
+            txtPrice.ReadOnly = true;
         }
 
         private void LoadDetail()
@@ -48,7 +55,7 @@ namespace MiniStoreManagement.GUI.items
                 purchaseInvoiceDetailBUS.getInvoiceDetail();
 
 
-            foreach (DataRow row in ProductBUS.ProductList.Rows)
+            foreach (DataRow row in show_data(2).Rows)
             {
                 cbbID_product.Items.Add(row["ID"].ToString());
             }
@@ -120,13 +127,12 @@ namespace MiniStoreManagement.GUI.items
             invoiceDetailDTO.Quantity = int.Parse(numericUpDown1.Value.ToString());
             invoiceDetailDTO.Price = decimal.Parse(txtPrice.Text.Replace(",", ""));
             invoiceDetailDTO.Exp = dateTimePicker1.Value;
-            invoiceDetailDTO.State = "0";
 
             if (purchaseInvoiceDetailBUS.addInvoiceDetail(invoiceDetailDTO))
             {
                 PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Rows.Add(invoiceDetailDTO.InvoiceId, invoiceDetailDTO.ProductId, invoiceDetailDTO.Quantity,
-                                                                            invoiceDetailDTO.Price, invoiceDetailDTO.Exp, invoiceDetailDTO.State);
-                dataGridView1.DataSource = show_data();
+                                                                            invoiceDetailDTO.Price, invoiceDetailDTO.Exp);
+                dataGridView1.DataSource = show_data(1);
             }
             else
             {
@@ -134,8 +140,8 @@ namespace MiniStoreManagement.GUI.items
                 return;
             }
 
-            decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-            temp(sum);
+            decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+            txt_payment(sum);
         }
 
         private bool check()
@@ -196,7 +202,6 @@ namespace MiniStoreManagement.GUI.items
             invoiceDetailDTO.Quantity = int.Parse(numericUpDown1.Value.ToString());
             invoiceDetailDTO.Price = decimal.Parse(txtPrice.Text.Replace(",", ""));
             invoiceDetailDTO.Exp = dateTimePicker1.Value;
-            invoiceDetailDTO.State = "0";
 
             if (purchaseInvoiceDetailBUS.updateInvoiceDetail(invoiceDetailDTO))
             {
@@ -205,14 +210,14 @@ namespace MiniStoreManagement.GUI.items
 
                 if (rowToUpdate != null)
                 {
-                    rowToUpdate[3] = invoiceDetailDTO.Quantity;
-                    rowToUpdate[4] = invoiceDetailDTO.Price;
-                    rowToUpdate[5] = invoiceDetailDTO.Exp;
+                    rowToUpdate[2] = invoiceDetailDTO.Quantity;
+                    rowToUpdate[3] = invoiceDetailDTO.Price;
+                    rowToUpdate[4] = invoiceDetailDTO.Exp;
                 }
-                dataGridView1.DataSource = show_data();
+                dataGridView1.DataSource = show_data(1);
 
-                decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-                temp(sum);
+                decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+                txt_payment(sum);
             }
             else
                 MessageBox.Show("không thể sửa theo yêu cầu");
@@ -226,7 +231,10 @@ namespace MiniStoreManagement.GUI.items
                 purchaseInvoiceDetailBUS.removeInvoiceDetail(invoice_id, id_product);
                 DataRow[] rowsToDelete = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Select("PRODUCT_ID = '" + id_product + "' AND INVOICE_ID = '" + invoice_id + "'");
                 PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Rows.Remove(rowsToDelete[0]);
-                dataGridView1.DataSource = show_data();
+                dataGridView1.DataSource = show_data(1);
+
+                decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+                txt_payment(sum);
             }
             else
                 MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
@@ -243,7 +251,7 @@ namespace MiniStoreManagement.GUI.items
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (show_data().Rows.Count == 0)
+            if (show_data(1).Rows.Count == 0)
             {
                 MessageBox.Show("Đơn hàng chưa có dữ liệu");
                 return;
@@ -274,7 +282,7 @@ namespace MiniStoreManagement.GUI.items
                     if (stockroomBUS.addStockroom(stockroomDTO))
                     {
                         StockroomBUS.StockroomList.Rows.Add(stockroomDTO.ID, stockroomDTO.PRODUCT_ID, stockroomDTO.QUANTITY, stockroomDTO.EXP);
-                        MessageBox.Show("Cập nhật vào kho hàng");
+                        //MessageBox.Show("Cập nhật vào kho hàng");
 
                         DataRow find = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(_row => _row.Field<string>("ID") == stockroomDTO.PRODUCT_ID);
                         ProductDTO productDTO = new ProductDTO(find);
@@ -284,6 +292,7 @@ namespace MiniStoreManagement.GUI.items
                             find[5] = productDTO.Price;
                             find[6] = productDTO.Quantity;
                         }
+                        showdata(2);
                     }
                     else
                         MessageBox.Show("Không đưa vào kho hàng được");
@@ -293,14 +302,27 @@ namespace MiniStoreManagement.GUI.items
             pnlControl.Visible = false;
         }
 
-        private DataTable show_data()
+        private DataTable show_data(int index)
         {
-            var filteredRows = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.AsEnumerable().Where(row => row.Field<string>("INVOICE_ID") == invoice_id);
-            return filteredRows.Any() ? filteredRows.CopyToDataTable() : PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Clone();
+            if(index == 1)
+            {
+                var filteredRows = PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.AsEnumerable().Where(row => row.Field<string>("INVOICE_ID") == invoice_id);
+                return filteredRows.Any() ? filteredRows.CopyToDataTable() : PurchaseInvoiceDetailBUS.PurchaseInvoiceDetailList.Clone();
+            }
+            else
+            {
+                var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("PROVIDER_ID") == provider_id);
+                return filteredRows.Any() ? filteredRows.CopyToDataTable() : ProductBUS.ProductList.Clone();
+            }
         }
 
         private bool is_exists()
         {
+            if (show_data(1).Rows.Count == 0)
+            {
+                MessageBox.Show("Đơn hàng chưa có dữ liệu");
+                return false;
+            }
             if (PurchaseInvoiceBUS.PurchaseInvoiceList == null)
             {
                 return false;
@@ -371,6 +393,15 @@ namespace MiniStoreManagement.GUI.items
                     e.FormattingApplied = true;
                 }
             }
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "PRICE")
+            {
+                if (e.Value != null && e.Value is decimal)
+                {
+                    e.Value = ((decimal)e.Value).ToString("#,##0");
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         public Panel getP()
@@ -381,6 +412,11 @@ namespace MiniStoreManagement.GUI.items
         private decimal updatePrice(decimal PurchasePrice)
         {
             return PurchasePrice * 1.6m;
+        }
+
+        private void btnPD_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

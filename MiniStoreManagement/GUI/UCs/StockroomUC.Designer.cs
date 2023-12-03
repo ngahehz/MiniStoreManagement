@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.txtID_product = new System.Windows.Forms.TextBox();
             this.txtQuantiy = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -60,7 +60,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.txtID_product);
             this.panel1.Controls.Add(this.txtQuantiy);
@@ -90,20 +90,30 @@
             this.panel1.Size = new System.Drawing.Size(1148, 378);
             this.panel1.TabIndex = 2;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(833, 292);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(212, 51);
+            this.btnSearch.TabIndex = 69;
+            this.btnSearch.Text = "search +";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
             // txtID_product
             // 
-            this.txtID_product.Enabled = false;
             this.txtID_product.Location = new System.Drawing.Point(281, 127);
             this.txtID_product.Name = "txtID_product";
+            this.txtID_product.ReadOnly = true;
             this.txtID_product.Size = new System.Drawing.Size(210, 40);
             this.txtID_product.TabIndex = 68;
             this.txtID_product.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtQuantiy
             // 
-            this.txtQuantiy.Enabled = false;
             this.txtQuantiy.Location = new System.Drawing.Point(833, 127);
             this.txtQuantiy.Name = "txtQuantiy";
+            this.txtQuantiy.ReadOnly = true;
             this.txtQuantiy.Size = new System.Drawing.Size(210, 40);
             this.txtQuantiy.TabIndex = 67;
             this.txtQuantiy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -161,6 +171,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker1.Enabled = false;
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(281, 212);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -169,9 +180,9 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Enabled = false;
             this.txtPrice.Location = new System.Drawing.Point(833, 212);
             this.txtPrice.Name = "txtPrice";
+            this.txtPrice.ReadOnly = true;
             this.txtPrice.Size = new System.Drawing.Size(210, 40);
             this.txtPrice.TabIndex = 52;
             this.txtPrice.Text = "0";
@@ -179,9 +190,9 @@
             // 
             // txtName
             // 
-            this.txtName.Enabled = false;
             this.txtName.Location = new System.Drawing.Point(833, 42);
             this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
             this.txtName.Size = new System.Drawing.Size(210, 40);
             this.txtName.TabIndex = 48;
             this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -272,12 +283,13 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(510, 40);
             this.txtSearch.TabIndex = 32;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // txtID
             // 
-            this.txtID.Enabled = false;
             this.txtID.Location = new System.Drawing.Point(281, 42);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(210, 40);
             this.txtID.TabIndex = 9;
             this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -294,7 +306,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Font = new System.Drawing.Font("Arial", 14F);
@@ -315,16 +327,6 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(833, 292);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(212, 51);
-            this.btnSearch.TabIndex = 69;
-            this.btnSearch.Text = "search +";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // StockroomUC
             // 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,12 +19,14 @@ namespace MiniStoreManagement.GUI.items
 {
     public partial class Invoice : Form
     {
+        private PrintDocument printDocument = new PrintDocument();
         private SalesInvoiceDetailBUS salesInvoiceDetailBUS = new SalesInvoiceDetailBUS();
         private EmployeeBUS employeeBUS = new EmployeeBUS();
         public Invoice(SalesInvoiceDTO salesInvoiceDTO)
         {
             InitializeComponent();
             Details(salesInvoiceDTO);
+            printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,13 +47,22 @@ namespace MiniStoreManagement.GUI.items
 
             lbInvoice.Text = "Số HĐ : " + salesInvoiceDTO.Id;
             lbDate.Text = lbDate.Text + salesInvoiceDTO.Date.ToString("dd/MM/yyyy");
-            lbPayment.Text = salesInvoiceDTO.TotalPayment.ToString("#,##0");
+            if (!string.IsNullOrWhiteSpace(salesInvoiceDTO.VoucherId))
+            {
+                newpn.Visible = true;
+                this.Height += newpn.Height;
+                lbKM.Text = salesInvoiceDTO.TotalPayment.ToString("#,##0");
+
+                DataRow _row = VoucherBUS.VoucherList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == salesInvoiceDTO.VoucherId);
+                lbTong2.Text = _row[2].ToString();
+            }
 
             DataRow row = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(r => r.Field<string>("ID") == salesInvoiceDTO.EmployeeId);
             lbEmployee.Text = lbEmployee.Text + row["NAME"];
             
             var find = SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable().Where(lane => lane.Field<string>("INVOICE_ID") == salesInvoiceDTO.Id);
 
+            decimal payment = 0;
             foreach (var _row in find)
             {
                 SalesInvoiceDetailDTO invoiceDetailDTO = new SalesInvoiceDetailDTO();
@@ -59,11 +71,14 @@ namespace MiniStoreManagement.GUI.items
                 invoiceDetailDTO.Quantity = _row.Field<int>("QUANTITY");
                 invoiceDetailDTO.Price = _row.Field<decimal>("PRICE");
 
+                payment += invoiceDetailDTO.Price * invoiceDetailDTO.Quantity;
                 DetailInvoice detailInvoice = new DetailInvoice(invoiceDetailDTO);
                 detailInvoice.Dock = DockStyle.Top;
                 this.Height = this.Height + detailInvoice.Height;
                 panel5.Controls.Add(detailInvoice);
             }
+            lbPayment.Text = payment.ToString("#,##0");
+            
         }
 
         private void lbExit_Click(object sender, EventArgs e)
@@ -114,5 +129,28 @@ namespace MiniStoreManagement.GUI.items
                 isDragging = false;
             }
         }
+
+        private void lblin_Click(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDocument.Print();
+            }
+        }
+       
+
+
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Bitmap bitmap = new Bitmap(this.Width, this.Height);
+            this.DrawToBitmap(bitmap, new Rectangle(0, 0, this.Width, this.Height));
+            e.Graphics.DrawImage(bitmap, 0, 0);
+
+        }
+
+
+
+
     }
 }

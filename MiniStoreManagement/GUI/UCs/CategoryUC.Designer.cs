@@ -60,7 +60,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(108)))), ((int)(((byte)(151)))));
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtName_category);
@@ -97,9 +97,9 @@
             // 
             // txtName_product
             // 
-            this.txtName_product.Enabled = false;
             this.txtName_product.Location = new System.Drawing.Point(299, 175);
             this.txtName_product.Name = "txtName_product";
+            this.txtName_product.ReadOnly = true;
             this.txtName_product.Size = new System.Drawing.Size(188, 40);
             this.txtName_product.TabIndex = 50;
             // 
@@ -221,9 +221,9 @@
             // 
             // txtID_category
             // 
-            this.txtID_category.Enabled = false;
             this.txtID_category.Location = new System.Drawing.Point(286, 90);
             this.txtID_category.Name = "txtID_category";
+            this.txtID_category.ReadOnly = true;
             this.txtID_category.Size = new System.Drawing.Size(188, 40);
             this.txtID_category.TabIndex = 9;
             // 
@@ -249,7 +249,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(108)))), ((int)(((byte)(151)))));
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnDel);
@@ -286,7 +286,7 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(1004, 240);
+            this.btnDel.Location = new System.Drawing.Point(1004, 349);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(114, 66);
             this.btnDel.TabIndex = 34;
@@ -306,7 +306,7 @@
             // 
             // BtnUpdate
             // 
-            this.BtnUpdate.Location = new System.Drawing.Point(1004, 349);
+            this.BtnUpdate.Location = new System.Drawing.Point(1004, 240);
             this.BtnUpdate.Name = "BtnUpdate";
             this.BtnUpdate.Size = new System.Drawing.Size(114, 66);
             this.BtnUpdate.TabIndex = 32;

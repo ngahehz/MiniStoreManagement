@@ -21,13 +21,6 @@ namespace MiniStoreManagement
         {
             InitializeComponent();
             adminBUS.getAdmin();
-            BaseEvent();
-        }
-        void BaseEvent()
-        {
-            picExit.Click += picExit_Click;
-            picmini.Click += picmini_Click;
-            picmax.Click += picmax_Click;
         }
         
         private void picExit_Click(object sender, EventArgs e)
@@ -92,13 +85,27 @@ namespace MiniStoreManagement
             else if (adminBUS.checkAdmin(user, pass))
             {
                 Main main = new Main();
-                this.Hide();
+                main.showBase = new Main.truyenDuLieu(showBase);
                 main.Show();
+                
+                this.Hide();
+                reset_form();
             }
             else
             {
                 MessageBox.Show("Tài khoản hoặc mật khẩu không đúng");
             }
+        }
+
+        private void reset_form()
+        {
+            txtUsername.ResetText();
+            txtPassword.ResetText();
+        }
+
+        public void showBase()
+        {
+            this.Show();
         }
 
         private Point mouseOffset;
@@ -126,6 +133,14 @@ namespace MiniStoreManagement
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = false;
+            }
+        }
+
+        private void txtPassword_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                button1.PerformClick();
             }
         }
     }

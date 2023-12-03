@@ -60,7 +60,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(69)))), ((int)(((byte)(123)))));
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnDel);
@@ -135,7 +135,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label1.Location = new System.Drawing.Point(568, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 32);
@@ -145,7 +145,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label2.Location = new System.Drawing.Point(56, 217);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 32);
@@ -155,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label3.Location = new System.Drawing.Point(56, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 32);
@@ -165,7 +165,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label4.Location = new System.Drawing.Point(56, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 32);
@@ -175,7 +175,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label5.Location = new System.Drawing.Point(568, 129);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(177, 32);
@@ -184,9 +184,9 @@
             // 
             // txtID
             // 
-            this.txtID.Enabled = false;
             this.txtID.Location = new System.Drawing.Point(260, 37);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(247, 40);
             this.txtID.TabIndex = 9;
             // 
@@ -208,7 +208,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label6.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label6.Location = new System.Drawing.Point(56, 305);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(129, 32);
@@ -218,7 +218,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label7.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label7.Location = new System.Drawing.Point(207, 41);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(22, 32);
@@ -228,7 +228,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label8.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label8.Location = new System.Drawing.Point(207, 305);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(22, 32);
@@ -238,7 +238,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label9.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label9.Location = new System.Drawing.Point(207, 217);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(22, 32);
@@ -248,7 +248,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label10.Location = new System.Drawing.Point(207, 129);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(22, 32);
@@ -272,7 +272,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label11.Location = new System.Drawing.Point(794, 129);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(22, 32);
@@ -282,7 +282,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label12.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.label12.Location = new System.Drawing.Point(794, 41);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(22, 32);
@@ -291,7 +291,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(69)))), ((int)(((byte)(123)))));
             this.panel1.Controls.Add(this.label12);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.txtAddress);

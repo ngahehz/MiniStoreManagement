@@ -11,12 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MiniStoreManagement.GUI;
 
 namespace MiniStoreManagement.GUI
 {
     public partial class Main : Form
     {
+        public delegate void truyenDuLieu();
+        public truyenDuLieu showBase;
+        
         private Button selectedButton;
+        private Color selectedColor;
         private Button selectedSubButton;
         private bool form_close = false;
         private bool bin = false;
@@ -31,6 +36,7 @@ namespace MiniStoreManagement.GUI
 
             InitialBUS initialBUS = new InitialBUS();
             initialBUS.checkPromotion();
+            initialBUS.checkVoucher();
         }
 
         private void readCate()
@@ -38,7 +44,7 @@ namespace MiniStoreManagement.GUI
             CategoryBUS categoryBUS = new CategoryBUS();
             categoryBUS.getCategory();
             int row = show_data().Rows.Count;
-            panel2.Height = panel2.Height * (row + 1);
+            panel2.Height = panel2.Height * (row);
 
             //for(int i = 0; i < row; i++)
             //{
@@ -100,14 +106,6 @@ namespace MiniStoreManagement.GUI
             clickedButton.BackColor = SystemColors.InactiveCaption;
             selectedSubButton = clickedButton;
 
-            //foreach (Control control in panel4.Controls)
-            //{
-            //    if (control is UserControl)
-            //    {
-            //        panel4.Controls.Remove(control);
-            //    }
-            //}
-
             panel4.Controls.Clear();
 
             foreach (DataRow _row in show_data().Rows)
@@ -124,26 +122,26 @@ namespace MiniStoreManagement.GUI
 
         private void Button_Click(object sender, EventArgs e)
         {
-            if (selectedButton != null)
+            Button clickedButton = (Button)sender;
+
+            if(selectedButton == null)
+                selectedColor = clickedButton.BackColor;
+
+            else 
             {
-                selectedButton.BackColor = Color.FromArgb(4, 70, 112);
+                selectedButton.BackColor = selectedColor;
+                selectedColor = clickedButton.BackColor;
+                /*selectedButton.BackColor = Color.FromArgb(4, 70, 112);*/ // màu cũ
             }
             if (selectedSubButton != null)
             {
                 selectedSubButton.BackColor = SystemColors.HighlightText;
             }
 
-            Button clickedButton = (Button)sender;
-            clickedButton.BackColor = Color.FromArgb(4, 100, 112);
+            clickedButton.BackColor = Color.CornflowerBlue; // màu mới
+            //int newBlueValue = Math.Min(clickedButton.BackColor.B + 60, 255);
+            //clickedButton.BackColor = Color.FromArgb(clickedButton.BackColor.R, clickedButton.BackColor.G, newBlueValue); // màu mới
             selectedButton = clickedButton;
-
-            //foreach (Control control in panel4.Controls)
-            //{
-            //    if (control is UserControl)
-            //    {
-            //        panel4.Controls.Remove(control);
-            //    }
-            //}
 
             panel4.Controls.Clear();
             this.Width = initial_width;
@@ -206,8 +204,9 @@ namespace MiniStoreManagement.GUI
                 case "btnVoucher":
                     hideSubMenu();
                     bin = false;
-                    picBin.Visible = false;
+                    picBin.Visible = true;
                     picBack.Visible = false;
+                    pic_control = "Voucher";
                     VoucherUC voucherUC = new VoucherUC();
                     voucherUC.Dock = DockStyle.Fill;
                     panel4.Controls.Add(voucherUC);
@@ -257,15 +256,6 @@ namespace MiniStoreManagement.GUI
             }
         }
 
-        private void updateAccountToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            panel4.Controls.Clear();
-            hideSubMenu();
-            UpaccountUC upaccount = new UpaccountUC();
-            upaccount.Dock = DockStyle.Fill;
-            panel4.Controls.Add(upaccount);
-        }
-
         private void picBin_Click(object sender, EventArgs e)
         {
             if (bin)
@@ -304,6 +294,7 @@ namespace MiniStoreManagement.GUI
                     panel4.Controls.Add(productUC);
                     picBack.Visible = true;
                     break;
+
                 case "Provider":
                     ProviderUC providerUC = new ProviderUC("0");
                     providerUC.Name = "binUC";
@@ -311,13 +302,15 @@ namespace MiniStoreManagement.GUI
                     panel4.Controls.Add(providerUC);
                     picBack.Visible = true;
                     break;
+
                 case "Invoice":
-                    //InvoiceUC invoiceUC = new InvoiceUC("0");
-                    //invoiceUC.Name = "binUC";
-                    //invoiceUC.Dock = DockStyle.Fill;
-                    //panel4.Controls.Add(invoiceUC);
-                    //picBack.Visible = true;
+                    InvoiceUC invoiceUC = new InvoiceUC("0");
+                    invoiceUC.Name = "binUC";
+                    invoiceUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(invoiceUC);
+                    picBack.Visible = true;
                     break;
+
                 case "Promotion":
                     PromotionUC promotionUC = new PromotionUC("0");
                     promotionUC.Name = "binUC";
@@ -325,9 +318,16 @@ namespace MiniStoreManagement.GUI
                     panel4.Controls.Add(promotionUC);
                     picBack.Visible = true;
                     break;
+
+                case "Voucher":
+                    VoucherUC voucherUC = new VoucherUC("0");
+                    voucherUC.Name = "binUC";
+                    voucherUC.Dock = DockStyle.Fill;
+                    panel4.Controls.Add(voucherUC);
+                    picBack.Visible = true;
+                    break;
             }
         }
-
 
         private void picBack_Click(object sender, EventArgs e)
         {
@@ -360,12 +360,17 @@ namespace MiniStoreManagement.GUI
                             providerUC.showdata();
                             break;
                         case "Invoice":
-                            //InvoiceUC invoiceUC = (InvoiceUC)control;
-                            //invoiceUC.showdata();
+                            InvoiceUC invoiceUC = (InvoiceUC)control;
+                            invoiceUC.showdata(1);
+                            invoiceUC.showdata(2);
                             break;
                         case "Promotion":
                             PromotionUC promotionUC = (PromotionUC)control;
                             promotionUC.showdata();
+                            break;
+                        case "Voucher":
+                            VoucherUC voucherUC = (VoucherUC)control;
+                            voucherUC.showdata();
                             break;
                     }
                 }
@@ -415,6 +420,19 @@ namespace MiniStoreManagement.GUI
             ListAdminUC listAccount = new ListAdminUC();
             listAccount.Dock = DockStyle.Fill;
             panel4.Controls.Add(listAccount);
+        }
+
+        private void fToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            form_close = true;
+            this.Close();
+            showBase();
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            panel4.Controls.Clear();
         }
 
 

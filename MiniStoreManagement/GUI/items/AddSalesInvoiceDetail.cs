@@ -1,8 +1,5 @@
 ﻿using MiniStoreManagement.BUS;
-using MiniStoreManagement.DAO;
 using MiniStoreManagement.DTO;
-using MiniStoreManagement.GUI.FormSP;
-using MiniStoreManagement.GUI.UCs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace MiniStoreManagement.GUI.items
 {
@@ -29,7 +23,8 @@ namespace MiniStoreManagement.GUI.items
 
         public delegate void truyenDuLieu(decimal txt);
         public delegate void truyenDuLieu2();
-        public truyenDuLieu Payment;
+        public truyenDuLieu txt_payment;
+        public truyenDuLieu showdata;
         public truyenDuLieu2 Enable_cbbVoucher;
 
         //private bool id_focus = false;
@@ -43,11 +38,11 @@ namespace MiniStoreManagement.GUI.items
         {
             InitializeComponent();
             LoadDetail();
-            btnAdd.Visible = false;
-            btnUpdate.Visible = false;
-            btnDel.Visible = false;
-            btnSave.Visible = false;
-            btnNew.Visible = false;
+            pnlControl.Visible = false;
+            pnlPrint.Visible = true;
+            cbbID_invoice.Enabled = true;
+            numericUpDown1.ReadOnly = true;
+            cbbID_product.Enabled = false;
         }
 
         private void LoadDetail()
@@ -132,7 +127,7 @@ namespace MiniStoreManagement.GUI.items
             }
 
             decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-            Payment(sum);
+            txt_payment(sum);
         }
 
         private bool check()
@@ -181,7 +176,7 @@ namespace MiniStoreManagement.GUI.items
                 dataGridView1.DataSource = show_data();
 
                 decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-                Payment(sum);
+                txt_payment(sum);
             }
             else
                 MessageBox.Show("không thể sửa theo yêu cầu");
@@ -199,7 +194,7 @@ namespace MiniStoreManagement.GUI.items
                 dataGridView1.DataSource = show_data();
 
                 decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
-                Payment(sum);
+                txt_payment(sum);
             }
             else
                 MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
@@ -255,14 +250,10 @@ namespace MiniStoreManagement.GUI.items
                                 quantity -= stockroomDTO.QUANTITY;
                             else break;
                         }
-                        
                     }
                 }
             }
-
-            // ủa không biết khúc này chi nữa
-            //Form mainForm = this.FindForm();
-            //UserControl InvoiceUC = mainForm.Controls.Find("InvoiceUC", true).FirstOrDefault() as UserControl;
+            showdata(1);
             pnlControl.Visible = false;
             pnlPrint.Visible = true;
             Enable_cbbVoucher();
@@ -365,6 +356,27 @@ namespace MiniStoreManagement.GUI.items
 
             Invoice invoice = new Invoice(salesInvoiceDTO);
             invoice.Show();
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "PRICE")
+            {
+                if (e.Value != null && e.Value is decimal)
+                {
+                    e.Value = ((decimal)e.Value).ToString("#,##0");
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void cbbID_invoice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbbID_invoice.SelectedItem == null)
+                return;
+            else 
+                invoice_id = cbbID_invoice.SelectedItem.ToString();
+            dataGridView1.DataSource = show_data();
         }
     }
 }

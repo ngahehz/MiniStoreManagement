@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -133,7 +134,8 @@ namespace MiniStoreManagement.GUI.UCs
                 pictureBox1.Image = new Bitmap("..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() +"//"+ dataGridView1.CurrentRow.Cells[7].Value.ToString());
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox1.BackgroundImage = null;
-                fileName = dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                //fileName = dataGridView1.CurrentRow.Cells[7].Value.ToString();
+                fileName = Path.GetExtension(dataGridView1.CurrentRow.Cells[7].Value.ToString());
             }
             else
             {
@@ -148,7 +150,8 @@ namespace MiniStoreManagement.GUI.UCs
             ofd.Filter = "Img Files (*.jpg;*.png;*.gif;*.svg;)|*.jpg;*.png;*.gif;*.svg";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                fileName = Path.GetFileName(ofd.FileName);
+                fileName = Path.GetExtension(ofd.FileName);
+                //fileName = Path.GetFileName(ofd.FileName);
                 pictureBox1.Image = new Bitmap(ofd.FileName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
                 pictureBox1.BackgroundImage = null;
@@ -185,8 +188,8 @@ namespace MiniStoreManagement.GUI.UCs
             else
                 productDTO.PromotionId = null;
 
-            if (fileName != null && fileName != "")
-                productDTO.Img = fileName;
+            if (!string.IsNullOrEmpty(fileName))
+                productDTO.Img = "pro" + txtID.Text + fileName;
             else
                 productDTO.Img = null;
 
@@ -219,6 +222,14 @@ namespace MiniStoreManagement.GUI.UCs
                     if (productBUS.removeProduct(txtID.Text))
                     {
                         DataRow[] rowsToDelete = ProductBUS.ProductList.Select("ID = '" + txtID.Text + "'");
+                        if (!string.IsNullOrEmpty(rowsToDelete[5].ToString()))
+                        {
+                            string filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//" + rowsToDelete[5].ToString();
+
+                            if (File.Exists(filePath))
+                                File.Delete(filePath);
+                        }
+
                         ProductBUS.ProductList.Rows.Remove(rowsToDelete[0]);
                         showdata();
                         MessageBox.Show("Xóa thành công");
@@ -228,7 +239,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
             else
+            {
                 reset_form();
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -299,8 +313,8 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     productDTO.PromotionId = null;
 
-                if (fileName != null && fileName != "")
-                    productDTO.Img = fileName;
+                if (!string.IsNullOrEmpty(fileName))
+                    productDTO.Img = "pro" + txtID.Text + fileName;
                 else
                     productDTO.Img = null;
 
@@ -369,7 +383,6 @@ namespace MiniStoreManagement.GUI.UCs
             pictureBox1.Image = null;
             fileName = null;
             lbPrice.Visible = false;
-            dataGridView1.ClearSelection();
         }
 
         private bool check()
@@ -393,8 +406,11 @@ namespace MiniStoreManagement.GUI.UCs
         {
             if (pictureBox1.Image != null && fileName != null)
             {
-                string filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//pro" + txtID.Text;
+                string filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//pro" + txtID.Text + fileName;
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
                 pictureBox1.Image.Save(filePath);
+
             }
         }
 
@@ -455,6 +471,22 @@ namespace MiniStoreManagement.GUI.UCs
             }
             var filteredRows4 = PromotionBUS.PromotionList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
             return filteredRows4.Any() ? filteredRows4.CopyToDataTable() : PromotionBUS.PromotionList.Clone();
+        }
+
+        private void btnReset_KM_Click(object sender, EventArgs e)
+        {
+            cbbID_promotion.SelectedIndex = -1;
+        }
+
+        private void btnReset_DM_Click(object sender, EventArgs e)
+        {
+            cbbID_provider.SelectedIndex = -1;
+        }
+
+        private void btnReset_IMG_Click(object sender, EventArgs e)
+        {
+            fileName = null;
+            pictureBox1.Image = null;
         }
     }
 }

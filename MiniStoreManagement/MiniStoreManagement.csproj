@@ -142,12 +142,6 @@
     <Compile Include="GUI\Base.Designer.cs">
       <DependentUpon>Base.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\FormSP\NhapHang.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\FormSP\NhapHang.Designer.cs">
-      <DependentUpon>NhapHang.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\FormSP\TimKiemProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,12 +159,6 @@
     </Compile>
     <Compile Include="GUI\FormSP\TimKiemStockroom.Designer.cs">
       <DependentUpon>TimKiemStockroom.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\FormSP\VoucherID.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\FormSP\VoucherID.Designer.cs">
-      <DependentUpon>VoucherID.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\items\AddPurchaseInvoiceDetail.cs">
       <SubType>UserControl</SubType>
@@ -201,12 +189,6 @@
     </Compile>
     <Compile Include="GUI\items\Invoice.Designer.cs">
       <DependentUpon>Invoice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\items\textBoxCustom.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\items\textBoxCustom.Designer.cs">
-      <DependentUpon>textBoxCustom.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\items\textBox_Test.cs">
       <SubType>Component</SubType>
@@ -297,9 +279,6 @@
     <EmbeddedResource Include="GUI\Base.resx">
       <DependentUpon>Base.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\FormSP\NhapHang.resx">
-      <DependentUpon>NhapHang.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormSP\TimKiemProduct.resx">
       <DependentUpon>TimKiemProduct.cs</DependentUpon>
     </EmbeddedResource>
@@ -308,9 +287,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\FormSP\TimKiemStockroom.resx">
       <DependentUpon>TimKiemStockroom.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\FormSP\VoucherID.resx">
-      <DependentUpon>VoucherID.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\AddPurchaseInvoiceDetail.resx">
       <DependentUpon>AddPurchaseInvoiceDetail.cs</DependentUpon>
@@ -326,9 +302,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\Invoice.resx">
       <DependentUpon>Invoice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\items\textBoxCustom.resx">
-      <DependentUpon>textBoxCustom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\items\textBox_Test.resx">
       <DependentUpon>textBox_Test.cs</DependentUpon>

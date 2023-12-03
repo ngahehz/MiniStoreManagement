@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MiniStoreManagement.DTO;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace MiniStoreManagement.GUI.UCs
 {
@@ -18,10 +17,12 @@ namespace MiniStoreManagement.GUI.UCs
     {
         private AdminBUS adminBUS = new AdminBUS();
         private bool id_focus = false;
+
         public ListAdminUC()
         {
             InitializeComponent();
         }
+
         private void ListAdminUC_Load(object sender, EventArgs e)
         {
             if (AdminBUS.AdminList == null)
@@ -29,32 +30,9 @@ namespace MiniStoreManagement.GUI.UCs
             new_id();
 
             adminDataGridView.DataSource = AdminBUS.AdminList;
-
-        }
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
+            adminDataGridView.Columns["PASSWORD"].Visible = false;
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void adminDataGridView_Click(object sender, EventArgs e)
-        {
-            if (adminDataGridView.CurrentRow.Cells[0].Value.ToString() == "")
-            {
-                reset_form();
-                return;
-            }
-            id_focus = true;
-            txtID.Text = adminDataGridView.CurrentRow.Cells[0].Value.ToString();
-            txtName.Text = adminDataGridView.CurrentRow.Cells[1].Value.ToString();
-            txtUsername.Text = adminDataGridView.CurrentRow.Cells[2].Value.ToString();
-            txtPass.Text = adminDataGridView.CurrentRow.Cells[3].Value.ToString();
-        }
         private void reset_form()
         {
             id_focus = false;
@@ -62,8 +40,8 @@ namespace MiniStoreManagement.GUI.UCs
             txtName.ResetText();
             txtUsername.ResetText();
             txtPass.ResetText();
-            textBox1.ResetText();
         }
+
         private void new_id()
         {
             if (AdminBUS.AdminList.Rows.Count > 0)
@@ -96,50 +74,6 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             return true;
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            if (id_focus)
-            {
-                MessageBox.Show("Ấn nút mới để tạo mới form");
-                return;
-            }
-            if (!checkacc())
-                return;
-
-            AdminDTO AdminDTO = new AdminDTO();
-            AdminDTO.ID = txtID.Text;
-            AdminDTO.NAME = txtName.Text;
-            AdminDTO.USERNAME = txtUsername.Text;
-            AdminDTO.PASSWORD = txtPass.Text;
-            
-
-            if (adminBUS.addAdmin(AdminDTO))
-            {
-                AdminBUS.AdminList.Rows.Add(AdminDTO.ID, AdminDTO.NAME, AdminDTO.USERNAME, AdminDTO.PASSWORD);
-                adminDataGridView.DataSource = AdminBUS.AdminList;
-                id_focus = true;
-                reset_form();
-            }
-            else
-            {
-                MessageBox.Show("Thêm Thất Bại");
-            }
-        }
-
-        private void btnDel_Click(object sender, EventArgs e)
-        {
-            if (id_focus)
-            {
-                adminBUS.removeAdmin(txtID.Text);
-
-                Main main = new Main();
-                main.Show();
-            }
-
-            else
-                MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
         }
 
         private void adminDataGridView_Click_1(object sender, EventArgs e)
@@ -200,6 +134,11 @@ namespace MiniStoreManagement.GUI.UCs
 
             else
                 MessageBox.Show("Đối tượng này chưa được lưu vào danh sách nên không thể xóa");
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            reset_form();
         }
     }
 }

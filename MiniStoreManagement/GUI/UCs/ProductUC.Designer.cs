@@ -28,15 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductUC));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbPrice = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.cbbID_provider = new System.Windows.Forms.ComboBox();
             this.cbbID_category = new System.Windows.Forms.ComboBox();
+            this.cbbID_promotion = new System.Windows.Forms.ComboBox();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -53,26 +64,22 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.BtnUpdate = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.txtPrice = new System.Windows.Forms.TextBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.cbbID_promotion = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lbPrice = new System.Windows.Forms.Label();
+            this.btnReset_KM = new System.Windows.Forms.Button();
+            this.btnReset_DM = new System.Windows.Forms.Button();
+            this.btnReset_IMG = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(93)))), ((int)(((byte)(123)))));
+            this.panel1.Controls.Add(this.btnReset_IMG);
+            this.panel1.Controls.Add(this.btnReset_DM);
+            this.panel1.Controls.Add(this.btnReset_KM);
             this.panel1.Controls.Add(this.lbPrice);
             this.panel1.Controls.Add(this.btnSearch);
             this.panel1.Controls.Add(this.numericUpDown1);
@@ -108,6 +115,18 @@
             this.panel1.Size = new System.Drawing.Size(1148, 378);
             this.panel1.TabIndex = 1;
             // 
+            // lbPrice
+            // 
+            this.lbPrice.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrice.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.lbPrice.Location = new System.Drawing.Point(614, 226);
+            this.lbPrice.Name = "lbPrice";
+            this.lbPrice.Size = new System.Drawing.Size(210, 40);
+            this.lbPrice.TabIndex = 69;
+            this.lbPrice.Text = "500,000";
+            this.lbPrice.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lbPrice.Visible = false;
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(672, 304);
@@ -117,6 +136,15 @@
             this.btnSearch.Text = "search +";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnsearch_click);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Enabled = false;
+            this.numericUpDown1.Location = new System.Drawing.Point(616, 99);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(210, 40);
+            this.numericUpDown1.TabIndex = 67;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label18
             // 
@@ -158,6 +186,26 @@
             this.label14.TabIndex = 62;
             this.label14.Text = ":";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label13.Location = new System.Drawing.Point(588, 103);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(22, 32);
+            this.label13.TabIndex = 61;
+            this.label13.Text = ":";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label12.Location = new System.Drawing.Point(588, 173);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(22, 32);
+            this.label12.TabIndex = 60;
+            this.label12.Text = ":";
+            // 
             // cbbID_provider
             // 
             this.cbbID_provider.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -176,6 +224,53 @@
             this.cbbID_category.Size = new System.Drawing.Size(210, 40);
             this.cbbID_category.TabIndex = 57;
             // 
+            // cbbID_promotion
+            // 
+            this.cbbID_promotion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbID_promotion.FormattingEnabled = true;
+            this.cbbID_promotion.Location = new System.Drawing.Point(192, 99);
+            this.cbbID_promotion.Name = "cbbID_promotion";
+            this.cbbID_promotion.Size = new System.Drawing.Size(210, 40);
+            this.cbbID_promotion.TabIndex = 54;
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.Enabled = false;
+            this.txtPrice.Location = new System.Drawing.Point(616, 169);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(210, 40);
+            this.txtPrice.TabIndex = 52;
+            this.txtPrice.Text = "0";
+            this.txtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(616, 29);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(210, 40);
+            this.txtName.TabIndex = 48;
+            this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label11.Location = new System.Drawing.Point(453, 173);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(111, 32);
+            this.label11.TabIndex = 46;
+            this.label11.Text = "Giá tiền";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label10.Location = new System.Drawing.Point(453, 103);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(131, 32);
+            this.label10.TabIndex = 45;
+            this.label10.Text = "Số lượng";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -185,6 +280,16 @@
             this.label9.Size = new System.Drawing.Size(98, 32);
             this.label9.TabIndex = 44;
             this.label9.Text = "ID_NC";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label5.Location = new System.Drawing.Point(29, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(100, 32);
+            this.label5.TabIndex = 43;
+            this.label5.Text = "ID_KM";
             // 
             // label3
             // 
@@ -246,9 +351,9 @@
             // 
             // txtID
             // 
-            this.txtID.Enabled = false;
             this.txtID.Location = new System.Drawing.Point(192, 29);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(210, 40);
             this.txtID.TabIndex = 9;
             this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -285,7 +390,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(88)))), ((int)(((byte)(134)))));
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(93)))), ((int)(((byte)(123)))));
             this.panel2.Controls.Add(this.btnNew);
             this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.btnDel);
@@ -350,103 +455,53 @@
             this.BtnUpdate.UseVisualStyleBackColor = true;
             this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
-            // label5
+            // btnReset_KM
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label5.Location = new System.Drawing.Point(29, 103);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 32);
-            this.label5.TabIndex = 43;
-            this.label5.Text = "ID_KM";
+            this.btnReset_KM.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset_KM.BackgroundImage")));
+            this.btnReset_KM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReset_KM.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset_KM.FlatAppearance.BorderSize = 0;
+            this.btnReset_KM.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_KM.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_KM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset_KM.Location = new System.Drawing.Point(408, 104);
+            this.btnReset_KM.Name = "btnReset_KM";
+            this.btnReset_KM.Size = new System.Drawing.Size(37, 31);
+            this.btnReset_KM.TabIndex = 100;
+            this.btnReset_KM.UseVisualStyleBackColor = true;
+            this.btnReset_KM.Click += new System.EventHandler(this.btnReset_KM_Click);
             // 
-            // label11
+            // btnReset_DM
             // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label11.Location = new System.Drawing.Point(453, 173);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(111, 32);
-            this.label11.TabIndex = 46;
-            this.label11.Text = "Giá tiền";
+            this.btnReset_DM.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset_DM.BackgroundImage")));
+            this.btnReset_DM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReset_DM.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset_DM.FlatAppearance.BorderSize = 0;
+            this.btnReset_DM.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_DM.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_DM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset_DM.Location = new System.Drawing.Point(408, 243);
+            this.btnReset_DM.Name = "btnReset_DM";
+            this.btnReset_DM.Size = new System.Drawing.Size(37, 31);
+            this.btnReset_DM.TabIndex = 101;
+            this.btnReset_DM.UseVisualStyleBackColor = true;
+            this.btnReset_DM.Click += new System.EventHandler(this.btnReset_DM_Click);
             // 
-            // txtPrice
+            // btnReset_IMG
             // 
-            this.txtPrice.Enabled = false;
-            this.txtPrice.Location = new System.Drawing.Point(616, 169);
-            this.txtPrice.Name = "txtPrice";
-            this.txtPrice.Size = new System.Drawing.Size(210, 40);
-            this.txtPrice.TabIndex = 52;
-            this.txtPrice.Text = "0";
-            this.txtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Enabled = false;
-            this.numericUpDown1.Location = new System.Drawing.Point(616, 99);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(210, 40);
-            this.numericUpDown1.TabIndex = 67;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(616, 29);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(210, 40);
-            this.txtName.TabIndex = 48;
-            this.txtName.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // cbbID_promotion
-            // 
-            this.cbbID_promotion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbID_promotion.FormattingEnabled = true;
-            this.cbbID_promotion.Location = new System.Drawing.Point(192, 99);
-            this.cbbID_promotion.Name = "cbbID_promotion";
-            this.cbbID_promotion.Size = new System.Drawing.Size(210, 40);
-            this.cbbID_promotion.TabIndex = 54;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label10.Location = new System.Drawing.Point(453, 103);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(131, 32);
-            this.label10.TabIndex = 45;
-            this.label10.Text = "Số lượng";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label12.Location = new System.Drawing.Point(588, 173);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(22, 32);
-            this.label12.TabIndex = 60;
-            this.label12.Text = ":";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label13.Location = new System.Drawing.Point(588, 103);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(22, 32);
-            this.label13.TabIndex = 61;
-            this.label13.Text = ":";
-            // 
-            // lbPrice
-            // 
-            this.lbPrice.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrice.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbPrice.Location = new System.Drawing.Point(614, 226);
-            this.lbPrice.Name = "lbPrice";
-            this.lbPrice.Size = new System.Drawing.Size(210, 40);
-            this.lbPrice.TabIndex = 69;
-            this.lbPrice.Text = "500,000";
-            this.lbPrice.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.lbPrice.Visible = false;
+            this.btnReset_IMG.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnReset_IMG.BackgroundImage")));
+            this.btnReset_IMG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnReset_IMG.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReset_IMG.FlatAppearance.BorderSize = 0;
+            this.btnReset_IMG.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_IMG.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnReset_IMG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReset_IMG.Location = new System.Drawing.Point(1085, 314);
+            this.btnReset_IMG.Name = "btnReset_IMG";
+            this.btnReset_IMG.Size = new System.Drawing.Size(37, 31);
+            this.btnReset_IMG.TabIndex = 102;
+            this.btnReset_IMG.UseVisualStyleBackColor = true;
+            this.btnReset_IMG.Click += new System.EventHandler(this.btnReset_IMG_Click);
             // 
             // ProductUC
             // 
@@ -459,10 +514,10 @@
             this.Load += new System.EventHandler(this.ProductUC_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -504,5 +559,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lbPrice;
+        private System.Windows.Forms.Button btnReset_DM;
+        private System.Windows.Forms.Button btnReset_KM;
+        private System.Windows.Forms.Button btnReset_IMG;
     }
 }

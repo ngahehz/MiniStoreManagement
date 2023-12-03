@@ -20,17 +20,53 @@ namespace MiniStoreManagement.GUI.UCs
     {
         private VoucherBUS voucherBUS = new VoucherBUS();
         private bool id_focus = false; // để khi nào mà đang ấn một id nào đó thì không cho phép thêm từ đối tượng đó.
+        private string _state = "1";
         public VoucherUC()
         {
             InitializeComponent();
         }
+
+        public VoucherUC(string i)
+        {
+            InitializeComponent();
+
+            _state = i;
+            BtnUpdate.Visible = false;
+            btnAdd.Visible = false;
+            btnNew.Text = "Xóa";
+            btnDel.Text = "Hoàn";
+            txtDescription.Enabled = false;
+            txtChietkhau.Enabled = false;
+            txtGiagiam.Enabled = false;
+            txtGTTT.Enabled = false;
+            txtGTTĐ.Enabled = false;
+            dateTimePicker1.Enabled = false;
+            dateTimePicker2.Enabled = false;
+            make_center();
+        }
+
+        public void make_center()
+        {
+            int spacing = 45;
+            int panelHeight = panel2.Height;
+            int buttonHeight = btnAdd.Height;
+
+            int yPositionButton1 = (panelHeight - buttonHeight * 2 - spacing) / 2;
+            int yPositionButton2 = yPositionButton1 + buttonHeight + spacing;
+
+            btnNew.Location = new Point(btnAdd.Location.X, yPositionButton1);
+
+            btnDel.Location = new Point(btnDel.Location.X, yPositionButton2);
+        }
+
         private void VoucherUC_Load(object sender, EventArgs e)
         {
             if (VoucherBUS.VoucherList == null)
                 voucherBUS.getVoucher();
-            new_id();
 
-            dataGridView1.DataSource = VoucherBUS.VoucherList;
+            new_id();
+            showdata();
+            dataGridView1.Columns["STATE"].Visible = false;
         }
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -104,7 +140,7 @@ namespace MiniStoreManagement.GUI.UCs
             {
                 voucherDTO.DiscountAmount = null;
                 voucherDTO.MinInvoiceValue = null;
-                voucherDTO.PercentDiscount = decimal.Parse(txtChietkhau.Text);
+                voucherDTO.PercentDiscount = double.Parse(txtChietkhau.Text);
                 voucherDTO.MaxDiscount = decimal.Parse(txtGTTĐ.Text);
             }
 
@@ -114,9 +150,9 @@ namespace MiniStoreManagement.GUI.UCs
             if (voucherBUS.addVoucher(voucherDTO))
             {
                 VoucherBUS.VoucherList.Rows.Add(voucherDTO.Id, voucherDTO.Code, voucherDTO.Discription, voucherDTO.DiscountAmount, voucherDTO.MinInvoiceValue,
-                                                voucherDTO.PercentDiscount, voucherDTO.MaxDiscount, voucherDTO.StartDate, voucherDTO.EndDate);
+                                                voucherDTO.PercentDiscount, voucherDTO.MaxDiscount, voucherDTO.StartDate, voucherDTO.EndDate, voucherDTO.State);
 
-                dataGridView1.DataSource = VoucherBUS.VoucherList;
+                showdata();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công!");
             }
@@ -126,29 +162,70 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            reset_form();
+            if (_state == "0")
+            {
+                if (!id_focus)
+                {
+                    MessageBox.Show("Chưa chọn đối tượng, không thể xóa");
+                    return;
+                }
+                DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (voucherBUS.removeVoucher(txtID.Text))
+                    {
+                        DataRow[] rowsToDelete = VoucherBUS.VoucherList.Select("ID = '" + txtID.Text + "'");
+                        VoucherBUS.VoucherList.Rows.Remove(rowsToDelete[0]);
+                        showdata();
+                        MessageBox.Show("Xóa thành công");
+                    }
+                    else
+                        MessageBox.Show("Không thể xóa đối tượng!");
+                }
+            }
+            else
+            {
+                reset_form();
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
             if (!id_focus)
             {
-                MessageBox.Show("Đối tượng chưa được lưu nên không thể xóa");
-                return;
+                if (_state == "1")
+                {
+                    MessageBox.Show("Đối tượng chưa được lưu nên không thể xóa");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Chưa chọn đối tượng, không thể phục hồi");
+                    return;
+                }
             }
+
 
             DialogResult dialogResult = MessageBox.Show("Thông báo: Bạn có muốn thực hiện hành động này không?", "Xác nhận", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
-                if (voucherBUS.removeVoucher(txtID.Text))
+                DataRow rowToUpdate = VoucherBUS.VoucherList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                VoucherDTO voucherDTO = new VoucherDTO(rowToUpdate);
+                voucherDTO.State = _state;
+
+                if (voucherBUS.updateVoucher(voucherDTO))
                 {
-                    DataRow[] rowsToDelete = VoucherBUS.VoucherList.Select("ID = '" + txtID.Text + "'");
-                    VoucherBUS.VoucherList.Rows.Remove(rowsToDelete[0]);
-                    dataGridView1.DataSource = VoucherBUS.VoucherList;
+                    rowToUpdate[9] = _state;
+                    showdata();
                     reset_form();
 
-                    MessageBox.Show("Đã xóa");
+                    if (_state == "1")
+                        MessageBox.Show("Đã xóa");
+                    else
+                        MessageBox.Show("Đã khôi phục");
                 }
                 else
                     MessageBox.Show("không thể làm theo yêu cầu");
@@ -185,7 +262,7 @@ namespace MiniStoreManagement.GUI.UCs
                 {
                     voucherDTO.DiscountAmount = null;
                     voucherDTO.MinInvoiceValue = null;
-                    voucherDTO.PercentDiscount = decimal.Parse(txtChietkhau.Text);
+                    voucherDTO.PercentDiscount = double.Parse(txtChietkhau.Text);
                     voucherDTO.MaxDiscount = decimal.Parse(txtGTTĐ.Text);
                 }
 
@@ -208,7 +285,7 @@ namespace MiniStoreManagement.GUI.UCs
                         rowToUpdate[7] = voucherDTO.StartDate;
                         rowToUpdate[8] = voucherDTO.EndDate;
                     }
-                    dataGridView1.DataSource = VoucherBUS.VoucherList;
+                    showdata();
                     MessageBox.Show("Đã sửa");
                 }
                 else
@@ -218,7 +295,7 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            DataView dv = VoucherBUS.VoucherList.DefaultView;
+            DataView dv = show_data().DefaultView;
             string txt = txtSearch.Text;
 
             if (txtSearch.Text == "")
@@ -248,6 +325,21 @@ namespace MiniStoreManagement.GUI.UCs
                 txtGTTT.Enabled = false;
                 txtChietkhau.Enabled = true;
                 txtGTTĐ.Enabled = true;
+            }
+            if (_state == "1")
+            {
+                return;
+            }
+
+            if (radioButton2.Checked)
+            {
+                radioButton2.Enabled = true;
+                radioButton1.Enabled = false;
+            }
+            else
+            {
+                radioButton2.Enabled = false;
+                radioButton1.Enabled = true;
             }
         }
 
@@ -280,7 +372,6 @@ namespace MiniStoreManagement.GUI.UCs
             dateTimePicker2.Value = DateTime.Now;
             dateTimePicker1.CustomFormat = " ";
             dateTimePicker2.CustomFormat = " ";
-            dataGridView1.ClearSelection();
         }
 
         private bool check()
@@ -375,6 +466,23 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             return true;
+        }
+
+        private DataTable show_data()
+        {
+            if (_state == "0")
+            {
+                var filteredRows1 = VoucherBUS.VoucherList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
+                return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : VoucherBUS.VoucherList.Clone();
+            }
+            var filteredRows = VoucherBUS.VoucherList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+            return filteredRows.Any() ? filteredRows.CopyToDataTable() : VoucherBUS.VoucherList.Clone();
+
+        }
+
+        public void showdata()
+        {
+            dataGridView1.DataSource = show_data();
         }
     }
 }

@@ -35,8 +35,8 @@ namespace MiniStoreManagement.GUI.UCs
             btnAdd.Visible = false;
             btnNew.Text = "Xóa";
             btnDel.Text = "Hoàn";
-            txtDescription.Enabled = false;
-            txtPercent.Enabled = false;
+            txtDescription.ReadOnly = true;
+            txtPercent.ReadOnly = true;
             dateTimePicker1.Enabled = false;
             dateTimePicker2.Enabled = false;
             make_center();
@@ -117,7 +117,8 @@ namespace MiniStoreManagement.GUI.UCs
 
             if (promotionBUS.addPromotion(promotionDTO))
             {
-                PromotionBUS.PromotionList.Rows.Add(promotionDTO.Id, promotionDTO.Discription, promotionDTO.PercentDiscount, promotionDTO.StartDate, promotionDTO.EndDate);
+                PromotionBUS.PromotionList.Rows.Add(promotionDTO.Id, promotionDTO.Discription, promotionDTO.PercentDiscount,
+                                                    promotionDTO.StartDate, promotionDTO.EndDate, promotionDTO.State);
                 showdata();
                 id_focus = true;
                 MessageBox.Show("Thêm thành công");
@@ -151,7 +152,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
             else
+            {
                 reset_form();
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -345,6 +349,11 @@ namespace MiniStoreManagement.GUI.UCs
 
         private DataTable show_data()
         {
+            if (_state == "0")
+            {
+                var filteredRows1 = PromotionBUS.PromotionList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1");
+                return filteredRows1.Any() ? filteredRows1.CopyToDataTable() : PromotionBUS.PromotionList.Clone();
+            }
             var filteredRows = PromotionBUS.PromotionList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
             return filteredRows.Any() ? filteredRows.CopyToDataTable() : PromotionBUS.PromotionList.Clone();
         }

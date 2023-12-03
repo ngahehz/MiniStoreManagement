@@ -138,7 +138,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
             else
+            {
                 reset_form();
+                dataGridView1.ClearSelection();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -263,7 +266,6 @@ namespace MiniStoreManagement.GUI.UCs
             txtAddress.ResetText();
             txtEmail.ResetText();
             txtSearch.ResetText();
-            dataGridView1.ClearSelection();
         }
 
         private bool check()

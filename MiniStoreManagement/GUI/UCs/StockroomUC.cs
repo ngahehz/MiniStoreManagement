@@ -76,6 +76,7 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
         }
+
         private int LoadData(string query)
         {
             DataView dv = StockroomBUS.StockroomList.DefaultView;
@@ -91,6 +92,22 @@ namespace MiniStoreManagement.GUI.UCs
             TimKiemStockroom timkiem = new TimKiemStockroom();
             timkiem.temp = new TimKiemStockroom.truyenDuLieu(LoadData);
             timkiem.Show();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            DataView dv = StockroomBUS.StockroomList.DefaultView;
+            string txt = txtSearch.Text;
+
+            if (txtSearch.Text == "")
+            {
+                dv.RowFilter = "ID LIKE '%1%'";
+                dataGridView1.DataSource = dv.ToTable();
+                return;
+            }
+
+            dv.RowFilter = $"ID LIKE '%{txt}%' OR PRODUCT_ID LIKE '%{txt}%' OR CONVERT(QUANTITY, 'System.String') LIKE '%{txt}%' ";
+            dataGridView1.DataSource = dv.ToTable();
         }
     }
 }

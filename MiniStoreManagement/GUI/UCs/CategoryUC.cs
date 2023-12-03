@@ -37,7 +37,7 @@ namespace MiniStoreManagement.GUI.UCs
             btnNew.Text = "Xóa";
             btnDel.Text = "Hoàn";
             make_center();
-            txtName_category.Enabled = false;
+            txtName_category.ReadOnly = true;
         }
 
         public void make_center()
@@ -140,7 +140,10 @@ namespace MiniStoreManagement.GUI.UCs
                 }
             }
             else
+            {
+                dataGridView1.ClearSelection();
                 reset_form();
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -253,7 +256,6 @@ namespace MiniStoreManagement.GUI.UCs
             txtName_product.ResetText();
             cbbID_product.SelectedItem = null;
             txtSearch.ResetText();
-            dataGridView1.ClearSelection();
         }
 
         private bool check()

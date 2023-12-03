@@ -30,17 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Invoice));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbExit = new System.Windows.Forms.Label();
             this.lbInvoice = new System.Windows.Forms.Label();
             this.lbMiniMart = new System.Windows.Forms.Label();
             this.lbHĐBH = new System.Windows.Forms.Label();
             this.lbAddress = new System.Windows.Forms.Label();
             this.lbCell = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblin = new System.Windows.Forms.Label();
             this.lbDate = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.lbEmployee = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.lbPayment = new System.Windows.Forms.Label();
             this.lbTổng = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -49,13 +52,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lbPayment = new System.Windows.Forms.Label();
-            this.lbExit = new System.Windows.Forms.Label();
+            this.newpn = new System.Windows.Forms.Panel();
+            this.lbTong2 = new System.Windows.Forms.Label();
+            this.lbKM = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.newpn.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +80,19 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Moving_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Moving_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Moving_MouseUp);
+            // 
+            // lbExit
+            // 
+            this.lbExit.AutoSize = true;
+            this.lbExit.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Bold);
+            this.lbExit.Location = new System.Drawing.Point(596, 2);
+            this.lbExit.Name = "lbExit";
+            this.lbExit.Size = new System.Drawing.Size(34, 39);
+            this.lbExit.TabIndex = 6;
+            this.lbExit.Text = "x";
+            this.lbExit.Click += new System.EventHandler(this.lbExit_Click);
+            this.lbExit.MouseLeave += new System.EventHandler(this.lbExit_MouseLeave);
+            this.lbExit.MouseHover += new System.EventHandler(this.lbExit_MouseHover);
             // 
             // lbInvoice
             // 
@@ -127,6 +145,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.lblin);
             this.panel3.Controls.Add(this.lbDate);
             this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.lbEmployee);
@@ -135,6 +154,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(640, 229);
             this.panel3.TabIndex = 2;
+            // 
+            // lblin
+            // 
+            this.lblin.AutoSize = true;
+            this.lblin.Location = new System.Drawing.Point(566, 174);
+            this.lblin.Name = "lblin";
+            this.lblin.Size = new System.Drawing.Size(38, 32);
+            this.lblin.TabIndex = 20;
+            this.lblin.Text = "In";
+            this.lblin.Click += new System.EventHandler(this.lblin_Click);
             // 
             // lbDate
             // 
@@ -158,7 +187,7 @@
             // lbEmployee
             // 
             this.lbEmployee.AutoSize = true;
-            this.lbEmployee.Location = new System.Drawing.Point(28, 33);
+            this.lbEmployee.Location = new System.Drawing.Point(28, 25);
             this.lbEmployee.Name = "lbEmployee";
             this.lbEmployee.Size = new System.Drawing.Size(158, 32);
             this.lbEmployee.TabIndex = 14;
@@ -168,6 +197,7 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.Controls.Add(this.panel6);
+            this.panel2.Controls.Add(this.newpn);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -181,10 +211,20 @@
             this.panel6.Controls.Add(this.lbPayment);
             this.panel6.Controls.Add(this.lbTổng);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel6.Location = new System.Drawing.Point(0, 81);
+            this.panel6.Location = new System.Drawing.Point(0, 9);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(640, 72);
             this.panel6.TabIndex = 19;
+            // 
+            // lbPayment
+            // 
+            this.lbPayment.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPayment.Location = new System.Drawing.Point(469, 15);
+            this.lbPayment.Name = "lbPayment";
+            this.lbPayment.Size = new System.Drawing.Size(152, 38);
+            this.lbPayment.TabIndex = 12;
+            this.lbPayment.Text = "20000000";
+            this.lbPayment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTổng
             // 
@@ -266,28 +306,36 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Tên hàng";
             // 
-            // lbPayment
+            // newpn
             // 
-            this.lbPayment.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPayment.Location = new System.Drawing.Point(469, 15);
-            this.lbPayment.Name = "lbPayment";
-            this.lbPayment.Size = new System.Drawing.Size(152, 38);
-            this.lbPayment.TabIndex = 12;
-            this.lbPayment.Text = "20000000";
-            this.lbPayment.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.newpn.BackColor = System.Drawing.Color.Transparent;
+            this.newpn.Controls.Add(this.lbKM);
+            this.newpn.Controls.Add(this.lbTong2);
+            this.newpn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.newpn.Location = new System.Drawing.Point(0, 81);
+            this.newpn.Name = "newpn";
+            this.newpn.Size = new System.Drawing.Size(640, 72);
+            this.newpn.TabIndex = 4;
+            this.newpn.Visible = false;
             // 
-            // lbExit
+            // lbTong2
             // 
-            this.lbExit.AutoSize = true;
-            this.lbExit.Font = new System.Drawing.Font("Comic Sans MS", 14F, System.Drawing.FontStyle.Bold);
-            this.lbExit.Location = new System.Drawing.Point(596, 2);
-            this.lbExit.Name = "lbExit";
-            this.lbExit.Size = new System.Drawing.Size(34, 39);
-            this.lbExit.TabIndex = 6;
-            this.lbExit.Text = "x";
-            this.lbExit.Click += new System.EventHandler(this.lbExit_Click);
-            this.lbExit.MouseLeave += new System.EventHandler(this.lbExit_MouseLeave);
-            this.lbExit.MouseHover += new System.EventHandler(this.lbExit_MouseHover);
+            this.lbTong2.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTong2.Location = new System.Drawing.Point(28, 3);
+            this.lbTong2.Name = "lbTong2";
+            this.lbTong2.Size = new System.Drawing.Size(471, 66);
+            this.lbTong2.TabIndex = 12;
+            this.lbTong2.Text = "Tổng";
+            // 
+            // lbKM
+            // 
+            this.lbKM.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbKM.Location = new System.Drawing.Point(469, 17);
+            this.lbKM.Name = "lbKM";
+            this.lbKM.Size = new System.Drawing.Size(152, 38);
+            this.lbKM.TabIndex = 13;
+            this.lbKM.Text = "20000";
+            this.lbKM.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Invoice
             // 
@@ -315,6 +363,7 @@
             this.panel6.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.newpn.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -343,5 +392,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lbPayment;
         private System.Windows.Forms.Label lbExit;
+        private System.Windows.Forms.Label lblin;
+        private System.Windows.Forms.Panel newpn;
+        private System.Windows.Forms.Label lbKM;
+        private System.Windows.Forms.Label lbTong2;
     }
 }

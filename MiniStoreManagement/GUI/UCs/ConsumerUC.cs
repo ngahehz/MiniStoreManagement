@@ -113,6 +113,7 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            dataGridView1.ClearSelection();
             reset_form();
         }
 
@@ -218,7 +219,6 @@ namespace MiniStoreManagement.GUI.UCs
             txtSearch.ResetText();
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.CustomFormat = " ";
-            dataGridView1.ClearSelection();
         }
 
         private bool check()
