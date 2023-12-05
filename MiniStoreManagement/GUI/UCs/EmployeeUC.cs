@@ -281,10 +281,10 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     employeeDTO.Gender = "Nữ";
                 employeeDTO.Cell = txtSĐT.Text;
-                if (!string.IsNullOrEmpty(fileName))
-                    employeeDTO.Img = txtID.Text + fileName;
-                else
-                    employeeDTO.Img = null;
+                //if (!string.IsNullOrEmpty(fileName))
+                //    employeeDTO.Img = txtID.Text + fileName;
+                //else
+                //    employeeDTO.Img = null;
 
                 if (employeeBUS.updateEmployee(employeeDTO))
                 {
@@ -296,8 +296,8 @@ namespace MiniStoreManagement.GUI.UCs
                         rowToUpdate[2] = employeeDTO.Gender;
                         rowToUpdate[3] = employeeDTO.DoB;
                         rowToUpdate[4] = employeeDTO.Cell;
-                        if (employeeDTO.Img != null)
-                            rowToUpdate[5] = employeeDTO.Img;
+                        //if (employeeDTO.Img != null)
+                        //    rowToUpdate[5] = employeeDTO.Img;
 
                         showdata();
 
@@ -396,10 +396,62 @@ namespace MiniStoreManagement.GUI.UCs
             {
                 string filePath = "..//..//Img//Employee//" + name + fileName;
 
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
+                while (true)
+                {
+                    try
+                    {
+                        if (File.Exists(filePath))
+                            File.Delete(filePath);
+                        else
+                            break;
 
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Employee//" + fName + "1" + fileName;
+                    }
+                    catch (IOException ex)
+                    {
+                        Console.WriteLine($"Lỗi IO: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Employee//" + fName + "1" + fileName;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Console.WriteLine($"Lỗi truy cập không được ủy quyền: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Employee//" + fName + "1" + fileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Lỗi không xác định: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Employee//" + fName + "1" + fileName;
+                    }
+                }
+
+                //MessageBox.Show(filePath);
                 pictureBox1.Image.Save(filePath);
+
+                if (id_focus)
+                {
+                    DataRow rowToUpdate = EmployeeBUS.EmployeeList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                    EmployeeDTO employeeDTO = new EmployeeDTO(rowToUpdate);
+
+                    if (!string.IsNullOrEmpty(fileName))
+                        employeeDTO.Img = Path.GetFileName(filePath);
+                    else
+                        employeeDTO.Img = null;
+
+                    if (employeeBUS.updateEmployee(employeeDTO))
+                    {
+                        if (rowToUpdate != null)
+                        {
+                            if (employeeDTO.Img != null)
+                                rowToUpdate[5] = employeeDTO.Img;
+
+                            showdata();
+                        }
+                    }
+                }
             }
         }
 

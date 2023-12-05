@@ -49,7 +49,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.BtnPrint = new System.Windows.Forms.Button();
             this.pnlControl = new System.Windows.Forms.Panel();
-            this.btnPD = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
@@ -285,7 +284,6 @@
             // 
             // pnlControl
             // 
-            this.pnlControl.Controls.Add(this.btnPD);
             this.pnlControl.Controls.Add(this.btnAdd);
             this.pnlControl.Controls.Add(this.btnUpdate);
             this.pnlControl.Controls.Add(this.btnDel);
@@ -296,16 +294,6 @@
             this.pnlControl.Name = "pnlControl";
             this.pnlControl.Size = new System.Drawing.Size(874, 116);
             this.pnlControl.TabIndex = 38;
-            // 
-            // btnPD
-            // 
-            this.btnPD.Location = new System.Drawing.Point(723, 24);
-            this.btnPD.Name = "btnPD";
-            this.btnPD.Size = new System.Drawing.Size(122, 68);
-            this.btnPD.TabIndex = 38;
-            this.btnPD.Text = "Tạo SP";
-            this.btnPD.UseVisualStyleBackColor = true;
-            this.btnPD.Click += new System.EventHandler(this.btnPD_Click);
             // 
             // btnAdd
             // 
@@ -319,9 +307,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(179, 24);
+            this.btnUpdate.Location = new System.Drawing.Point(202, 24);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(99, 68);
+            this.btnUpdate.Size = new System.Drawing.Size(116, 68);
             this.btnUpdate.TabIndex = 34;
             this.btnUpdate.Text = "Sửa";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -329,9 +317,9 @@
             // 
             // btnDel
             // 
-            this.btnDel.Location = new System.Drawing.Point(315, 24);
+            this.btnDel.Location = new System.Drawing.Point(378, 24);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(99, 68);
+            this.btnDel.Size = new System.Drawing.Size(116, 68);
             this.btnDel.TabIndex = 35;
             this.btnDel.Text = "Xóa";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -339,9 +327,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(451, 24);
+            this.btnSave.Location = new System.Drawing.Point(554, 24);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(99, 68);
+            this.btnSave.Size = new System.Drawing.Size(116, 68);
             this.btnSave.TabIndex = 36;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -349,9 +337,9 @@
             // 
             // btnNew
             // 
-            this.btnNew.Location = new System.Drawing.Point(587, 24);
+            this.btnNew.Location = new System.Drawing.Point(730, 24);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(99, 68);
+            this.btnNew.Size = new System.Drawing.Size(116, 68);
             this.btnNew.TabIndex = 37;
             this.btnNew.Text = "Mới";
             this.btnNew.UseVisualStyleBackColor = true;
@@ -400,7 +388,6 @@
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnNew;
-        private System.Windows.Forms.Button btnPD;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lbExit;

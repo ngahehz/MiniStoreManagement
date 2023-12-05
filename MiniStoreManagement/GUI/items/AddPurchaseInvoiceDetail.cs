@@ -69,23 +69,11 @@ namespace MiniStoreManagement.GUI.items
 
         private void cbbID_invoice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cbbID_product.SelectedItem == null)
-            //{
-            //    return;
-            //}
-            //string id_product = cbbID_product.SelectedItem.ToString();
-
-            //DataRow find = PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().FirstOrDefault(row => row.Field<string>("PRODUCT_ID") == id_product && row.Field<string>("INVOICE_ID") == invoice_id);
-            //if (find != null)
-            //{
-            //    numericUpDown1.Value = find.Field<int>("QUANTITY");
-            //    txtPrice.Text = find[3].ToString();
-            //}
-            //else 
-            //{ 
-            //    numericUpDown1.Value = 0;
-            //    txtPrice.Text = "";
-            //}
+            if (cbbID_invoice.SelectedItem == null)
+                return;
+            else
+                invoice_id = cbbID_invoice.SelectedItem.ToString();
+            dataGridView1.DataSource = show_data(1);
         }
 
         private void cbbID_product_SelectedIndexChanged(object sender, EventArgs e)
@@ -311,7 +299,7 @@ namespace MiniStoreManagement.GUI.items
             }
             else
             {
-                var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("PROVIDER_ID") == provider_id);
+                var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("PROVIDER_ID") == provider_id && row.Field<string>("STATE") == "0");
                 return filteredRows.Any() ? filteredRows.CopyToDataTable() : ProductBUS.ProductList.Clone();
             }
         }
@@ -320,7 +308,7 @@ namespace MiniStoreManagement.GUI.items
         {
             if (show_data(1).Rows.Count == 0)
             {
-                MessageBox.Show("Đơn hàng chưa có dữ liệu");
+                //MessageBox.Show("Đơn hàng chưa có dữ liệu");
                 return false;
             }
             if (PurchaseInvoiceBUS.PurchaseInvoiceList == null)
@@ -414,9 +402,5 @@ namespace MiniStoreManagement.GUI.items
             return PurchasePrice * 1.6m;
         }
 
-        private void btnPD_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

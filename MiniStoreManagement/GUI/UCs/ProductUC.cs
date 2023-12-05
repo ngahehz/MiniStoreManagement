@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -313,10 +314,7 @@ namespace MiniStoreManagement.GUI.UCs
                 else
                     productDTO.PromotionId = null;
 
-                if (!string.IsNullOrEmpty(fileName))
-                    productDTO.Img = "pro" + txtID.Text + fileName;
-                else
-                    productDTO.Img = null;
+                
 
                 if (productBUS.updateProduct(productDTO))
                 {
@@ -327,8 +325,8 @@ namespace MiniStoreManagement.GUI.UCs
                         rowToUpdate[3] = productDTO.PromotionId;
                         rowToUpdate[4] = productDTO.ProviderId;
                         rowToUpdate[8] = productDTO.State;
-                        if (productDTO.Img != null)
-                            rowToUpdate[7] = productDTO.Img;
+                        //if (productDTO.Img != null)
+                        //    rowToUpdate[7] = productDTO.Img;
 
                         showdata();
 
@@ -407,10 +405,63 @@ namespace MiniStoreManagement.GUI.UCs
             if (pictureBox1.Image != null && fileName != null)
             {
                 string filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//pro" + txtID.Text + fileName;
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
+
+                while (true)
+                {
+                    try
+                    {
+                        if (File.Exists(filePath))
+                            File.Delete(filePath);
+                        else
+                            break;
+
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//" + fName + "1" + fileName;
+                    }
+                    catch (IOException ex)
+                    {
+                        Console.WriteLine($"Lỗi IO: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//" + fName + "1" + fileName;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Console.WriteLine($"Lỗi truy cập không được ủy quyền: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//" + fName + "1" + fileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Lỗi không xác định: {ex.Message}");
+                        string fName = Path.GetFileNameWithoutExtension(filePath);
+                        filePath = "..//..//Img//Product//" + cbbID_category.SelectedItem.ToString() + "//" + fName + "1" + fileName;
+                    }
+                }
+
+                //MessageBox.Show(filePath);
                 pictureBox1.Image.Save(filePath);
 
+                if (id_focus)
+                {
+                    DataRow rowToUpdate = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(row => row.Field<string>("ID") == txtID.Text);
+                    ProductDTO productDTO = new ProductDTO(rowToUpdate);
+
+                    if (!string.IsNullOrEmpty(fileName))
+                        productDTO.Img = Path.GetFileName(filePath);
+                    else
+                        productDTO.Img = null;
+
+                    if (productBUS.updateProduct(productDTO))
+                    {
+                        if (rowToUpdate != null)
+                        {
+                            if (productDTO.Img != null)
+                                rowToUpdate[7] = productDTO.Img;
+
+                            showdata();
+                        }
+                    }
+                }
             }
         }
 
@@ -480,7 +531,7 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnReset_DM_Click(object sender, EventArgs e)
         {
-            cbbID_provider.SelectedIndex = -1;
+            cbbID_category.SelectedIndex = -1;
         }
 
         private void btnReset_IMG_Click(object sender, EventArgs e)

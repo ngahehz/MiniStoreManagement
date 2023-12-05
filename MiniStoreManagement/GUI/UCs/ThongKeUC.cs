@@ -19,9 +19,7 @@ namespace MiniStoreManagement.GUI.UCs
         private PurchaseInvoiceBUS purchaseInvoiceBUS = new PurchaseInvoiceBUS();
         private SalesInvoiceDetailBUS salesInvoiceDetailBUS = new SalesInvoiceDetailBUS();
         private ProductBUS productBUS = new ProductBUS();
-        private DataTable dt1;
-        private DataTable dt2;
-        private DataTable dt3;
+        private DataTable dt1, dt2, dt3;
         private bool flag = false;
         public ThongKeUC()
         {
@@ -50,7 +48,7 @@ namespace MiniStoreManagement.GUI.UCs
         {
             DataTable dataTable = (DataTable)dataGridView1.DataSource;
 
-            var sumDt1 = from row in PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable()
+            var sumDt1 = from row in PurchaseInvoiceBUS.PurchaseInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1")
                          group row by new { Month = row.Field<DateTime>("DATE").Month, Year = row.Field<DateTime>("DATE").Year } into grp
                          select new
                          {
@@ -58,7 +56,7 @@ namespace MiniStoreManagement.GUI.UCs
                              Chi = grp.Sum(r => r.Field<decimal>("TOTAL_PAYMENT"))
                          };
 
-            var sumDt2 = from row in SalesInvoiceBUS.SalesInvoiceList.AsEnumerable()
+            var sumDt2 = from row in SalesInvoiceBUS.SalesInvoiceList.AsEnumerable().Where(row => row.Field<string>("STATE") == "1")
                          group row by new { Month = row.Field<DateTime>("DATE").Month, Year = row.Field<DateTime>("DATE").Year } into grp
                          select new
                          {
@@ -90,7 +88,7 @@ namespace MiniStoreManagement.GUI.UCs
             }
 
             // Sắp xếp DataView theo cột "Tháng"
-            dataTable.DefaultView.Sort = "ThangNamDateTime ASC";
+            dataTable.DefaultView.Sort = "ThangNamDateTime ASC"; //DESC
 
             // Cập nhật DataGridView
             dataGridView1.DataSource = dataTable;
@@ -116,19 +114,20 @@ namespace MiniStoreManagement.GUI.UCs
         {
             DataTable dataTable = (DataTable)dataGridView2.DataSource;
 
-            var result = from ct in SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable()
-                         join h in SalesInvoiceBUS.SalesInvoiceList.AsEnumerable() on ct.Field<string>("INVOICE_ID") equals h.Field<string>("ID")
-                         join sp in ProductBUS.ProductList.AsEnumerable() on ct.Field<string>("PRODUCT_ID") equals sp.Field<string>("ID")
+            var result = from cthd in SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable()
+                         join hd in SalesInvoiceBUS.SalesInvoiceList.AsEnumerable() on cthd.Field<string>("INVOICE_ID") equals hd.Field<string>("ID")
+                         join sp in ProductBUS.ProductList.AsEnumerable() on cthd.Field<string>("PRODUCT_ID") equals sp.Field<string>("ID")
+                         where hd.Field<string>("STATE") == "1"
                          group new
                          {
                              PRODUCT_ID = sp.Field<string>("ID"),
                              PRODUCT_NAME = sp.Field<string>("NAME"),
-                             QUANTITY = ct.Field<int>("QUANTITY"),
-                             ThanhTien = ct.Field<decimal>("PRICE") * ct.Field<int>("QUANTITY")
+                             QUANTITY = cthd.Field<int>("QUANTITY"),
+                             ThanhTien = cthd.Field<decimal>("PRICE") * cthd.Field<int>("QUANTITY")
                          } by new
                          {
-                             Month = h.Field<DateTime>("DATE").Month,
-                             Year = h.Field<DateTime>("DATE").Year,
+                             Month = hd.Field<DateTime>("DATE").Month,
+                             Year = hd.Field<DateTime>("DATE").Year,
                              PRODUCT_ID = sp.Field<string>("ID"),
                              PRODUCT_NAME = sp.Field<string>("NAME")
                          } into g
@@ -149,17 +148,14 @@ namespace MiniStoreManagement.GUI.UCs
 
             dataTable.Columns.Add("ThangNamDateTime", typeof(DateTime));
 
-            // Chuyển đổi dữ liệu từ cột "Tháng" sang cột "ThangNamDateTime"
             foreach (DataRow row in dataTable.Rows)
             {
                 DateTime thangNam = DateTime.ParseExact(row["Tháng"].ToString(), "M/yyyy", CultureInfo.InvariantCulture);
                 row["ThangNamDateTime"] = thangNam;
             }
 
-            // Sắp xếp DataView theo cột "Tháng"
             dataTable.DefaultView.Sort = "ThangNamDateTime ASC";
 
-            // Cập nhật DataGridView
             dataGridView2.DataSource = dataTable;
             dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView2.Columns["ThangNamDateTime"].Visible = false;
@@ -206,7 +202,6 @@ namespace MiniStoreManagement.GUI.UCs
                     }
 
                     dataTable.DefaultView.Sort = "ThangNamDateTime ASC";
-                    //dataGridView3.Columns["ThangNamDateTime"].Visible = false;
                     break;
 
                 case 1:
@@ -230,7 +225,6 @@ namespace MiniStoreManagement.GUI.UCs
                     }
 
                     dataTable.DefaultView.Sort = "ThangNamDateTime ASC";
-                    //dataGridView3.Columns["ThangNamDateTime"].Visible = false;
                     break;
 
                 case 2:
@@ -254,12 +248,12 @@ namespace MiniStoreManagement.GUI.UCs
                     }
 
                     dataTable.DefaultView.Sort = "ThangNamDateTime ASC";
-                    //dataGridView3.Columns["ThangNamDateTime"].Visible = false;
                     break;
             }
 
             dataGridView3.DataSource = dataTable;
             dataGridView3.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView3.Columns["ThangNamDateTime"].Visible = false;
             dt3 = dataTable;
         }
 
@@ -276,6 +270,9 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
+            if (flag)
+                return;
+
             if (dtpThuChi1.CustomFormat == " ")
                 dtpThuChi1.CustomFormat = "M/yyyy";
 
@@ -300,14 +297,11 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
+            if (flag)
+                return;
+
             if (dtpThuChi2.CustomFormat == " ")
                 dtpThuChi2.CustomFormat = "M/yyyy";
-
-            //if (dateTimePicker1.CustomFormat == " " && dateTimePicker2.CustomFormat == " ")
-            //{
-            //    dataGridView1.DataSource = dt1;
-            //    return;
-            //}
 
             DataView dv = dt1.DefaultView;
             if (dtpThuChi1.CustomFormat == " ")
@@ -324,11 +318,13 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            dtpThuChi1.Value = dtpThuChi1.MinDate;
+            flag = true;
             dtpThuChi1.Value = DateTime.Now;
-            dtpThuChi2.Value = DateTime.Now;
             dtpThuChi1.CustomFormat = " ";
+            flag = false;
+            dtpThuChi2.Value = DateTime.Now;
             dtpThuChi2.CustomFormat = " ";
-            dataGridView1.DataSource = dt1;
         }
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -358,6 +354,9 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dtpSanPham1_ValueChanged(object sender, EventArgs e)
         {
+            if (flag)
+                return;
+
             if (dtpSanPham1.CustomFormat == " ")
                 dtpSanPham1.CustomFormat = "M/yyyy";
 
@@ -376,6 +375,9 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dtpSanPham2_ValueChanged(object sender, EventArgs e)
         {
+            if (flag)
+                return;
+
             if (dtpSanPham2.CustomFormat == " ")
                 dtpSanPham2.CustomFormat = "M/yyyy";
 
@@ -394,11 +396,13 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnReset2_Click(object sender, EventArgs e)
         {
+            dtpSanPham1.Value = dtpSanPham1.MinDate;
+            flag = true;
             dtpSanPham1.Value = DateTime.Now;
-            dtpSanPham2.Value = DateTime.Now;
             dtpSanPham1.CustomFormat = " ";
+            flag = false;
+            dtpSanPham2.Value = DateTime.Now;
             dtpSanPham2.CustomFormat = " ";
-            dataGridView2.DataSource = dt2;
         }
 
         private void cbb_tab3_SelectedIndexChanged(object sender, EventArgs e)
@@ -409,21 +413,20 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void btnReset3_Click(object sender, EventArgs e)
         {
+            dtpHoaDon1.Value = dtpHoaDon1.MinDate;
             flag = true;
             dtpHoaDon1.Value = DateTime.Now;
-            dtpHoaDon2.Value = DateTime.Now;
             dtpHoaDon1.CustomFormat = " ";
-            dtpHoaDon2.CustomFormat = " ";
             flag = false;
-            dataGridView3.DataSource = dt3;
+            dtpHoaDon2.Value = DateTime.Now;
+            dtpHoaDon2.CustomFormat = " ";
         }
 
         private void dtpHoaDon1_ValueChanged(object sender, EventArgs e)
         {
             if (flag)
-            {
                 return;
-            }
+
             DataView dv = dt3.DefaultView;
             switch (cbb_tab3.SelectedIndex)
             {
@@ -482,11 +485,9 @@ namespace MiniStoreManagement.GUI.UCs
 
         private void dtpHoaDon2_ValueChanged(object sender, EventArgs e)
         {
-
             if (flag)
-            {
                 return;
-            }
+
             DataView dv = dt3.DefaultView;
             switch (cbb_tab3.SelectedIndex)
             {

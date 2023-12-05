@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,7 +57,7 @@ namespace MiniStoreManagement.GUI.items
             if (StockroomBUS.StockroomList == null)
                 stockroomBUS.getStockroom();
 
-            foreach (DataRow row in ProductBUS.ProductList.Rows)
+            foreach (DataRow row in show_data(2).Rows)
             {
                 cbbID_product.Items.Add(row["ID"].ToString());
             }
@@ -118,7 +119,7 @@ namespace MiniStoreManagement.GUI.items
             if (salesInvoiceDetailBUS.addInvoiceDetail(invoiceDetailDTO))
             {
                 SalesInvoiceDetailBUS.SalesInvoiceDetailList.Rows.Add(invoiceDetailDTO.InvoiceId, invoiceDetailDTO.ProductId, invoiceDetailDTO.Quantity, invoiceDetailDTO.Price);
-                dataGridView1.DataSource = show_data();
+                dataGridView1.DataSource = show_data(1);
             }
             else
             {
@@ -126,7 +127,7 @@ namespace MiniStoreManagement.GUI.items
                 return;
             }
 
-            decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+            decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
             txt_payment(sum);
         }
 
@@ -173,9 +174,9 @@ namespace MiniStoreManagement.GUI.items
                     rowToUpdate[2] = invoiceDetailDTO.Quantity;
                     rowToUpdate[3] = invoiceDetailDTO.Price;
                 }
-                dataGridView1.DataSource = show_data();
+                dataGridView1.DataSource = show_data(1);
 
-                decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+                decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
                 txt_payment(sum);
             }
             else
@@ -191,9 +192,9 @@ namespace MiniStoreManagement.GUI.items
                 salesInvoiceDetailBUS.removeInvoiceDetail(invoice_id, id_product);
                 DataRow[] rowsToDelete = SalesInvoiceDetailBUS.SalesInvoiceDetailList.Select("PRODUCT_ID = '" + id_product + "' AND INVOICE_ID = '" + invoice_id + "'");
                 SalesInvoiceDetailBUS.SalesInvoiceDetailList.Rows.Remove(rowsToDelete[0]);
-                dataGridView1.DataSource = show_data();
+                dataGridView1.DataSource = show_data(1);
 
-                decimal sum = show_data().AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
+                decimal sum = show_data(1).AsEnumerable().Sum(row => row.Field<decimal>("PRICE") * row.Field<int>("QUANTITY"));
                 txt_payment(sum);
             }
             else
@@ -208,7 +209,7 @@ namespace MiniStoreManagement.GUI.items
 
         private void btnSave_Click(object sender, EventArgs e) // XEM XÉT LẠI CHO ĐỒNG BỘ VỚI NÚT ÁP Ở FORM INVOICEUC
         {
-            if (show_data().Rows.Count == 0)
+            if (show_data(1).Rows.Count == 0)
             {
                 MessageBox.Show("Đơn hàng chưa có dữ liệu");
                 return;
@@ -220,7 +221,7 @@ namespace MiniStoreManagement.GUI.items
             rowToUpdate[6] = "1";
             salesInvoiceBUS.updateInvoice(salesInvoiceDTO);
 
-            foreach (DataRow row_detail in show_data().Rows)
+            foreach (DataRow row_detail in show_data(1).Rows)
             {
                 DataRow row_product = ProductBUS.ProductList.AsEnumerable().FirstOrDefault(_row => _row.Field<string>("ID") == row_detail[1].ToString());
                 ProductDTO productDTO = new ProductDTO(row_product);
@@ -259,18 +260,18 @@ namespace MiniStoreManagement.GUI.items
             Enable_cbbVoucher();
         }
 
-        private DataTable show_data()
+        private DataTable show_data(int index)
         {
-            var filteredRows = SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable().Where(row => row.Field<string>("INVOICE_ID") == invoice_id);
-            return filteredRows.Any() ? filteredRows.CopyToDataTable() : SalesInvoiceDetailBUS.SalesInvoiceDetailList.Clone();
-
-            //DataRow[] filteredRows = SalesInvoiceDetailBUS.SalesInvoiceDetailList.Select("INVOICE_ID = " + invoice_id);
-            //dataShow.Clear();
-            //foreach (DataRow row in filteredRows)
-            //{
-            //    dataShow.ImportRow(row);
-            //}
-            //dataGridView1.DataSource = dataShow;
+            if (index == 1)
+            {
+                var filteredRows = SalesInvoiceDetailBUS.SalesInvoiceDetailList.AsEnumerable().Where(row => row.Field<string>("INVOICE_ID") == invoice_id);
+                return filteredRows.Any() ? filteredRows.CopyToDataTable() : SalesInvoiceDetailBUS.SalesInvoiceDetailList.Clone();
+            }
+            else
+            {
+                var filteredRows = ProductBUS.ProductList.AsEnumerable().Where(row => row.Field<string>("STATE") == "0");
+                return filteredRows.Any() ? filteredRows.CopyToDataTable() : ProductBUS.ProductList.Clone();
+            }
         }
 
         private bool is_exists()
@@ -376,7 +377,7 @@ namespace MiniStoreManagement.GUI.items
                 return;
             else 
                 invoice_id = cbbID_invoice.SelectedItem.ToString();
-            dataGridView1.DataSource = show_data();
+            dataGridView1.DataSource = show_data(1);
         }
     }
 }

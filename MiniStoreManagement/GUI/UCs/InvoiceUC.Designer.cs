@@ -47,7 +47,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtSearch1 = new System.Windows.Forms.TextBox();
-            this.btnSearch1 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,7 +73,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.txtPayment2 = new System.Windows.Forms.TextBox();
-            this.btnSearch2 = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -145,7 +143,6 @@
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtSearch1);
-            this.panel1.Controls.Add(this.btnSearch1);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
@@ -319,22 +316,9 @@
             // 
             this.txtSearch1.Location = new System.Drawing.Point(218, 280);
             this.txtSearch1.Name = "txtSearch1";
-            this.txtSearch1.Size = new System.Drawing.Size(592, 40);
+            this.txtSearch1.Size = new System.Drawing.Size(826, 40);
             this.txtSearch1.TabIndex = 32;
             this.txtSearch1.TextChanged += new System.EventHandler(this.txtSearch1_TextChanged);
-            // 
-            // btnSearch1
-            // 
-            this.btnSearch1.FlatAppearance.BorderSize = 0;
-            this.btnSearch1.Font = new System.Drawing.Font("Arial", 14F);
-            this.btnSearch1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSearch1.Location = new System.Drawing.Point(860, 268);
-            this.btnSearch1.Name = "btnSearch1";
-            this.btnSearch1.Size = new System.Drawing.Size(258, 64);
-            this.btnSearch1.TabIndex = 39;
-            this.btnSearch1.Text = "tìm kiếm nâng cao";
-            this.btnSearch1.UseVisualStyleBackColor = false;
-            this.btnSearch1.Click += new System.EventHandler(this.btnSearch1_Click);
             // 
             // label10
             // 
@@ -528,7 +512,6 @@
             this.panel4.Controls.Add(this.label16);
             this.panel4.Controls.Add(this.label19);
             this.panel4.Controls.Add(this.txtPayment2);
-            this.panel4.Controls.Add(this.btnSearch2);
             this.panel4.Controls.Add(this.label21);
             this.panel4.Controls.Add(this.label22);
             this.panel4.Controls.Add(this.label23);
@@ -621,18 +604,6 @@
             this.txtPayment2.TabIndex = 42;
             this.txtPayment2.Text = "0";
             // 
-            // btnSearch2
-            // 
-            this.btnSearch2.FlatAppearance.BorderSize = 0;
-            this.btnSearch2.Font = new System.Drawing.Font("Arial", 14F);
-            this.btnSearch2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSearch2.Location = new System.Drawing.Point(860, 268);
-            this.btnSearch2.Name = "btnSearch2";
-            this.btnSearch2.Size = new System.Drawing.Size(258, 64);
-            this.btnSearch2.TabIndex = 39;
-            this.btnSearch2.Text = "tìm kiếm nâng cao";
-            this.btnSearch2.UseVisualStyleBackColor = false;
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
@@ -677,7 +648,7 @@
             // 
             this.txtSearch2.Location = new System.Drawing.Point(218, 280);
             this.txtSearch2.Name = "txtSearch2";
-            this.txtSearch2.Size = new System.Drawing.Size(592, 40);
+            this.txtSearch2.Size = new System.Drawing.Size(826, 40);
             this.txtSearch2.TabIndex = 32;
             this.txtSearch2.TextChanged += new System.EventHandler(this.txtSearch2_TextChanged);
             // 
@@ -844,7 +815,6 @@
         private System.Windows.Forms.Button btnUpdate1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnSearch1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
@@ -872,7 +842,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtPayment2;
-        private System.Windows.Forms.Button btnSearch2;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
